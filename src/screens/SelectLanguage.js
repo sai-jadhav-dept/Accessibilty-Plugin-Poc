@@ -113,6 +113,9 @@ const SelectLanguage = () => {
         }
     }
 
+    console.log("test");
+    
+
     return (
         <SafeAreaView style={GlobalStyles.mainContainer}>
             <View style={GlobalStyles.mainBox}>
