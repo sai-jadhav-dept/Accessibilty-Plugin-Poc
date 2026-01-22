@@ -14,9 +14,7 @@ import Slider from '@react-native-community/slider';
 import { useAccessibility } from './AccessibilityContext';
 import {
     ACCESSIBILITY_PROFILES,
-    COLOR_THEMES,
     TEXT_ALIGNMENT,
-    COLOR_THEME_VALUES,
 } from './AccessibilityUtils';
 import TTSService from './TTSService';
 
@@ -34,6 +32,7 @@ const AccessibilityModal = () => {
         colorInversion,
         greyscale,
         lowSaturation,
+        highSaturation,
         colorTheme,
         accentColor,
         textColor,
@@ -293,17 +292,73 @@ const AccessibilityModal = () => {
     const renderColorsSection = () => {
         if (expandedSection !== 'colors') return null;
 
+        // Helper function to handle color mode selection (only one at a time)
+        const handleColorModeSelect = (mode) => {
+            // Turn off all color modes first
+            updateSetting('colorInversion', false);
+            updateSetting('greyscale', false);
+            updateSetting('lowSaturation', false);
+            updateSetting('highSaturation', false);
+            updateSetting('highContrast', false);
+            updateSetting('colorTheme', 'light');
+            
+            // Then activate the selected mode
+            switch(mode) {
+                case 'darkMode':
+                    updateSetting('colorTheme', 'dark');
+                    break;
+                case 'colorInversion':
+                    updateSetting('colorInversion', true);
+                    break;
+                case 'lowSaturation':
+                    updateSetting('lowSaturation', true);
+                    break;
+                case 'highSaturation':
+                    updateSetting('highSaturation', true);
+                    break;
+                case 'greyscale':
+                    updateSetting('greyscale', true);
+                    break;
+                case 'darkHighContrast':
+                    updateSetting('highContrast', true);
+                    updateSetting('colorTheme', 'dark');
+                    break;
+                case 'whiteHighContrast':
+                    updateSetting('highContrast', true);
+                    updateSetting('colorTheme', 'light');
+                    break;
+                case 'none':
+                    // All already turned off
+                    break;
+            }
+        };
+
+        // Check which mode is currently active
+        const getActiveMode = () => {
+            if (colorInversion) return 'colorInversion';
+            if (greyscale) return 'greyscale';
+            if (lowSaturation) return 'lowSaturation';
+            if (highSaturation) return 'highSaturation';
+            if (highContrast && colorTheme === 'dark') return 'darkHighContrast';
+            if (highContrast && colorTheme === 'light') return 'whiteHighContrast';
+            if (colorTheme === 'dark') return 'darkMode';
+            return 'none';
+        };
+
+        const activeMode = getActiveMode();
+
         return (
             <View style={styles.sectionContent}>
                 {/* Row 1 */}
                 <View style={styles.colorGrid}>
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => updateSetting('colorTheme', colorTheme === 'dark' ? 'light' : 'dark')}
+                        onPress={() => handleColorModeSelect(activeMode === 'darkMode' ? 'none' : 'darkMode')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle dark mode"
                     >
-                        <View style={[styles.colorIconCircle, colorTheme === 'dark' && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'darkMode' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>🌙</Text>
                         </View>
                         <Text style={styles.colorLabel}>Dark Mode</Text>
@@ -311,11 +366,12 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => updateSetting('colorInversion', !colorInversion)}
+                        onPress={() => handleColorModeSelect(activeMode === 'colorInversion' ? 'none' : 'colorInversion')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle color inversion"
                     >
-                        <View style={[styles.colorIconCircle, colorInversion && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'colorInversion' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>🔄</Text>
                         </View>
                         <Text style={styles.colorLabel}>Invert Color</Text>
@@ -323,14 +379,15 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => updateSetting('lowSaturation', !lowSaturation)}
+                        onPress={() => handleColorModeSelect(activeMode === 'lowSaturation' ? 'none' : 'lowSaturation')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle low saturation"
                     >
-                        <View style={[styles.colorIconCircle, lowSaturation && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'lowSaturation' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>🎨</Text>
                         </View>
-                        <Text style={styles.colorLabel}>Low{' '}Saturation</Text>
+                        <Text style={styles.colorLabel}>Low Saturation</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -338,23 +395,25 @@ const AccessibilityModal = () => {
                 <View style={styles.colorGrid}>
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => updateSetting('highContrast', !highContrast)}
+                        onPress={() => handleColorModeSelect(activeMode === 'highSaturation' ? 'none' : 'highSaturation')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle high saturation"
                     >
-                        <View style={[styles.colorIconCircle, highContrast && styles.colorIconCircleActive]}>
-                            <Text style={styles.colorIcon}>◐</Text>
+                        <View style={[styles.colorIconCircle, activeMode === 'highSaturation' && styles.colorIconCircleActive]}>
+                            <Text style={styles.colorIcon}>🎨</Text>
                         </View>
-                        <Text style={styles.colorLabel}>High{' '}Contrast</Text>
+                        <Text style={styles.colorLabel}>High Saturation</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => updateSetting('greyscale', !greyscale)}
+                        onPress={() => handleColorModeSelect(activeMode === 'greyscale' ? 'none' : 'greyscale')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle grayscale"
                     >
-                        <View style={[styles.colorIconCircle, greyscale && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'greyscale' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>⚫</Text>
                         </View>
                         <Text style={styles.colorLabel}>Grayscale</Text>
@@ -362,17 +421,15 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => {
-                            updateSetting('highContrast', !highContrast);
-                            updateSetting('colorTheme', 'dark');
-                        }}
+                        onPress={() => handleColorModeSelect(activeMode === 'darkHighContrast' ? 'none' : 'darkHighContrast')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle dark high contrast"
                     >
-                        <View style={[styles.colorIconCircle, highContrast && colorTheme === 'dark' && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'darkHighContrast' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>⚫</Text>
                         </View>
-                        <Text style={styles.colorLabel}>Dark High{' '}Contrast</Text>
+                        <Text style={styles.colorLabel}>Dark High Contrast</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -380,17 +437,15 @@ const AccessibilityModal = () => {
                 <View style={styles.colorGridCenter}>
                     <TouchableOpacity
                         style={styles.colorButton}
-                        onPress={() => {
-                            updateSetting('highContrast', !highContrast);
-                            updateSetting('colorTheme', 'light');
-                        }}
+                        onPress={() => handleColorModeSelect(activeMode === 'whiteHighContrast' ? 'none' : 'whiteHighContrast')}
                         accessible={true}
                         accessibilityRole="button"
+                        accessibilityLabel="Toggle white high contrast"
                     >
-                        <View style={[styles.colorIconCircle, highContrast && colorTheme === 'light' && styles.colorIconCircleActive]}>
+                        <View style={[styles.colorIconCircle, activeMode === 'whiteHighContrast' && styles.colorIconCircleActive]}>
                             <Text style={styles.colorIcon}>⚪</Text>
                         </View>
-                        <Text style={styles.colorLabel}>White High{' '}Contrast</Text>
+                        <Text style={styles.colorLabel}>White High Contrast</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -433,46 +488,6 @@ const AccessibilityModal = () => {
                         </View>
                     </TouchableOpacity>
                 ))}
-            </View>
-        );
-    };
-
-    const renderColorAdjustmentSection = () => {
-        if (expandedSection !== 'color-adjustment') return null;
-
-        const colors = ['#007AFF', '#7C4DFF', '#E53935', '#FF9800', '#00BCD4', '#4CAF50', '#FFFFFF', '#000000'];
-
-        return (
-            <View style={styles.sectionContent}>
-                {/* Adjust Text Color */}
-                <Text style={styles.colorAdjustTitle}>Adjust Text Color</Text>
-                <View style={styles.colorPickerRow}>
-                    {colors.map((color, index) => (
-                        <TouchableOpacity
-                            key={`text-${index}`}
-                            style={[styles.colorCircle, { backgroundColor: color, borderColor: color === '#FFFFFF' ? '#C7C7CC' : color }]}
-                            onPress={() => updateSetting('accentColor', color)}
-                        />
-                    ))}
-                </View>
-                <TouchableOpacity style={styles.colorResetButton} onPress={() => { }}>
-                    <Text style={styles.colorResetText}>RESET</Text>
-                </TouchableOpacity>
-
-                {/* Adjust Background Color */}
-                <Text style={styles.colorAdjustTitle}>Adjust Background Color</Text>
-                <View style={styles.colorPickerRow}>
-                    {colors.map((color, index) => (
-                        <TouchableOpacity
-                            key={`bg-${index}`}
-                            style={[styles.colorCircle, { backgroundColor: color, borderColor: color === '#FFFFFF' ? '#C7C7CC' : color }]}
-                            onPress={() => { }}
-                        />
-                    ))}
-                </View>
-                <TouchableOpacity style={styles.colorResetButton} onPress={() => { }}>
-                    <Text style={styles.colorResetText}>RESET</Text>
-                </TouchableOpacity>
             </View>
         );
     };
@@ -580,10 +595,6 @@ const AccessibilityModal = () => {
                         {/* Profiles Section */}
                         {renderSectionHeader('Profiles', 'profiles')}
                         {renderProfilesSection()}
-
-                        {/* Color Adjustment Section */}
-                        {renderSectionHeader('Color Adjustment', 'color-adjustment')}
-                        {renderColorAdjustmentSection()}
 
                         {/* Navigation Section */}
                         {renderSectionHeader('Navigation', 'navigation')}
