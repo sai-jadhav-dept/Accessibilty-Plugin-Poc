@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import GlobalStyles from '../utils/GlobalStyles';
 import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
@@ -12,8 +12,10 @@ import Global from './Global';
 import FieldLabel from '../components/FieldLabel';
 import ReadModal from '../accessibility/ReadModal';
 import {  FilteredImage } from '../accessibility';
+import {  FilteredImage } from '../accessibility';
 
 export default function Intro() {
+    
     const navigation = useNavigation();
     const colors = useDynamicColors();
     useEffect(()=>{
@@ -54,9 +56,9 @@ export default function Intro() {
                             resizeMode='contain'
                         />
                     </View>
-                    <FieldLabel extraStyles={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: -heightToDp(2), color: colors.primaryTextColor }]} text={"Manage treatments with ease, on one platform​"} />
-                    <FieldLabel extraStyles={[GlobalStyles.largeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(2), color: colors.primaryTextColor }]} text={"One dashboard. Complete visibility.​"} />
-                    <FieldLabel extraStyles={[GlobalStyles.normalText, Fonts.Nunito_700Bold, styles.loginAgreeTextAlignment]} text={Global.languageData.login_condition + "terms and condition for using the HOPE app."} />
+                    <Text style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>Manage treatments with ease, on one platform​</Text>
+                    <Text style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>One dashboard. Complete visibility.​</Text>
+                        
                 </View>
                 <CommonButton
                     buttonText="Get Started"
@@ -65,28 +67,19 @@ export default function Intro() {
                     extraStyles={[GlobalStyles.fixbottomcommonButton, { backgroundColor: colors.primaryButtonColor, borderColor: colors.secondarybuttonColor }]}
                     extraTextStyles={{ color: colors.boxBackground }}
                 />
-                <ReadModal activeModal={Global.accessibility.pageRead} />
             </View>
         </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({
     imageContainer: {
-        position: 'relative',
         alignSelf: 'center',
-        height: "50%",
+        height: "55%",
         width: '100%',
     },
     mediCare: {
         alignSelf: 'center',
-        height: "80%",
+        height: "100%",
         width: '100%',
-    },
-    imageOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
     }
 });
