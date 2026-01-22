@@ -13,6 +13,7 @@ import FieldLabel from '../components/FieldLabel';
 import ReadModal from '../accessibility/ReadModal';
 
 export default function Intro() {
+    
     const navigation = useNavigation();
     const colors = useDynamicColors();
     const { colorInversion, greyscale, lowSaturation, highSaturation, whiteHighContrast, darkHighContrast } = useAccessibility();
