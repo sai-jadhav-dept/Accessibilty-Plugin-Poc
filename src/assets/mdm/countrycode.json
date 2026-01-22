@@ -1,0 +1,32 @@
+[
+    {
+        "name": "India",
+        "value": "+91",
+        "label": "IN +91"
+    },
+    {
+        "name": "South Africa",
+        "value": "+27",
+        "label": "ZA +27"
+    },
+    {
+        "name": "Singapore",
+        "value": "+65",
+        "label": "SG +65"
+    },
+    {
+        "name": "United Arab Emirates",
+        "value": "+971",
+        "label": "AE +971"
+    },
+    {
+        "name": "United Kingdom",
+        "value": "+44",
+        "label": "GB +44"
+    },
+    {
+        "name": "United States",
+        "value": "+1",
+        "label": "US +1"
+    }
+]

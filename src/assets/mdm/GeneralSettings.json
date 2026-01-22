@@ -1,0 +1,39 @@
+[
+    {
+        "id": 1,
+        "SettingTitle": "Notification",
+        "IconGroup": "MaterialCommunityIcons",
+        "IconName": "bell-outline",
+        "Pagename": "Notifications"
+    },
+    {
+        "id": 2,
+        "SettingTitle": "Terms & Conditions",
+        "IconGroup": "Feather",
+        "IconName": "lock"
+    },
+    {
+        "id": 3,
+        "SettingTitle": "Privacy Policy",
+        "IconGroup": "MaterialIcons",
+        "IconName": "privacy-tip"
+    },
+    {
+        "id": 4,
+        "SettingTitle": "Help & Support",
+        "IconGroup": "Feather",
+        "IconName": "headphones",
+        "Pagename": "Help"
+    }, {
+        "id": 5,
+        "SettingTitle": "Deactivate User",
+        "IconGroup": "AntDesign",
+        "IconName": "deleteuser"
+    },
+    {
+        "id": 6,
+        "SettingTitle": "Sign-out",
+        "IconGroup": "AntDesign",
+        "IconName": "logout"
+    }
+]

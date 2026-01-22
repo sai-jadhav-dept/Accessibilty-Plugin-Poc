@@ -1,0 +1,15 @@
+export default {
+  AndroidFont: 'monospace',
+  iOSFont: 'HelveticaNeue',
+  apiURL: 'https://05fhcerxta.execute-api.ap-south-1.amazonaws.com/dev/',
+  templateURL: 'https://www.hopetheapp.com/template/invoices/',
+  playstoreURL: '',
+  appstoreURL: '',
+  PaymentKey: 'rzp_test_SWX7zbuoXBRIZd',
+  bucket: "hope-dev-1",
+  region: "ap-south-1",
+  accessKey: "AKIA5IAJT6DY2SZZSB5R",
+  secretKey: "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",
+  zimAppId: 1287948186,
+  zimAppSign: '8d7199dc625beddbd91a7ebe11cdc232a538ad762ce950ac9be64e2af7a8a2ec',
+};

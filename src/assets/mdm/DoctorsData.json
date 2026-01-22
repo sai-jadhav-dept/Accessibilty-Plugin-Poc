@@ -1,0 +1,612 @@
+[
+    {
+        "id": 1,
+        "Image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Latha Ramalingam",
+        "MobileNumber": 987654321,
+        "Specialization": "Medical Oncologists",
+        "isTrusted": false,
+        "Experience":3,
+        "Rating":4.0,
+        "about": "Dr. Latha Ramalingam is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 24 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. She completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "FaceToFace":false,
+                "Virtual":true,
+                "ClinicDetails": [
+                    {
+                        "Fees": 800,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "PinCode": 400002,
+                "FaceToFace":true,
+                "Virtual":true,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1850,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "Image": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Abhishek Ramalingam",
+        "ContactNumber" :8828154671,
+        "Specialization": "Medical Oncologists",
+        "isTrusted": false,
+        "Experience":5,
+        "Rating":4.5,
+        "about": "Dr. Abhishek Ramalingam is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. She completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "FaceToFace":true,
+                "Virtual":false,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1200,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Goregoan",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400004,
+                "ClinicDetails": [
+                    {
+                        "Fees": 900,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "Image": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "name": "Dr. David Ramalingam",
+        "ContactNumber" :123456789,
+        "Specialization": "Medical Oncologists",
+        "isTrusted": false,
+        "Experience":4,
+        "Rating":3.5,
+        "about": "Dr. David Ramalingam is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. She completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "Areaname": "Dadar",
+                "PinCode": 400005,
+                "FaceToFace":false,
+                "Virtual":true,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1650,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Kandivali",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400006,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1153,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "Image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Chinmay Gujar",
+        "ContactNumber" :9137388300,
+        "Specialization": "Radiologist",
+        "isTrusted": false,
+        "Experience":8,
+        "Rating":3.5,
+        "about": "Dr. Chinmay Gujar is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. She completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400001,
+                "ClinicDetails": [
+                    {
+                        "Fees": 700,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "FaceToFace":true,
+                "Virtual":false,
+                "PinCode": 400002,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1350,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "Image": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "name": "Dr. Jayesh Gupta",
+        "ContactNumber" :7039616640,
+        "Specialization": "Radiation Oncologists",
+        "isTrusted": false,
+        "Experience":9,
+        "Rating":4,
+        "about": "Dr. Jayesh Gupta is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 24 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. She completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Borivali",
+                "FaceToFace":true,
+                "Virtual":false,
+                "PinCode": 400003,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1200,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Goregoan",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400004,
+                "ClinicDetails": [
+                    {
+                        "Fees": 500,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "Image": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Sai jadhav ",
+        "ContactNumber" :8828370900,
+        "Specialization": "Radiologist",
+        "isTrusted": false,
+        "Experience":2,
+        "Rating":3,
+        "about": "Dr. Sai jadhav is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. he completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Dadar",
+                "FaceToFace":false,
+                "Virtual":true,
+                "PinCode": 400005,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1800,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Kandivali",
+                "FaceToFace":true,
+                "Virtual":false,
+                "PinCode": 400006,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1100,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "Image": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "name": "Dr. Hardik Mistry",
+        "ContactNumber" :7498571891,
+        "Specialization": "Medical Oncologists",
+        "isTrusted": false,
+        "Experience":1,
+        "Rating":1.5,
+        "about": "Dr. Hardik Mistry is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. he completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400001,
+                "ClinicDetails": [
+                    {
+                        "Fees": 750,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "FaceToFace":false,
+                "Virtual":true,
+                "PinCode": 400002,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1950,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "Image": "https://images.unsplash.com/photo-1612943680768-d82060323fd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Vipul Bohir",
+        "ContactNumber" :9874561231,
+        "Specialization": "Medical Oncologists",
+        "isTrusted": false,
+        "Experience":4,
+        "Rating":4.5,
+        "about": "Dr. Vipul Bohir is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. he completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Borivali",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400003,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1200,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Goregoan",
+                "FaceToFace":true,
+                "Virtual":false,
+                "PinCode": 400004,
+                "ClinicDetails": [
+                    {
+                        "Fees": 650,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "Image": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "name": "Dr. Shyam Sharma",
+        "ContactNumber" :987654321,
+        "Specialization": "Radiation Oncologist",
+        "isTrusted": false,
+        "Experience":6,
+        "Rating":3,
+        "about": "Dr. Shyam Sharma is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 24 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. he completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Dadar",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400005,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1600,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Kandivali",
+                "FaceToFace":false,
+                "Virtual":true,
+                "PinCode": 400006,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1125,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "Image": "https://images.unsplash.com/photo-1612636322033-f48f76c34bab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Dr. Rajesh Gupta",
+        "ContactNumber" :8828154671,
+        "Specialization": "Radiologist",
+        "isTrusted": false,
+        "Experience":7,
+        "Rating":2.5,
+        "about": "Dr. Selvan Nadar is a Radiation Oncologist and Radiologist in Kengeri, Bangalore and has an experience of 29 years in these fields. Dr. Mathangi J practices at BGS Gleneagles Global Hospital in Kengeri, Bangalore. he completed MBBS from Stanley Medical College & Hospital , Chennai in 1998,DNB - Radiotherapy from Apollo cancer speciality hospital, chennai in 2009 and Diploma in Radio Therapy from The Tamil Nadu Dr. M.G.R. Medical University (TNMGRMU) in 2006.She is a member of European Society for Radiotherapy & Oncology (ESTRO),American Society for Therapeutic Oncology (ASTRO),Association of Radiation Oncologists of India (AROI) and European Society of Medical Oncology (ESMO). Some of the services provided by the doctor are: Treatment of Lung cancers,Treatment of GI cancers - Esophagus, rectum,Stereotactic body ablative radiotherapy (SBRT),Intensity modulated Radiotherapy ( IMRT) and Women cancer management - Breast and cervix etc.",
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "FaceToFace":false,
+                "Virtual":true,
+                "PinCode": 400001,
+                "ClinicDetails": [
+                    {
+                        "Fees": 850,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "FaceToFace":true,
+                "Virtual":true,
+                "PinCode": 400002,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2000,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

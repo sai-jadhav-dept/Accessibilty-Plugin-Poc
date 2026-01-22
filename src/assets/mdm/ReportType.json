@@ -1,0 +1,36 @@
+{
+    "Consultation":[
+        {
+            "id": 0,
+            "key": 1,
+            "type": "Prescription"
+        }
+    ],
+    "Radiology":[
+        {
+            "id": 0,
+            "key": 1,
+            "type": "XRay"
+        }
+    ],"Pathology":[
+        {
+            "id": 0,
+            "key": 1,
+            "type": "Gama Rays"
+        }
+    ],
+    "Laboratory":[
+        {
+            "id": 0,
+            "key": 1,
+            "type": "Alpha Rays"
+        }
+    ],"Discharge":[
+        {
+            "id": 0,
+            "key": 1,
+            "type": "Discharge"
+        }
+    ]
+
+}

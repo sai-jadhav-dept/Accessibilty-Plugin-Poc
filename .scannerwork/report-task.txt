@@ -1,0 +1,6 @@
+projectKey=hope-app
+serverUrl=http://20.110.0.31:9000
+serverVersion=9.1.0.47736
+dashboardUrl=http://20.110.0.31:9000/dashboard?id=hope-app
+ceTaskId=AZGyLc7TmF-szHte6Yla
+ceTaskUrl=http://20.110.0.31:9000/api/ce/task?id=AZGyLc7TmF-szHte6Yla

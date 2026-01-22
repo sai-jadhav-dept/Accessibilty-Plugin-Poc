@@ -1,0 +1,23 @@
+[
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Indian Cancer Society",
+        "groupDescription": "Indian Cancer Society is one of the best NGOs for Cancer awareness, detection, treatement fund and rehabilitation in India.",
+        "groupId": 0,
+        "key": 1
+    },
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Indian Cancer Society",
+        "groupDescription": "Indian Cancer Society is one of the best NGOs for Cancer awareness, detection, treatement fund and rehabilitation in India.",
+        "groupId": 1,
+        "key": 2
+    },
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Indian Cancer Society",
+        "groupDescription": "Indian Cancer Society is one of the best NGOs for Cancer awareness, detection, treatement fund and rehabilitation in India.",
+        "groupId": 2,
+        "key": 3
+    }
+]
