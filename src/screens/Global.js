@@ -51,6 +51,10 @@ export default {
   selectedCycle: "",
   selectedDiseaseName: "",
   selectedTreatmentType: "",
+  pageReadText: "",
+  accessibility: {
+    pageRead: false,
+  },
   messages: {
     "Rafael Whitehouse": [
       {
