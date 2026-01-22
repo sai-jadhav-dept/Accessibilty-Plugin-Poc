@@ -223,7 +223,7 @@ const Footer = (props) => {
                         Fonts.Nunito_400Regular,
                         styles.iconText,
                         {
-                          color: activeScreen == 'Family' ? Colors.primaryTextColor : Colors.primaryinactive
+                          color: activeScreen == 'Family' ? dynamicColors.primaryTextColor : dynamicColors.primaryinactive
                         }
                       ]}>
                       {Global.userType == "Caregiver" ? "MY PATIENTS" : "CARE CIRCLE"}
@@ -247,7 +247,7 @@ const Footer = (props) => {
                         Fonts.Nunito_400Regular,
                         styles.iconText,
                         {
-                          color: activeScreen == 'Doctors' ? Colors.primaryTextColor : Colors.primaryinactive
+                          color: activeScreen == 'Doctors' ? dynamicColors.primaryTextColor : dynamicColors.primaryinactive
                         }
                       ]}>
                       DOCTORS
@@ -264,7 +264,7 @@ const Footer = (props) => {
                         Fonts.Nunito_400Regular,
                         styles.iconText,
                         {
-                          color: activeScreen == 'Settings' ? Colors.primaryTextColor : Colors.primaryinactive
+                          color: activeScreen == 'Settings' ? dynamicColors.primaryTextColor : dynamicColors.primaryinactive
                         }
                       ]}>
                       SETTINGS
@@ -471,4 +471,5 @@ const styles = StyleSheet.create({
     width: '10%'
   }
 });
+
 export default Footer;

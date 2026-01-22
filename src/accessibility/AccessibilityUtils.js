@@ -35,6 +35,7 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   colorInversion: false,
   greyscale: false,
   lowSaturation: false,
+  highSaturation: false,
   colorTheme: COLOR_THEMES.LIGHT,
   accentColor: '#007AFF',
   textColor: null,
