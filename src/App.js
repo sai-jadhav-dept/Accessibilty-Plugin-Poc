@@ -7,6 +7,8 @@ import { createZimInstance } from './utils/CommonFunctions';
 import messaging from '@react-native-firebase/messaging';
 import { apiCall } from './utils/ApiUtils';
 import { openDatabase } from 'react-native-sqlite-storage';
+import { AccessibilityProvider, AccessibilityButton, AccessibilityModal } from './accessibility';
+import AccessibilityColorWrapper from './accessibility/AccessibilityColorWrapper';
 var db = openDatabase({ name: 'HOPE.db' });
 
 Global.OS = Platform.OS;
@@ -187,9 +189,15 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <AppNavigator />
-    </View>
+    <AccessibilityProvider>
+      <AccessibilityColorWrapper>
+        <View style={styles.container}>
+          <AppNavigator />
+          <AccessibilityButton />
+          <AccessibilityModal />
+        </View>
+      </AccessibilityColorWrapper>
+    </AccessibilityProvider>
   );
 }
 
