@@ -54,6 +54,7 @@ export default {
   pageReadText: "",
   accessibility: {
     pageRead: false,
+    imageDescription: false,
   },
   messages: {
     "Rafael Whitehouse": [

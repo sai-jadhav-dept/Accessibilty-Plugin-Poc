@@ -19,12 +19,12 @@ const ReadModal = ({ activeModal }) => {
     if (isMinimized) {
         return (
             <Draggable
-                x={SCREEN_WIDTH - 70}
+                x={SCREEN_WIDTH }
                 y={SCREEN_HEIGHT / 2}
                 minX={0}
                 minY={0}
-                maxX={SCREEN_WIDTH - 60}
-                maxY={SCREEN_HEIGHT - 60}
+                maxX={SCREEN_WIDTH}
+                maxY={SCREEN_HEIGHT}
             >
                 <Pressable 
                     style={styles.minimizedButton}
@@ -40,10 +40,10 @@ const ReadModal = ({ activeModal }) => {
     
     return (
         <Draggable
-            x={10}
-            y={SCREEN_HEIGHT - 200}
+            x={SCREEN_WIDTH  - 300}
+            y={SCREEN_HEIGHT - 300}
             minX={0}
-            minY={0}
+            minY={200}
             maxX={SCREEN_WIDTH}
             maxY={SCREEN_HEIGHT}
             isCircle={true}
