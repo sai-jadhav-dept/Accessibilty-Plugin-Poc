@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -17,10 +17,15 @@ import {
     TEXT_ALIGNMENT,
 } from './AccessibilityUtils';
 import TTSService from './TTSService';
+import Global from '../screens/Global';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const AccessibilityModal = () => {
+    useEffect(() => {
+        updateSetting('textToSpeech', false);
+        // Any initialization or side effects can be handled here
+    }, []);
     const {
         isModalVisible,
         closeModal,
@@ -232,8 +237,12 @@ const AccessibilityModal = () => {
                             if (textToSpeech) {
                                 TTSService.stop();
                                 updateSetting('textToSpeech', false);
+                                Global.accessibility.pageRead = false;
+                                closeModal();
                             } else {
                                 updateSetting('textToSpeech', true);
+                                Global.accessibility.pageRead = true;
+                                closeModal();
                                 announce('Text to speech enabled');
                             }
                         }}
