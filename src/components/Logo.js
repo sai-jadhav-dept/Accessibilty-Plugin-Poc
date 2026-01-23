@@ -6,6 +6,7 @@ import Global from '../screens/Global';
 import Colors from '../utils/Colors';
 import FastImage from 'react-native-fast-image';
 import VectorIcons from './VectorIcons';
+import { AccessibleImage } from '../accessibility';
 
 const Logo = (props) => {
 
@@ -41,7 +42,13 @@ const Logo = (props) => {
     return (
         <View style={[styles.Container, { marginTop: props.profile ? heightToDp(0) : heightToDp(1) }]}>
             <View style={[props.extraStyles, { width: props.visible ? props.profile ? "58%" : '75%' : '100%' }]}>
-                <Image resizeMode='contain' style={styles.LogoImage} source={require("../assets/images/logo.png")} />
+                {/* <Image resizeMode='contain' style={styles.LogoImage} source={require("../assets/images/logo.png")} /> */}
+                <AccessibleImage
+                    source={require("../assets/images/logo.png")}
+                    style={styles.LogoImage}
+                    resizeMode='contain'
+                    alt="Company Logo"
+                />
             </View>
             {props.visible ?
                 <View style={styles.buttonContainer}>
