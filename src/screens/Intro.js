@@ -6,7 +6,7 @@ import Fonts from '../utils/Fonts';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
 import { heightToDp } from '../utils/Responsive';
-import { useDynamicColors, AccessibleImage, useAccessibility } from '../accessibility';
+import { useDynamicColors, AccessibleFilteredImage, useAccessibility } from '../accessibility';
 import ReadModal from '../accessibility/ReadModal';
 import TextMagnifier from '../accessibility/TextMagnifier';
 import DictionaryLookup from '../accessibility/DictionaryLookup';
@@ -146,11 +146,9 @@ export default function Intro() {
                 <View style={GlobalStyles.mainBox}>
                     <Logo />
                     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }} pointerEvents='auto'>
-                        <View style={{ flex: 1, justifyContent: 'space-between', marginBottom: heightToDp(2) }}>
-
-
+                        <View style={{ flex: 1, justifyContent: 'space-between', marginBottom: heightToDp(4) }}>
                             <View style={styles.imageContainer}>
-                                <AccessibleImage
+                                <AccessibleFilteredImage
                                     source={require("../assets/images/medical_care.png")}
                                     style={styles.mediCare}
                                     resizeMode='contain'
@@ -159,15 +157,14 @@ export default function Intro() {
                             </View>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text  onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
                                         Manage treatments with ease, on one platform
                                     </Text>
                                 </TextMagnifier>
                             </DictionaryLookup>
-
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text  onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
                                         Welcome to our healthcare platform! Here you can manage your medical appointments,
                                         track your medications, connect with trusted healthcare providers, and access your
                                         health records anytime, anywhere. Our platform makes it easy to take control of
@@ -178,7 +175,7 @@ export default function Intro() {
 
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text  onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor }]}>
                                         Key Features:{'\n'}
                                         • Schedule and manage appointments with doctors and nurses{'\n'}
                                         • Set medication reminders and track your prescriptions{'\n'}
@@ -192,7 +189,7 @@ export default function Intro() {
                             <View style={{ marginTop: heightToDp(2) }}>
                                 <DictionaryLookup enabled={dictionaryEnabled}>
                                     <TextMagnifier enabled={textMagnifierEnabled}>
-                                        <Text  onPress={() => { Global.pageReadText = "For more information, visit our Privacy Policy or Terms of Service." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor }]}>
+                                        <Text onPress={() => { Global.pageReadText = "For more information, visit our Privacy Policy or Terms of Service." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor }]}>
                                             For more information, visit our{' '}
                                             <TouchableOpacity
                                                 onPress={() => Linking.openURL('https://example.com/privacy')}
@@ -201,7 +198,7 @@ export default function Intro() {
                                             >
                                                 <Text style={[
                                                     styles.link,
-                                                    { color: colors.linkColor || '#007AFF' },
+                                                    { color: colors.primaryTextColor || '#007AFF' },
                                                     highlightLinks && styles.linkHighlighted
                                                 ]}>
                                                     Privacy Policy
@@ -215,7 +212,7 @@ export default function Intro() {
                                             >
                                                 <Text style={[
                                                     styles.link,
-                                                    { color: colors.linkColor || '#007AFF' },
+                                                    { color: colors.primaryTextColor || '#007AFF' },
                                                     highlightLinks && styles.linkHighlighted
                                                 ]}>
                                                     Terms of Service
@@ -225,117 +222,9 @@ export default function Intro() {
                                     </TextMagnifier>
                                 </DictionaryLookup>
                             </View>
+
                         </View>
 
-                        {/* Text Alignment Demo Section */}
-                        {/* <View style={{ marginTop: heightToDp(3), padding: 12, backgroundColor: colors.cardBackground || '#F5F5F5', borderRadius: 12, borderWidth: 2, borderColor: '#007AFF' }}>
-                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginBottom: heightToDp(1), color: '#007AFF', textAlign: 'center' }]}>
-                                📝 Text Alignment Demo
-                            </Text>
-                            <DictionaryLookup enabled={dictionaryEnabled}>
-                                <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor }]}>
-                                        Try the alignment buttons! This text will change alignment when you select left, center, or justify options from the accessibility modal. You can see how different alignments affect the readability and appearance of your content. Each alignment style serves a unique purpose in presenting information clearly and accessibly.
-                                    </Text>
-                                </TextMagnifier>
-                            </DictionaryLookup>
-                        </View> */}
-
-                        {/* Screen Reader Demo Section */}
-                        {/* <View 
-                            style={{ 
-                                marginTop: heightToDp(3), 
-                                padding: 12, 
-                                backgroundColor: '#E8F5E9', 
-                                borderRadius: 12, 
-                                borderWidth: 2, 
-                                borderColor: '#4CAF50' 
-                            }}
-                            accessible={true}
-                            accessibilityRole="summary"
-                            accessibilityLabel="Screen Reader Demo Section"
-                        >
-                            <Text 
-                                style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginBottom: heightToDp(1), color: '#4CAF50', textAlign: 'center' }]}
-                                accessible={true}
-                                accessibilityRole="header"
-                            >
-                                🔊 Screen Reader Demo
-                            </Text>
-                            
-                            <DictionaryLookup enabled={dictionaryEnabled}>
-                                <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text 
-                                        style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, marginBottom: heightToDp(1) }]}
-                                        accessible={true}
-                                        accessibilityLabel="Screen reader instructions. This section demonstrates how screen readers like TalkBack and VoiceOver work with our app. All text, buttons, and interactive elements have proper accessibility labels for seamless navigation."
-                                    >
-                                        This section demonstrates how screen readers (TalkBack/VoiceOver) work with our app. All text, buttons, and interactive elements have proper accessibility labels for seamless navigation.
-                                    </Text>
-                                </TextMagnifier>
-                            </DictionaryLookup>
-                            
-                            <View style={{ marginTop: heightToDp(1) }}>
-                                <TouchableOpacity
-                                    style={{
-                                        backgroundColor: '#4CAF50',
-                                        padding: 12,
-                                        borderRadius: 8,
-                                        marginVertical: 6,
-                                    }}
-                                    onPress={async () => {
-                                        await TTSService.speak('Healthcare button pressed. Opening healthcare services', { rate: 0.5, pitch: 1.0 });
-                                        announce('Healthcare Services');
-                                    }}
-                                    accessible={true}
-                                    accessibilityRole="button"
-                                    accessibilityLabel="Healthcare Services Button"
-                                    accessibilityHint="Tap to access healthcare services and medical information"
-                                >
-                                    <Text style={[Fonts.Nunito_600SemiBold, { color: 'white', textAlign: 'center' }]}>
-                                        🏥 Healthcare Services
-                                    </Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity
-                                    style={{
-                                        backgroundColor: '#2196F3',
-                                        padding: 12,
-                                        borderRadius: 8,
-                                        marginVertical: 6,
-                                    }}
-                                    onPress={async () => {
-                                        await TTSService.speak('Appointments button pressed. Opening appointment scheduler', { rate: 0.5, pitch: 1.0 });
-                                        announce('Book Appointment');
-                                    }}
-                                    accessible={true}
-                                    accessibilityRole="button"
-                                    accessibilityLabel="Book Appointment Button"
-                                    accessibilityHint="Tap to schedule a medical appointment with doctors"
-                                >
-                                    <Text style={[Fonts.Nunito_600SemiBold, { color: 'white', textAlign: 'center' }]}>
-                                        📅 Book Appointment
-                                    </Text>
-                                </TouchableOpacity>
-                            </View> */}
-
-                            {/* Voice Controls Component */}
-                            {/* <ScreenReaderControls 
-                                onVoiceSettingsChange={(settings) => {
-                                    console.log('Voice settings updated:', settings);
-                                }}
-                            />
-                            
-                            <Text 
-                                style={[GlobalStyles.extrasmallText, Fonts.Nunito_500Medium, { color: colors.secondaryTextColor, marginTop: heightToDp(1), fontStyle: 'italic' }]}
-                                accessible={true}
-                                accessibilityLabel="Tip: Use the voice controls above to customize speech output. Tap Test to hear the current voice settings"
-                            >
-                                💡 Tip: Use the voice controls above to customize speech output. Tap "Test" to hear the current voice.
-                            </Text>
-                        </View> */}
-
-                        {/* Animated Demo Section */}
                         <View style={styles.animationDemoContainer}>
                             <Text style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { color: colors.primaryTextColor, textAlign: 'center', marginBottom: 10 }]}>
                                 Animation Demo {reducedMotionEnabled ? '(Paused)' : '(Playing)'}
@@ -358,9 +247,8 @@ export default function Intro() {
                         <CommonButton
                             buttonText="Get Started"
                             visible={true}
-                            onPress={() => navigation.replace("SelectLanguage")}
+                            // onPress={() => navigation.replace("SelectLanguage")}
                             extraStyles={[{ backgroundColor: colors.primaryButtonColor, borderColor: colors.secondarybuttonColor, marginBottom: heightToDp(4) }]}
-                            extraTextStyles={{ color: colors.boxBackground }}
                         />
                     </ScrollView>
                     <ReadModal activeModal={readModal} />
@@ -423,4 +311,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         paddingVertical: 2,
     }
-})
+});

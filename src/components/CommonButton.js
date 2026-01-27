@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import GlobalStyles from '../utils/GlobalStyles';
 import Fonts from '../utils/Fonts';
-import Colors from '../utils/Colors';
+import { useDynamicColors } from '../accessibility';
 import VectorIcons from './VectorIcons';
 import { heightToDp, widthToDp } from '../utils/Responsive';
 import Global from '../screens/Global';
@@ -11,6 +11,7 @@ export default function CommonButton(props) {
 
     const enlargeButtons = Global.accessibility?.enlargeButtons || false;
     const sizeMultiplier = enlargeButtons ? 1.3 : 1;
+    const colors = useDynamicColors();
 
     const handleOnPress = (async () => {
         if (!Global.clicked) {
@@ -41,47 +42,19 @@ export default function CommonButton(props) {
                     props.visiblePlus
                         ?
                         <View>
-                            <VectorIcons 
-                                groupName='AntDesign' 
-                                iconName="pluscircle" 
-                                iconstyle={[
-                                    { 
-                                        color: Colors.secondarybuttonColor, 
-                                        marginHorizontal: widthToDp(2),
-                                        fontSize: 16 * sizeMultiplier
-                                    }, 
-                                    props.extraStylesPlus
-                                ]} 
-                            />
+                            <VectorIcons groupName='AntDesign' iconName="pluscircle" iconstyle={[{ color: colors.secondarybuttonColor, marginHorizontal: widthToDp(2),fontSize: 16 * sizeMultiplier }, props.extraStylesPlus]} />
                         </View>
                         :
                         null
                 }
                 <View style={{ flexDirection: 'column' }}>
-                    <Text style={[
-                        GlobalStyles.mediumText, 
-                        { 
-                            color: Colors.boxBackground,
-                            fontSize: 14 * sizeMultiplier
-                        }, 
-                        Fonts.Nunito_600SemiBold, 
-                        props.extraTextStyles
-                    ]}>{props.buttonText}</Text>
+                    <Text style={[GlobalStyles.mediumText, { color: colors.buttonTextColor || colors.boxBackground,fontSize: 14 * sizeMultiplier }, Fonts.Nunito_600SemiBold, props.extraTextStyles]}>{props.buttonText}</Text>
                 </View>
                 {
                     props.visible
                         ?
                         <View>
-                            <VectorIcons 
-                                groupName='AntDesign' 
-                                iconName="arrowright" 
-                                iconstyle={{ 
-                                    color: Colors.boxBackground, 
-                                    marginHorizontal: widthToDp(2), 
-                                    marginTop: heightToDp(0.35),
-                                    fontSize: 16 * sizeMultiplier
-                                }} 
-                            />
+                            <VectorIcons groupName='AntDesign' iconName="arrowright" iconstyle={{ color: colors.buttonTextColor || colors.boxBackground, marginHorizontal: widthToDp(2), marginTop: heightToDp(0.35), fontSize: 16 * sizeMultiplier }} />
                         </View>
                         :
                         null

@@ -534,15 +534,29 @@ const AccessibilityModal = () => {
         if (expandedSection !== 'profiles') return null;
 
         const profiles = [
-            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness Profile', description: 'Making the website accessible with Screen Readers' },
-            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired Profile', description: 'Designed for Better Visibility and Usability' },
-            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive and Learning Profile', description: 'Enhancing Focused User Experiences' },
-            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Profile', description: 'Creating Comfortable and Seizure-Safe Web Experiences' },
-            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD Profile', description: 'Building Websites That Support Attention and Ease of Use' },
+            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness', description: 'Making the website accessible with Screen Readers' },
+            { key: ACCESSIBILITY_PROFILES.DYSLEXIA, icon: '📖', label: 'Dyslexia', description: 'Optimised font, spacing and formatting for easier reading' },
+            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired', description: 'Designed for Better Visibility and Usability' },
+            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive & Learning', description: 'Enhancing Focused User Experiences' },
+            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Safe', description: 'Creating Comfortable and Seizure-Safe Experiences' },
+            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD', description: 'Building Support for Attention and Ease of Use' },
         ];
 
         return (
             <View style={styles.sectionContent}>
+                {/* Reset Profile Button */}
+                {activeProfile !== ACCESSIBILITY_PROFILES.NONE && (
+                    <TouchableOpacity
+                        style={styles.resetProfileButton}
+                        onPress={() => setProfile(ACCESSIBILITY_PROFILES.NONE)}
+                        accessible={true}
+                        accessibilityRole="button"
+                        accessibilityLabel="Reset to default settings"
+                    >
+                        <Text style={styles.resetProfileText}>✕ Reset Active Profile</Text>
+                    </TouchableOpacity>
+                )}
+                
                 {profiles.map((profile) => (
                     <TouchableOpacity
                         key={profile.key}
@@ -550,22 +564,138 @@ const AccessibilityModal = () => {
                             styles.profileButton,
                             activeProfile === profile.key && styles.profileButtonActive,
                         ]}
-                        onPress={() => setProfile(profile.key)}
+                        onPress={() => {
+                            setProfile(profile.key);
+                            announce(`${profile.label} profile activated`);
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                         accessibilityLabel={profile.label}
                         accessibilityHint={profile.description}
                         accessibilityState={{ selected: activeProfile === profile.key }}
                     >
-                        <View style={styles.profileIconContainer}>
+                        <View style={[
+                            styles.profileIconContainer,
+                            activeProfile === profile.key && styles.profileIconContainerActive,
+                        ]}>
                             <Text style={styles.profileIcon}>{profile.icon}</Text>
                         </View>
                         <View style={styles.profileTextContainer}>
-                            <Text style={styles.profileLabel}>{profile.label}</Text>
-                            <Text style={styles.profileDescription}>{profile.description}</Text>
+                            <Text style={[
+                                styles.profileLabel,
+                                activeProfile === profile.key && styles.profileLabelActive,
+                            ]}>{profile.label}</Text>
+                            <Text style={[
+                                styles.profileDescription,
+                                activeProfile === profile.key && styles.profileDescriptionActive,
+                            ]}>{profile.description}</Text>
                         </View>
+                        {activeProfile === profile.key && (
+                            <View style={styles.profileCheckmark}>
+                                <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                            </View>
+                        )}
                     </TouchableOpacity>
                 ))}
+            </View>
+        );
+    };
+
+    const renderColorAdjustmentSection = () => {
+        if (expandedSection !== 'colorAdjustment') return null;
+
+        const colorOptions = [
+            { color: '#0076b4', label: 'Blue' },
+            { color: '#7a549c', label: 'Purple' },
+            { color: '#c83733', label: 'Red' },
+            { color: '#d07021', label: 'Orange' },
+            { color: '#26999f', label: 'Teal' },
+            { color: '#4d7831', label: 'Green' },
+            { color: '#ffffff', label: 'White' },
+            { color: '#000000', label: 'Black' },
+        ];
+
+        return (
+            <View style={styles.sectionContent}>
+                {/* Text Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Text Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`text-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                textColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: textColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('textColor', option.color);
+                                announce(`Text color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set text color to ${option.label}`}
+                            accessibilityState={{ selected: textColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('textColor', null);
+                        announce('Text color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
+
+                {/* Background Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Background Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`bg-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                backgroundColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: backgroundColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('backgroundColor', option.color);
+                                announce(`Background color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set background color to ${option.label}`}
+                            accessibilityState={{ selected: backgroundColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('backgroundColor', null);
+                        announce('Background color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -688,6 +818,10 @@ const AccessibilityModal = () => {
                         {/* Profiles Section */}
                         {renderSectionHeader('Profiles', 'profiles')}
                         {renderProfilesSection()}
+
+                        {/* Color Adjustment Section */}
+                        {renderSectionHeader('Color Adjustment', 'colorAdjustment')}
+                        {renderColorAdjustmentSection()}
 
                         {/* Navigation Section */}
                         {renderSectionHeader('Navigation', 'navigation')}
@@ -983,10 +1117,22 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textTransform: 'capitalize',
     },
+    resetProfileButton: {
+        padding: 12,
+        borderRadius: 8,
+        backgroundColor: '#FF3B30',
+        marginBottom: 16,
+        alignItems: 'center',
+    },
+    resetProfileText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#FFFFFF',
+    },
     profileButton: {
         flexDirection: 'row',
         padding: 16,
-        borderRadius: 8,
+        borderRadius: 12,
         backgroundColor: '#F2F2F7',
         marginBottom: 12,
         borderWidth: 2,
@@ -994,34 +1140,65 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     profileButtonActive: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#E3F2FD',
         borderColor: '#007AFF',
+        shadowColor: '#007AFF',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
     },
     profileIconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 48,
+        height: 48,
+        borderRadius: 24,
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 12,
+        borderWidth: 2,
+        borderColor: '#E5E5EA',
+    },
+    profileIconContainerActive: {
+        backgroundColor: '#007AFF',
+        borderColor: '#007AFF',
     },
     profileIcon: {
-        fontSize: 20,
+        fontSize: 24,
     },
     profileTextContainer: {
         flex: 1,
     },
     profileLabel: {
-        fontSize: 14,
-        fontWeight: '600',
+        fontSize: 15,
+        fontWeight: '700',
         color: '#000000',
         marginBottom: 4,
     },
+    profileLabelActive: {
+        color: '#007AFF',
+    },
     profileDescription: {
-        fontSize: 11,
+        fontSize: 12,
         color: '#8E8E93',
         lineHeight: 16,
+    },
+    profileDescriptionActive: {
+        color: '#666666',
+    },
+    profileCheckmark: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: '#34C759',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 8,
+    },
+    profileCheckmarkIcon: {
+        fontSize: 16,
+        color: '#FFFFFF',
+        fontWeight: '700',
     },
     colorAdjustTitle: {
         fontSize: 14,
@@ -1032,14 +1209,17 @@ const styles = StyleSheet.create({
     },
     colorPickerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
         marginBottom: 12,
+        gap: 12,
     },
     colorCircle: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         borderWidth: 2,
+        borderColor: 'transparent',
     },
     colorResetButton: {
         alignSelf: 'flex-start',

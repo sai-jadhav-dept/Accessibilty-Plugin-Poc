@@ -11,6 +11,8 @@ export { default as DictionaryLookup } from './DictionaryLookup';
 export { default as ReadingGuide } from './ReadingGuide';
 export { default as EnlargedTouchable } from './EnlargedTouchable';
 export { default as AlignedText } from './AlignedText';
+export { default as FilteredImage } from './FilteredImage';
+export { default as AccessibleFilteredImage } from './AccessibleFilteredImage';
 
 // Export hooks
 export { useThemeColors } from './useThemeColors';
