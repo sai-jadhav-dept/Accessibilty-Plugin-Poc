@@ -554,6 +554,105 @@ const AccessibilityModal = () => {
         );
     };
 
+    const renderColorAdjustmentSection = () => {
+        if (expandedSection !== 'colorAdjustment') return null;
+
+        const colorOptions = [
+            { color: '#0076b4', label: 'Blue' },
+            { color: '#7a549c', label: 'Purple' },
+            { color: '#c83733', label: 'Red' },
+            { color: '#d07021', label: 'Orange' },
+            { color: '#26999f', label: 'Teal' },
+            { color: '#4d7831', label: 'Green' },
+            { color: '#ffffff', label: 'White' },
+            { color: '#000000', label: 'Black' },
+        ];
+
+        return (
+            <View style={styles.sectionContent}>
+                {/* Text Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Text Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`text-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                textColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: textColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('textColor', option.color);
+                                announce(`Text color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set text color to ${option.label}`}
+                            accessibilityState={{ selected: textColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('textColor', null);
+                        announce('Text color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
+
+                {/* Background Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Background Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`bg-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                backgroundColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: backgroundColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('backgroundColor', option.color);
+                                announce(`Background color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set background color to ${option.label}`}
+                            accessibilityState={{ selected: backgroundColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('backgroundColor', null);
+                        announce('Background color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     const renderNavigationSection = () => {
         if (expandedSection !== 'navigation') return null;
 
@@ -657,6 +756,10 @@ const AccessibilityModal = () => {
                         {/* Profiles Section */}
                         {renderSectionHeader('Profiles', 'profiles')}
                         {renderProfilesSection()}
+
+                        {/* Color Adjustment Section */}
+                        {renderSectionHeader('Color Adjustment', 'colorAdjustment')}
+                        {renderColorAdjustmentSection()}
 
                         {/* Navigation Section */}
                         {renderSectionHeader('Navigation', 'navigation')}
@@ -1044,14 +1147,17 @@ const styles = StyleSheet.create({
     },
     colorPickerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
         marginBottom: 12,
+        gap: 12,
     },
     colorCircle: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         borderWidth: 2,
+        borderColor: 'transparent',
     },
     colorResetButton: {
         alignSelf: 'flex-start',

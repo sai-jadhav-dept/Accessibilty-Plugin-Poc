@@ -87,7 +87,6 @@ export default function Intro() {
                         visible={true}
                         // onPress={() => navigation.replace("SelectLanguage")}
                         extraStyles={[{ backgroundColor: colors.primaryButtonColor, borderColor: colors.secondarybuttonColor, marginBottom: heightToDp(4) }]}
-                        extraTextStyles={{ color: colors.boxBackground }}
                     />
                 </ScrollView>
                 <ReadModal activeModal={readModal} />
