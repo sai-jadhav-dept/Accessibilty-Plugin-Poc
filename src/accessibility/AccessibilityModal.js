@@ -23,11 +23,23 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const AccessibilityModal = () => {
     const [imageDescriptionEnabled, setImageDescriptionEnabled] = useState(false);
+    const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
+    const [dictionaryEnabled, setDictionaryEnabled] = useState(false);
+    const [readingMaskEnabled, setReadingMaskEnabled] = useState(false);
+    const [readingLineEnabled, setReadingLineEnabled] = useState(false);
+    const [enlargeButtonsEnabled, setEnlargeButtonsEnabled] = useState(false);
+    const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
     
     useEffect(() => {
         setImageDescriptionEnabled(Global.accessibility.imageDescription || false);
+        setTextMagnifierEnabled(Global.accessibility.textMagnifier || false);
+        setDictionaryEnabled(Global.accessibility.dictionary || false);
+        setReadingMaskEnabled(Global.accessibility.readingMask || false);
+        setReadingLineEnabled(Global.accessibility.readingLine || false);
+        setEnlargeButtonsEnabled(Global.accessibility.enlargeButtons || false);
+        setReducedMotionEnabled(Global.accessibility.reducedMotion || false);
         updateSetting('textToSpeech', false);
-        // Initialize imageDescription state from Global
+        // Initialize accessibility states from Global
     }, []);
     const {
         isModalVisible,
@@ -203,21 +215,39 @@ const AccessibilityModal = () => {
                     <View style={styles.alignmentButtons}>
                         <TouchableOpacity
                             style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.LEFT && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.LEFT)}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.LEFT);
+                                Global.accessibility.textAlignment = 'left';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>≡</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.CENTER && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.CENTER)}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.CENTER);
+                                Global.accessibility.textAlignment = 'center';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>☰</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.JUSTIFY && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.JUSTIFY)}
+                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.RIGHT && styles.alignmentButtonActive]}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.RIGHT);
+                                Global.accessibility.textAlignment = 'right';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>≣</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.JUSTIFY && styles.alignmentButtonActive]}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.JUSTIFY);
+                                Global.accessibility.textAlignment = 'justify';
+                            }}
+                        >
+                            <Text style={styles.alignmentIcon}>⬌</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -250,11 +280,17 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('dictionary', !dictionary)}
+                        onPress={() => {
+                            const newValue = !dictionaryEnabled;
+                            Global.accessibility.dictionary = newValue;
+                            setDictionaryEnabled(newValue);
+                            updateSetting('dictionary', newValue);
+                            announce(newValue ? 'Dictionary enabled' : 'Dictionary disabled');
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, dictionary && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, dictionaryEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📖</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Dictionary</Text>
@@ -294,11 +330,17 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('textMagnifier', !textMagnifier)}
+                        onPress={() => {
+                            const newValue = !textMagnifierEnabled;
+                            Global.accessibility.textMagnifier = newValue;
+                            setTextMagnifierEnabled(newValue);
+                            updateSetting('textMagnifier', newValue);
+                            announce(newValue ? 'Text magnifier enabled' : 'Text magnifier disabled');
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, textMagnifier && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, textMagnifierEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>🔍</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Text Magnifier</Text>
@@ -306,11 +348,16 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('enlargeButtons', !enlargeButtons)}
+                        onPress={() => {
+                            const newValue = !enlargeButtonsEnabled;
+                            Global.accessibility.enlargeButtons = newValue;
+                            setEnlargeButtonsEnabled(newValue);
+                            updateSetting('enlargeButtons', newValue);
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, enlargeButtons && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, enlargeButtonsEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⊕</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Enlarge Buttons</Text>
@@ -674,8 +721,13 @@ const AccessibilityModal = () => {
                         <Text style={styles.iconButtonLabel}>Highlight Links</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('readingMask', !readingMask)}>
-                        <View style={[styles.iconCircle, readingMask && styles.iconCircleActive]}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !readingMaskEnabled;
+                        Global.accessibility.readingMask = newValue;
+                        setReadingMaskEnabled(newValue);
+                        updateSetting('readingMask', newValue);
+                    }}>
+                        <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Reading{' '}Mask</Text>
@@ -685,17 +737,27 @@ const AccessibilityModal = () => {
                 {/* Row 2 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
-                        updateSetting('readingMask', true);
-                        updateSetting('readingLine', true);
+                        const newValue = !(readingLineEnabled && readingMaskEnabled);
+                        Global.accessibility.readingLine = newValue;
+                        Global.accessibility.readingMask = newValue;
+                        setReadingLineEnabled(newValue);
+                        setReadingMaskEnabled(newValue);
+                        updateSetting('readingLine', newValue);
+                        updateSetting('readingMask', newValue);
                     }}>
-                        <View style={[styles.iconCircle, (readingMask && readingLine) && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, (readingLineEnabled && readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📊</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Mask & Line</Text>
+                        <Text style={styles.iconButtonLabel}>Reading{' '}Line</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('reducedMotion', !reducedMotion)}>
-                        <View style={[styles.iconCircle, reducedMotion && styles.iconCircleActive]}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !reducedMotionEnabled;
+                        Global.accessibility.reducedMotion = newValue;
+                        setReducedMotionEnabled(newValue);
+                        updateSetting('reducedMotion', newValue);
+                    }}>
+                        <View style={[styles.iconCircle, reducedMotionEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⏸️</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Pause{' '}Animation</Text>

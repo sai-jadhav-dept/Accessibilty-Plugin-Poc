@@ -20,6 +20,7 @@ export const COLOR_THEMES = {
 export const TEXT_ALIGNMENT = {
   LEFT: 'left',
   CENTER: 'center',
+  RIGHT: 'right',
   JUSTIFY: 'justify',
 };
 
