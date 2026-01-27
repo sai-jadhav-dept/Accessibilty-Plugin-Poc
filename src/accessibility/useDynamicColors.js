@@ -22,6 +22,8 @@ export const useDynamicColors = () => {
     accessibilitySettings.greyscale,
     accessibilitySettings.lowSaturation,
     accessibilitySettings.highSaturation,
+    accessibilitySettings.textColor,
+    accessibilitySettings.backgroundColor,
   ]);
 
   return colors;

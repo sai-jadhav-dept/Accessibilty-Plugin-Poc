@@ -33,6 +33,8 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   
   // Colors & Display
   highContrast: false,
+  whiteHighContrast: false,
+  darkHighContrast: false,
   colorInversion: false,
   greyscale: false,
   lowSaturation: false,
