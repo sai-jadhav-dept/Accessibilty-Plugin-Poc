@@ -6,6 +6,11 @@ export { default as AccessibilityColorWrapper } from './AccessibilityColorWrappe
 export { default as AccessibleText } from './AccessibleText';
 export { default as AccessibleButton } from './AccessibleButton';
 export { default as AccessibleImage } from './AccessibleImage';
+export { default as TextMagnifier } from './TextMagnifier';
+export { default as DictionaryLookup } from './DictionaryLookup';
+export { default as ReadingGuide } from './ReadingGuide';
+export { default as EnlargedTouchable } from './EnlargedTouchable';
+export { default as AlignedText } from './AlignedText';
 
 // Export hooks
 export { useThemeColors } from './useThemeColors';

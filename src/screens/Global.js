@@ -55,6 +55,13 @@ export default {
   accessibility: {
     pageRead: false,
     imageDescription: false,
+    textMagnifier: false,
+    dictionary: false,
+    readingMask: false,
+    readingLine: false,
+    enlargeButtons: false,
+    reducedMotion: false,
+    textAlignment: 'left', // 'left', 'center', 'right', 'justify'
   },
   messages: {
     "Rafael Whitehouse": [
