@@ -53,7 +53,7 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   textMagnifier: false,
   textToSpeech: false,
   dictionary: false,
-  
+
   // Accessibility Features
   screenReader: false,
   

@@ -6,7 +6,8 @@ import Global from '../screens/Global';
 import Colors from '../utils/Colors';
 import FastImage from 'react-native-fast-image';
 import VectorIcons from './VectorIcons';
-import { FilteredImage } from '../accessibility';
+import { AccessibleFilteredImage, FilteredImage } from '../accessibility';
+import { AccessibleImage } from '../accessibility';
 
 const Logo = (props) => {
 
@@ -43,8 +44,20 @@ const Logo = (props) => {
         <View style={[styles.Container, { marginTop: props.profile ? heightToDp(0) : heightToDp(1) }]}>
             <View style={[props.extraStyles, { width: props.visible ? props.profile ? "58%" : '75%' : '100%' }]}>
                 {/* <Image resizeMode='contain' style={styles.LogoImage} source={require("../assets/images/logo.png")} /> */}
-                <FilteredImage resizeMode='contain' style={styles.LogoImage} source={require("../assets/images/logo.png")} />
+                {/* <FilteredImage resizeMode='contain' style={styles.LogoImage} source={require("../assets/images/logo.png")} />
 
+                <AccessibleImage
+                    source={require("../assets/images/logo.png")}
+                    style={styles.LogoImage}
+                    resizeMode='contain'
+                    alt="Company Logo"
+                /> */}
+                <AccessibleFilteredImage
+                    source={require("../assets/images/logo.png")}
+                    style={styles.LogoImage}
+                    resizeMode='contain'
+                    alt="Company Logo"
+                />
             </View>
             {props.visible ?
                 <View style={styles.buttonContainer}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -17,10 +17,18 @@ import {
     TEXT_ALIGNMENT,
 } from './AccessibilityUtils';
 import TTSService from './TTSService';
+import Global from '../screens/Global';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const AccessibilityModal = () => {
+    const [imageDescriptionEnabled, setImageDescriptionEnabled] = useState(false);
+    
+    useEffect(() => {
+        setImageDescriptionEnabled(Global.accessibility.imageDescription || false);
+        updateSetting('textToSpeech', false);
+        // Initialize imageDescription state from Global
+    }, []);
     const {
         isModalVisible,
         closeModal,
@@ -214,16 +222,6 @@ const AccessibilityModal = () => {
                     </View>
                 </View>
 
-                {/* Hide Images Switch */}
-                <View style={styles.switchRow}>
-                    <Text style={styles.switchLabel}>Hide Images / Pictures</Text>
-                    <Switch
-                        value={hideImages}
-                        onValueChange={(value) => updateSetting('hideImages', value)}
-                        trackColor={{ false: '#C7C7CC', true: '#34C759' }}
-                    />
-                </View>
-
                 {/* Icon Buttons Row 1 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity
@@ -232,8 +230,12 @@ const AccessibilityModal = () => {
                             if (textToSpeech) {
                                 TTSService.stop();
                                 updateSetting('textToSpeech', false);
+                                Global.accessibility.pageRead = false;
+                                closeModal();
                             } else {
                                 updateSetting('textToSpeech', true);
+                                Global.accessibility.pageRead = true;
+                                closeModal();
                                 announce('Text to speech enabled');
                             }
                         }}
@@ -257,10 +259,39 @@ const AccessibilityModal = () => {
                         </View>
                         <Text style={styles.iconButtonLabel}>Dictionary</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={() => {
+                            const newValue = !imageDescriptionEnabled;
+                            Global.accessibility.imageDescription = newValue;
+                            setImageDescriptionEnabled(newValue);
+                            announce(newValue ? 'Image descriptions enabled' : 'Image descriptions disabled');
+                        }}
+                        accessible={true}
+                        accessibilityRole="button"
+                    >
+                        <View style={[styles.iconCircle, imageDescriptionEnabled && styles.iconCircleActive]}>
+                            <Text style={styles.iconButtonIcon}>🖼️</Text>
+                        </View>
+                        <Text style={styles.iconButtonLabel}>Image Description</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Icon Buttons Row 2 */}
                 <View style={styles.iconButtonRow}>
+                    <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={() => updateSetting('hideImages', !hideImages)}
+                        accessible={true}
+                        accessibilityRole="button"
+                    >
+                        <View style={[styles.iconCircle, hideImages && styles.iconCircleActive]}>
+                            <Text style={styles.iconButtonIcon}>🚫</Text>
+                        </View>
+                        <Text style={styles.iconButtonLabel}>Hide Images</Text>
+                    </TouchableOpacity>
+
                     <TouchableOpacity
                         style={styles.iconButton}
                         onPress={() => updateSetting('textMagnifier', !textMagnifier)}
@@ -510,7 +541,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Highlight{' '}Links</Text>
+                        <Text style={styles.iconButtonLabel}>Highlight Links</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('readingMask', !readingMask)}>

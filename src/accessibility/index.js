@@ -7,6 +7,7 @@ export { default as AccessibleText } from './AccessibleText';
 export { default as AccessibleButton } from './AccessibleButton';
 export { default as AccessibleImage } from './AccessibleImage';
 export { default as FilteredImage } from './FilteredImage';
+export { default as AccessibleFilteredImage } from './AccessibleFilteredImage';
 
 // Export hooks
 export { useThemeColors } from './useThemeColors';
