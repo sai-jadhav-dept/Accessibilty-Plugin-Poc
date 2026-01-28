@@ -5,7 +5,7 @@ import { useAccessibility } from './AccessibilityContext';
 
 const FontSizeControlScreen = () => {
   const { fontScale, letterSpacing, updateSetting } = useAccessibility();
-  
+
   // Convert fontScale (multiplier) to pixel offset for slider
   const baseFontSize = 16;
   const [fontSize, setFontSize] = useState(baseFontSize * fontScale);
@@ -82,7 +82,7 @@ const FontSizeControlScreen = () => {
       <View style={styles.sliderSection}>
         <View style={styles.sliderRow}>
           <Text style={styles.sliderLabel}>Aa</Text>
-          
+
           <View style={styles.sliderWrapper} pointerEvents="box-none">
             {activeControl === 'biggerText' ? (
               <Slider
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   controlButtons: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: 15,
     // marginBottom: 40,
     // marginTop: 20,
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#F5F5F5',
     gap: 8,
+    // width: "100%"
   },
   controlButtonActive: {
     backgroundColor: '#E3F2FD',
@@ -183,6 +184,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#666',
+    width: "100%"
+    // flex: 1
   },
   controlButtonTextActive: {
     color: '#007AFF',

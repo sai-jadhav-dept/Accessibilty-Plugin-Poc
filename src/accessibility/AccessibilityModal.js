@@ -538,12 +538,48 @@ const AccessibilityModal = () => {
         if (expandedSection !== 'profiles') return null;
 
         const profiles = [
-            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness', description: 'Making the website accessible with Screen Readers' },
-            { key: ACCESSIBILITY_PROFILES.DYSLEXIA, icon: '📖', label: 'Dyslexia', description: 'Optimised font, spacing and formatting for easier reading' },
-            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired', description: 'Designed for Better Visibility and Usability' },
-            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive & Learning', description: 'Enhancing Focused User Experiences' },
-            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Safe', description: 'Creating Comfortable and Seizure-Safe Experiences' },
-            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD', description: 'Building Support for Attention and Ease of Use' },
+            { 
+                key: ACCESSIBILITY_PROFILES.BLIND, 
+                icon: '👁️', 
+                label: 'Blindness Profile', 
+                description: 'Screen reader support, high contrast, hide images',
+                features: '• Screen reader & TTS enabled\n• High contrast mode\n• Images hidden\n• Enhanced buttons & links'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.DYSLEXIA, 
+                icon: '📖', 
+                label: 'Dyslexia Profile', 
+                description: 'Larger text, increased line height & letter spacing',
+                features: '• 1.5x larger text\n• 2.4x line height\n• Wide letter spacing\n• Reading line aid'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.LOW_VISION, 
+                icon: '👓', 
+                label: 'Visually Impaired Profile', 
+                description: 'Maximum text size, high contrast, enlarged buttons',
+                features: '• 2x maximum text size\n• High contrast mode\n• Enlarged buttons\n• Text magnifier available'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.COGNITIVE, 
+                icon: '🧠', 
+                label: 'Cognitive & Learning Profile', 
+                description: 'Reading aids, reduced motion, highlighted links',
+                features: '• Reading line guide\n• No animations\n• Links highlighted\n• Dictionary lookup'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, 
+                icon: '⚡', 
+                label: 'Epilepsy Safe Profile', 
+                description: 'No animations, dark mode, reduced saturation',
+                features: '• All animations off\n• Dark theme\n• Low saturation\n• Reduced visual triggers'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, 
+                icon: '🎯', 
+                label: 'ADHD Profile', 
+                description: 'Reading mask, focus mode, minimal distractions',
+                features: '• Reading mask enabled\n• Images hidden\n• No animations\n• Enhanced focus mode'
+            },
         ];
 
         return (
@@ -562,44 +598,53 @@ const AccessibilityModal = () => {
                 )}
                 
                 {profiles.map((profile) => (
-                    <TouchableOpacity
-                        key={profile.key}
-                        style={[
-                            styles.profileButton,
-                            activeProfile === profile.key && styles.profileButtonActive,
-                        ]}
-                        onPress={() => {
-                            setProfile(profile.key);
-                            announce(`${profile.label} profile activated`);
-                        }}
-                        accessible={true}
-                        accessibilityRole="button"
-                        accessibilityLabel={profile.label}
-                        accessibilityHint={profile.description}
-                        accessibilityState={{ selected: activeProfile === profile.key }}
-                    >
-                        <View style={[
-                            styles.profileIconContainer,
-                            activeProfile === profile.key && styles.profileIconContainerActive,
-                        ]}>
-                            <Text style={styles.profileIcon}>{profile.icon}</Text>
-                        </View>
-                        <View style={styles.profileTextContainer}>
-                            <Text style={[
-                                styles.profileLabel,
-                                activeProfile === profile.key && styles.profileLabelActive,
-                            ]}>{profile.label}</Text>
-                            <Text style={[
-                                styles.profileDescription,
-                                activeProfile === profile.key && styles.profileDescriptionActive,
-                            ]}>{profile.description}</Text>
-                        </View>
+                    <View key={profile.key}>
+                        <TouchableOpacity
+                            style={[
+                                styles.profileButton,
+                                activeProfile === profile.key && styles.profileButtonActive,
+                            ]}
+                            onPress={() => {
+                                setProfile(profile.key);
+                                announce(`${profile.label} activated`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={profile.label}
+                            accessibilityHint={profile.description}
+                            accessibilityState={{ selected: activeProfile === profile.key }}
+                        >
+                            <View style={[
+                                styles.profileIconContainer,
+                                activeProfile === profile.key && styles.profileIconContainerActive,
+                            ]}>
+                                <Text style={styles.profileIcon}>{profile.icon}</Text>
+                            </View>
+                            <View style={styles.profileTextContainer}>
+                                <Text style={[
+                                    styles.profileLabel,
+                                    activeProfile === profile.key && styles.profileLabelActive,
+                                ]}>{profile.label}</Text>
+                                <Text style={[
+                                    styles.profileDescription,
+                                    activeProfile === profile.key && styles.profileDescriptionActive,
+                                ]}>{profile.description}</Text>
+                            </View>
+                            {activeProfile === profile.key && (
+                                <View style={styles.profileCheckmark}>
+                                    <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                        
+                        {/* Show features when profile is active */}
                         {activeProfile === profile.key && (
-                            <View style={styles.profileCheckmark}>
-                                <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                            <View style={styles.profileFeaturesContainer}>
+                                <Text style={styles.profileFeaturesTitle}>Active Features:</Text>
+                                <Text style={styles.profileFeaturesText}>{profile.features}</Text>
                             </View>
                         )}
-                    </TouchableOpacity>
+                    </View>
                 ))}
             </View>
         );
@@ -1203,6 +1248,29 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#FFFFFF',
         fontWeight: '700',
+    },
+    profileFeaturesContainer: {
+        backgroundColor: '#F0F8FF',
+        borderRadius: 8,
+        padding: 12,
+        marginTop: 8,
+        marginBottom: 12,
+        marginLeft: 12,
+        marginRight: 12,
+        borderLeftWidth: 3,
+        borderLeftColor: '#007AFF',
+    },
+    profileFeaturesTitle: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: '#007AFF',
+        marginBottom: 8,
+    },
+    profileFeaturesText: {
+        fontSize: 12,
+        color: '#333333',
+        lineHeight: 18,
+        fontWeight: '500',
     },
     colorAdjustTitle: {
         fontSize: 14,

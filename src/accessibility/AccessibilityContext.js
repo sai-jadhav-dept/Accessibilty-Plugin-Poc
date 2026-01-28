@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { DEFAULT_ACCESSIBILITY_STATE, applyProfile } from './AccessibilityUtils';
 import { loadAccessibilityPreferences, saveAccessibilityPreferences } from './AccessibilityStorage';
 import NativeAccessibilityBridge from './NativeAccessibilityBridge';
+import Global from '../screens/Global';
 
 const AccessibilityContext = createContext();
 
@@ -51,6 +52,20 @@ export const AccessibilityProvider = ({ children }) => {
   useEffect(() => {
     if (!isLoading) {
       saveAccessibilityPreferences(state);
+      
+      // Sync with Global.accessibility for components that use Global
+      Global.accessibility = {
+        ...Global.accessibility,
+        pageRead: state.textToSpeech,
+        imageDescription: state.hideImages ? false : true,
+        textMagnifier: state.textMagnifier,
+        dictionary: state.dictionary,
+        readingMask: state.readingMask,
+        readingLine: state.readingLine,
+        enlargeButtons: state.enlargeButtons,
+        reducedMotion: state.reducedMotion,
+        textAlignment: state.textAlignment,
+      };
     }
   }, [state, isLoading]);
 
