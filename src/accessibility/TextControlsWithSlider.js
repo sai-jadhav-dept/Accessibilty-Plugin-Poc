@@ -4,19 +4,21 @@ import { Slider } from '@miblanchard/react-native-slider';
 import { useAccessibility } from './AccessibilityContext';
 
 const FontSizeControlScreen = () => {
-  const { fontScale, letterSpacing, updateSetting } = useAccessibility();
+  const { fontScale, lineHeight, letterSpacing, updateSetting } = useAccessibility();
 
   // Convert fontScale (multiplier) to pixel offset for slider
   const baseFontSize = 16;
   const [fontSize, setFontSize] = useState(baseFontSize * fontScale);
+  const [localLineHeight, setLocalLineHeight] = useState(lineHeight);
   const [localLetterSpacing, setLocalLetterSpacing] = useState(letterSpacing);
-  const [activeControl, setActiveControl] = useState('biggerText'); // 'biggerText' or 'letterSpacing'
+  const [activeControl, setActiveControl] = useState('biggerText'); // 'biggerText', 'lineHeight', or 'letterSpacing'
 
   // Sync with context on mount
   useEffect(() => {
     setFontSize(baseFontSize * fontScale);
+    setLocalLineHeight(lineHeight);
     setLocalLetterSpacing(letterSpacing);
-  }, [fontScale, letterSpacing]);
+  }, [fontScale, lineHeight, letterSpacing]);
 
   const handleFontSizeChange = (value) => {
     const newValue = Array.isArray(value) ? value[0] : value;
@@ -24,6 +26,12 @@ const FontSizeControlScreen = () => {
     // Update context with new fontScale multiplier
     const newFontScale = newValue / baseFontSize;
     updateSetting('fontScale', newFontScale);
+  };
+
+  const handleLineHeightChange = (value) => {
+    const newValue = Array.isArray(value) ? value[0] : value;
+    setLocalLineHeight(newValue);
+    updateSetting('lineHeight', newValue);
   };
 
   const handleLetterSpacingChange = (value) => {
@@ -34,8 +42,10 @@ const FontSizeControlScreen = () => {
 
   const handleReset = () => {
     setFontSize(16);
+    setLocalLineHeight(1.5);
     setLocalLetterSpacing(0);
     updateSetting('fontScale', 1.0);
+    updateSetting('lineHeight', 1.5);
     updateSetting('letterSpacing', 0);
   };
 
@@ -58,6 +68,22 @@ const FontSizeControlScreen = () => {
           </View>
           <Text style={[styles.controlButtonText, activeControl === 'biggerText' && styles.controlButtonTextActive]}>
             Bigger Text
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.controlButton,
+            activeControl === 'lineHeight' && styles.controlButtonActive,
+          ]}
+          onPress={() => setActiveControl('lineHeight')}
+          activeOpacity={0.7}
+        >
+          <View style={styles.iconContainer}>
+            <Text style={[styles.iconText, activeControl === 'lineHeight' && styles.iconTextActive]}>☰</Text>
+          </View>
+          <Text style={[styles.controlButtonText, activeControl === 'lineHeight' && styles.controlButtonTextActive]}>
+            Line Height
           </Text>
         </TouchableOpacity>
 
@@ -92,6 +118,21 @@ const FontSizeControlScreen = () => {
                 step={1}
                 value={fontSize}
                 onValueChange={handleFontSizeChange}
+                minimumTrackTintColor="#007AFF"
+                maximumTrackTintColor="#E5E5E5"
+                thumbTintColor="#007AFF"
+                trackStyle={{ height: 4, borderRadius: 2 }}
+                thumbStyle={{ height: 28, width: 28, borderRadius: 14, backgroundColor: '#007AFF' }}
+                animateTransitions={false}
+              />
+            ) : activeControl === 'lineHeight' ? (
+              <Slider
+                containerStyle={styles.slider}
+                minimumValue={1.0}
+                maximumValue={3.0}
+                step={0.1}
+                value={localLineHeight}
+                onValueChange={handleLineHeightChange}
                 minimumTrackTintColor="#007AFF"
                 maximumTrackTintColor="#E5E5E5"
                 thumbTintColor="#007AFF"
