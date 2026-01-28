@@ -22,12 +22,14 @@ import Loader from '../components/Loader';
 import VectorIcons from '../components/VectorIcons';
 import { ExecuteDBQuery } from '../utils/ExecuteDBQuery';
 import ToastMessage from '../components/ToastMessage';
+import { useAccessibility } from '../accessibility/AccessibilityContext';
 
 const HEIGHT = Dimensions.get('window').height;
 const rnBiometrics = new ReactNativeBiometrics()
 
 const Login = () => {
     const navigation = useNavigation();
+    const { fontScale, letterSpacing } = useAccessibility();
 
     const validPhoneNo = /^(?!.*(\d)\1{5})[6-9]\d{9}$/
     const validemail = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})$/;
@@ -358,9 +360,9 @@ const Login = () => {
                     <ScrollView keyboardShouldPersistTaps={"handled"}>
                         <View>
                             <Logo />
-                            <Text style={[GlobalStyles.extrasmallText, Fonts.Nunito_600SemiBold]}>{Global.languageData.Transparency}</Text>
+                            <Text style={[GlobalStyles.extrasmallText, Fonts.Nunito_600SemiBold, { fontSize: GlobalStyles.extrasmallText.fontSize * fontScale, letterSpacing }]}>{Global.languageData.Transparency}</Text>
                             <Image resizeMode='contain' source={require("../assets/images/user.png")} style={styles.usericon} />
-                            <Text style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold]}>{Global.languageData.login_heading}</Text>
+                            <Text style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { fontSize: GlobalStyles.extralargeText.fontSize * fontScale, letterSpacing }]}>{Global.languageData.login_heading}</Text>
                         </View>
                         <WarningModal showModal={showModal} setShowModal={setShowModal} warningText={warningText} />
                         <View style={GlobalStyles.fixedTopSpacing}>
@@ -420,13 +422,15 @@ const Login = () => {
                             />
                         </View>
                         <View style={{ marginTop: heightToDp(3) }}>
-                            <Text style={[GlobalStyles.normalText, Fonts.Nunito_700Bold, styles.loginAgreeTextAlignment]}>{Global.languageData.login_condition}</Text>
+                            <Text style={[GlobalStyles.normalText, Fonts.Nunito_700Bold, styles.loginAgreeTextAlignment, { fontSize: GlobalStyles.normalText.fontSize * fontScale, letterSpacing }]}>{Global.languageData.login_condition}</Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <Pressable onPress={() => handleTermsLink()} style={({ pressed }) => ([{ opacity: pressed ? 0.4 : 1 }])}>
                                     <Text style={[GlobalStyles.normalText, Fonts.Nunito_700Bold,
                                     {
                                         marginTop: heightToDp(0.01),
-                                        color: Colors.primaryButtonColor
+                                        color: Colors.primaryButtonColor,
+                                        fontSize: GlobalStyles.normalText.fontSize * fontScale,
+                                        letterSpacing
                                     }]}>
                                         {Global.languageData.Terms}
                                     </Text>
@@ -434,7 +438,9 @@ const Login = () => {
                                 <Text style={[GlobalStyles.normalText, Fonts.Nunito_700Bold,
                                 {
                                     marginTop: heightToDp(0.01),
-                                    marginHorizontal: widthToDp(1)
+                                    marginHorizontal: widthToDp(1),
+                                    fontSize: GlobalStyles.normalText.fontSize * fontScale,
+                                    letterSpacing
                                 }]}>
                                     {Global.languageData.and}
                                 </Text>
@@ -442,7 +448,9 @@ const Login = () => {
                                     <Text style={[GlobalStyles.normalText, Fonts.Nunito_700Bold,
                                     {
                                         marginTop: heightToDp(0.01),
-                                        color: Colors.primaryButtonColor
+                                        color: Colors.primaryButtonColor,
+                                        fontSize: GlobalStyles.normalText.fontSize * fontScale,
+                                        letterSpacing
                                     }]}>
                                         {Global.languageData.Privacy_Policy}
                                     </Text>

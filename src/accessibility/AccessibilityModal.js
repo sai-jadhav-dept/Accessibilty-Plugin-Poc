@@ -10,7 +10,7 @@ import {
     Dimensions,
     Platform,
 } from 'react-native';
-import Slider from '@react-native-community/slider';
+// import Slider from '@react-native-community/slider';
 import { useAccessibility } from './AccessibilityContext';
 import {
     ACCESSIBILITY_PROFILES,
@@ -18,6 +18,7 @@ import {
 } from './AccessibilityUtils';
 import TTSService from './TTSService';
 import Global from '../screens/Global';
+import TextControlsWithSlider from './TextControlsWithSlider';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -122,7 +123,7 @@ const AccessibilityModal = () => {
         return (
             <View style={styles.sectionContent}>
                 {/* Text Control Buttons Row 1 */}
-                <View style={styles.textControlRow}>
+                {/* <View style={styles.textControlRow}>
                     <TouchableOpacity
                         style={[
                             styles.textControlButton,
@@ -148,10 +149,13 @@ const AccessibilityModal = () => {
                         <Text style={styles.textControlIcon}>☰</Text>
                         <Text style={styles.textControlLabel}>Line Height</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
+                {
+                    <TextControlsWithSlider />
+                }
 
                 {/* Text Control Buttons Row 2 */}
-                <View style={styles.textControlRow}>
+                {/* <View style={styles.textControlRow}>
                     <TouchableOpacity
                         style={[
                             styles.textControlButton,
@@ -164,10 +168,10 @@ const AccessibilityModal = () => {
                         <Text style={styles.textControlIcon}>⬌</Text>
                         <Text style={styles.textControlLabel}>Letter Spacing</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
 
                 {/* Single Slider with Aa labels */}
-                <View style={styles.sliderContainer}>
+                {/* <View style={styles.sliderContainer}>
                     <Text style={styles.sliderLabelSmall}>Aa</Text>
                     <Slider
                         style={styles.slider}
@@ -182,20 +186,20 @@ const AccessibilityModal = () => {
                         accessible={true}
                     />
                     <Text style={styles.sliderLabelLarge}>Aa</Text>
-                </View>
+                </View> */}
 
                 {/* Reset Button */}
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={styles.resetButton}
                     onPress={resetToDefault}
                     accessible={true}
                     accessibilityRole="button"
                 >
                     <Text style={styles.resetButtonText}>RESET</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 {/* Text Alignment */}
-                <View style={styles.alignmentSection}>
+                {/* <View style={styles.alignmentSection}>
                     <Text style={styles.featureTitle}>Text Alignment</Text>
                     <View style={styles.alignmentButtons}>
                         <TouchableOpacity
@@ -217,7 +221,7 @@ const AccessibilityModal = () => {
                             <Text style={styles.alignmentIcon}>≣</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </View> */}
 
                 {/* Hide Images Switch */}
                 <View style={styles.switchRow}>
@@ -719,25 +723,25 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontWeight: '500',
     },
-    sliderContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 16,
-    },
-    sliderLabelSmall: {
-        fontSize: 16,
-        color: '#8E8E93',
-        marginRight: 8,
-    },
-    slider: {
-        flex: 1,
-        height: 40,
-    },
-    sliderLabelLarge: {
-        fontSize: 24,
-        color: '#8E8E93',
-        marginLeft: 8,
-    },
+    // sliderContainer: {
+    //     flexDirection: 'row',
+    //     alignItems: 'center',
+    //     marginVertical: 16,
+    // },
+    // sliderLabelSmall: {
+    //     fontSize: 16,
+    //     color: '#8E8E93',
+    //     marginRight: 8,
+    // },
+    // slider: {
+    //     flex: 1,
+    //     height: 40,
+    // },
+    // sliderLabelLarge: {
+    //     fontSize: 24,
+    //     color: '#8E8E93',
+    //     marginLeft: 8,
+    // },
     resetButton: {
         backgroundColor: '#F2F2F7',
         padding: 12,
