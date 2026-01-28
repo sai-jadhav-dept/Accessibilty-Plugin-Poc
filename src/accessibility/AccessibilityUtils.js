@@ -73,63 +73,108 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   activeProfile: ACCESSIBILITY_PROFILES.NONE,
 };
 
-// Profile configurations
+// Profile configurations with detailed feature sets
 export const PROFILE_CONFIGS = {
+  // Blindness Profile - Screen reader support, high contrast, hide images
   [ACCESSIBILITY_PROFILES.BLIND]: {
-    fontScale: 1.2,
-    highContrast: true,
+    // Screen reader support
     textToSpeech: true,
     screenReader: true,
+    // High contrast
+    highContrast: true,
+    colorTheme: COLOR_THEMES.HIGH_CONTRAST,
+    // Hide images to reduce clutter for screen readers
+    hideImages: true,
+    // Additional helpful features
+    fontScale: 1.2,
     reducedMotion: true,
     enlargeButtons: true,
-    colorTheme: COLOR_THEMES.HIGH_CONTRAST,
-    hideImages: true,
     highlightLinks: true,
+    dictionary: true,
   },
+  
+  // Dyslexia Profile - Larger text, increased line height & letter spacing
   [ACCESSIBILITY_PROFILES.DYSLEXIA]: {
-    fontScale: 1.4,
-    lineHeight: 2.2,
-    letterSpacing: 0.4,
+    // Larger text
+    fontScale: 1.5,
+    // Increased line height
+    lineHeight: 2.4,
+    // Increased letter spacing
+    letterSpacing: 0.5,
+    // Additional helpful features
     highlightLinks: true,
     enlargeButtons: true,
     colorTheme: COLOR_THEMES.LIGHT,
     textAlignment: TEXT_ALIGNMENT.LEFT,
+    readingLine: true,
   },
+  
+  // Visually Impaired Profile - Maximum text size, high contrast, enlarged buttons
   [ACCESSIBILITY_PROFILES.LOW_VISION]: {
-    fontScale: 1.6,
+    // Maximum text size
+    fontScale: 2.0,
+    // High contrast
     highContrast: true,
     whiteHighContrast: true,
-    textMagnifier: true,
-    enlargeButtons: true,
-    lineHeight: 2.0,
-    letterSpacing: 0.5,
     colorTheme: COLOR_THEMES.HIGH_CONTRAST,
+    // Enlarged buttons
+    enlargeButtons: true,
+    // Additional helpful features
+    textMagnifier: true,
+    lineHeight: 2.2,
+    letterSpacing: 0.6,
     highlightLinks: true,
+    dictionary: true,
   },
+  
+  // Cognitive & Learning Profile - Reading aids, reduced motion, highlighted links
   [ACCESSIBILITY_PROFILES.COGNITIVE]: {
-    fontScale: 1.3,
+    // Reading aids
+    readingLine: true,
+    readingMask: false,
+    dictionary: true,
+    // Reduced motion
     reducedMotion: true,
+    // Highlighted links
     highlightLinks: true,
+    // Additional helpful features
+    fontScale: 1.3,
     lineHeight: 2.0,
     letterSpacing: 0.3,
     colorTheme: COLOR_THEMES.LIGHT,
-    readingLine: true,
-    hideImages: false,
+    enlargeButtons: true,
   },
+  
+  // Epilepsy Safe Profile - No animations, dark mode, reduced saturation
   [ACCESSIBILITY_PROFILES.EPILEPSY_SAFE]: {
+    // No animations
     reducedMotion: true,
+    // Dark mode
     colorTheme: COLOR_THEMES.DARK,
-    hideImages: false,
+    // Reduced saturation
     lowSaturation: true,
     greyscale: false,
-  },
-  [ACCESSIBILITY_PROFILES.ADHD_FOCUS]: {
-    readingMask: true,
-    reducedMotion: true,
-    hideImages: true,
-    fontScale: 1.2,
-    lineHeight: 1.8,
+    // Additional helpful features
+    hideImages: false,
+    fontScale: 1.1,
     highlightLinks: true,
+  },
+  
+  // ADHD Profile - Reading mask, focus mode, minimal distractions
+  [ACCESSIBILITY_PROFILES.ADHD_FOCUS]: {
+    // Reading mask for focus
+    readingMask: true,
+    readingLine: true,
+    // Minimal distractions - hide images
+    hideImages: true,
+    // Focus mode - reduced motion
+    reducedMotion: true,
+    // Additional helpful features
+    fontScale: 1.3,
+    lineHeight: 2.0,
+    highlightLinks: true,
+    enlargeButtons: true,
+    colorTheme: COLOR_THEMES.LIGHT,
   },
 };
 
