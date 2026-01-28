@@ -42,17 +42,6 @@ const FontSizeControlScreen = () => {
   return (
     <View style={styles.container}>
       {/* Preview Text */}
-      <Text
-        style={[
-          styles.previewText,
-          {
-            fontSize: fontSize,
-            letterSpacing: localLetterSpacing,
-          },
-        ]}
-      >
-        The quick brown fox jumps over the lazy dog. This is a sample text to demonstrate font size and letter spacing changes.
-      </Text>
 
       {/* Control Buttons */}
       <View style={styles.controlButtons}>
@@ -159,8 +148,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     gap: 15,
-    marginBottom: 40,
-    marginTop: 20,
+    // marginBottom: 40,
+    // marginTop: 20,
   },
   controlButton: {
     flexDirection: 'row',
@@ -206,7 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    marginBottom: 30,
+    marginBottom: 10,
   },
   sliderLabel: {
     fontSize: 20,

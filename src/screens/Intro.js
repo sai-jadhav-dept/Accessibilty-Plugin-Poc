@@ -20,7 +20,7 @@ export default function Intro() {
 
     const navigation = useNavigation();
     const colors = useDynamicColors();
-    const { highlightLinks, announce } = useAccessibility();
+    const { highlightLinks, announce, fontScale, letterSpacing } = useAccessibility();
 
     const [readModal, setReadModal] = useState(false);
     const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
@@ -157,14 +157,14 @@ export default function Intro() {
                             </View>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                         Manage treatments with ease, on one platform
                                     </Text>
                                 </TextMagnifier>
                             </DictionaryLookup>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                         Welcome to our healthcare platform! Here you can manage your medical appointments,
                                         track your medications, connect with trusted healthcare providers, and access your
                                         health records anytime, anywhere. Our platform makes it easy to take control of
@@ -175,7 +175,7 @@ export default function Intro() {
 
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                         Key Features:{'\n'}
                                         • Schedule and manage appointments with doctors and nurses{'\n'}
                                         • Set medication reminders and track your prescriptions{'\n'}
@@ -189,7 +189,7 @@ export default function Intro() {
                             <View style={{ marginTop: heightToDp(2) }}>
                                 <DictionaryLookup enabled={dictionaryEnabled}>
                                     <TextMagnifier enabled={textMagnifierEnabled}>
-                                        <Text onPress={() => { Global.pageReadText = "For more information, visit our Privacy Policy or Terms of Service." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor }]}>
+                                        <Text onPress={() => { Global.pageReadText = "For more information, visit our Privacy Policy or Terms of Service." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                             For more information, visit our{' '}
                                             <TouchableOpacity
                                                 onPress={() => Linking.openURL('https://example.com/privacy')}
@@ -198,7 +198,7 @@ export default function Intro() {
                                             >
                                                 <Text style={[
                                                     styles.link,
-                                                    { color: colors.primaryTextColor || '#007AFF' },
+                                                    { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
                                                     highlightLinks && styles.linkHighlighted
                                                 ]}>
                                                     Privacy Policy
@@ -212,7 +212,7 @@ export default function Intro() {
                                             >
                                                 <Text style={[
                                                     styles.link,
-                                                    { color: colors.primaryTextColor || '#007AFF' },
+                                                    { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
                                                     highlightLinks && styles.linkHighlighted
                                                 ]}>
                                                     Terms of Service
@@ -226,7 +226,7 @@ export default function Intro() {
                         </View>
 
                         <View style={styles.animationDemoContainer}>
-                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { color: colors.primaryTextColor, textAlign: 'center', marginBottom: 10 }]}>
+                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { color: colors.primaryTextColor, textAlign: 'center', marginBottom: 10, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                 Animation Demo {reducedMotionEnabled ? '(Paused)' : '(Playing)'}
                             </Text>
                             <View style={styles.animationRow}>
