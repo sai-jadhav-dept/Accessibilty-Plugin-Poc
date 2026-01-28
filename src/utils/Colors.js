@@ -39,6 +39,16 @@ const rgbToHex = (r, g, b) => {
     }).join('');
 };
 
+// Helper to determine if a color is light or dark
+const isLightColor = (hex) => {
+    if (hex.startsWith('rgba')) return true; // Default to light for rgba
+    const rgb = hexToRgb(hex);
+    if (!rgb) return true;
+    // Calculate luminance
+    const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+    return luminance > 0.5;
+};
+
 // Apply grayscale to a color
 const applyGrayscale = (hex) => {
     if (hex.startsWith('rgba')) return hex; // Skip rgba colors
@@ -172,7 +182,28 @@ export const getColors = (accessibilitySettings) => {
     }
 
     // Apply color filters (grayscale, saturation, inversion)
-    return processColors(colors, settings);
+    const processedColors = processColors(colors, settings);
+    
+    // Apply custom text and background color overrides (these take priority)
+    if (settings.textColor) {
+        processedColors.primaryTextColor = settings.textColor;
+        processedColors.buttonTextColor = settings.textColor;
+    } else {
+        // Default button text color
+        processedColors.buttonTextColor = processedColors.boxBackground;
+    }
+    
+    if (settings.backgroundColor) {
+        processedColors.defaultBackground = settings.backgroundColor;
+        // Don't change button background colors - keep original button colors
+        // If background is set but text isn't, ensure button text contrasts with screen background
+        if (!settings.textColor) {
+            const isLight = isLightColor(settings.backgroundColor);
+            processedColors.buttonTextColor = isLight ? '#000000' : '#FFFFFF';
+        }
+    }
+    
+    return processedColors;
 };
 
 // Export default for backward compatibility (returns base colors)

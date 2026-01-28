@@ -1,30 +1,72 @@
 import { View, StyleSheet, Pressable, Text, Platform, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Draggable from 'react-native-draggable';
-import { heightToDp, widthToDp } from '../utils/Responsive';
+import { Slider } from '@miblanchard/react-native-slider';
+import { Dropdown } from 'react-native-element-dropdown';
 import Colors from '../utils/Colors';
 import { usePageRead } from './usePageRead';
 import Global from '../screens/Global';
-import GlobalStyles from '../utils/GlobalStyles';
 import Fonts from '../utils/Fonts';
+import TTSService from './TTSService';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const ReadModal = ({ activeModal }) => {
     const pageRead = usePageRead(Global.pageReadText);
     const [isMinimized, setIsMinimized] = useState(false);
+    const [voices, setVoices] = useState([]);
+    const [selectedVoice, setSelectedVoice] = useState('');
+    const [volume, setVolume] = useState(1.0);
+    const [rate, setRate] = useState(0.5);
+    const [pitch, setPitch] = useState(1.0);
+    
+    useEffect(() => {
+        const loadVoices = async () => {
+            try {
+                const availableVoices = await TTSService.getVoices();
+                // Filter only English voices
+                const englishVoices = availableVoices.filter(voice => 
+                    voice.language && voice.language.toLowerCase().startsWith('en')
+                );
+                setVoices(englishVoices);
+                if (englishVoices.length > 0) {
+                    setSelectedVoice(englishVoices[0].id);
+                }
+            } catch (error) {
+                console.log('Error loading voices:', error);
+            }
+        };
+        loadVoices();
+    }, []);
+    
+    // Apply TTS settings whenever they change
+    useEffect(() => {
+        const applySettings = async () => {
+            try {
+                const Tts = (await import('react-native-tts')).default;
+                if (selectedVoice) {
+                    await Tts.setDefaultVoice(selectedVoice);
+                }
+                await Tts.setDefaultRate(rate);
+                await Tts.setDefaultPitch(pitch);
+            } catch (error) {
+                console.log('Error applying TTS settings:', error);
+            }
+        };
+        applySettings();
+    }, [selectedVoice, rate, pitch]);
     
     if (!activeModal) return null;
     
     if (isMinimized) {
         return (
             <Draggable
-                x={SCREEN_WIDTH - 70}
+                x={SCREEN_WIDTH }
                 y={SCREEN_HEIGHT / 2}
                 minX={0}
                 minY={0}
-                maxX={SCREEN_WIDTH - 60}
-                maxY={SCREEN_HEIGHT - 60}
+                maxX={SCREEN_WIDTH}
+                maxY={SCREEN_HEIGHT}
             >
                 <Pressable 
                     style={styles.minimizedButton}
@@ -40,10 +82,10 @@ const ReadModal = ({ activeModal }) => {
     
     return (
         <Draggable
-            x={10}
-            y={SCREEN_HEIGHT - 200}
+            x={SCREEN_WIDTH  - 300}
+            y={SCREEN_HEIGHT - 300}
             minX={0}
-            minY={0}
+            minY={200}
             maxX={SCREEN_WIDTH}
             maxY={SCREEN_HEIGHT}
             isCircle={true}
@@ -78,12 +120,107 @@ const ReadModal = ({ activeModal }) => {
                     <Text style={[Fonts.Nunito_600SemiBold,styles.headerTitle]}>Page Reader</Text>
                 </View>
 
+                {/* Voice/Accent Picker */}
+                <View style={styles.settingSection}>
+                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                        Voice/Accent
+                    </Text>
+                    <Dropdown
+                        style={styles.dropdown}
+                        data={voices.map(v => ({ 
+                            label: v.name || v.language || 'Unknown', 
+                            value: v.id 
+                        }))}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Select voice"
+                        value={selectedVoice}
+                        onChange={item => setSelectedVoice(item.value)}
+                        containerStyle={styles.dropdownContainer}
+                        selectedTextStyle={styles.dropdownText}
+                        placeholderStyle={styles.dropdownText}
+                    />
+                </View>
+
+                {/* Volume Slider */}
+                <View style={styles.settingSection}>
+                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                        Volume: {Math.round(volume * 100)}%
+                    </Text>
+                    <Slider
+                        containerStyle={styles.sliderContainer}
+                        minimumValue={0}
+                        maximumValue={1}
+                        value={volume}
+                        onValueChange={(val) => setVolume(val[0])}
+                        minimumTrackTintColor="#4CAF50"
+                        maximumTrackTintColor="#D3D3D3"
+                        thumbTintColor="#2E7D32"
+                        thumbStyle={styles.thumbStyle}
+                        trackStyle={styles.trackStyle}
+                        step={0.01}
+                    />
+                </View>
+
+                {/* Rate Slider */}
+                <View style={styles.settingSection}>
+                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                        Speed: {Math.round(rate * 100)}%
+                    </Text>
+                    <Slider
+                        containerStyle={styles.sliderContainer}
+                        minimumValue={0.1}
+                        maximumValue={0.8}
+                        value={rate}
+                        onValueChange={(val) => setRate(val[0])}
+                        minimumTrackTintColor="#2196F3"
+                        maximumTrackTintColor="#D3D3D3"
+                        thumbTintColor="#1565C0"
+                        thumbStyle={styles.thumbStyle}
+                        trackStyle={styles.trackStyle}
+                        step={0.01}
+                    />
+                </View>
+
+                {/* Pitch Slider */}
+                <View style={styles.settingSection}>
+                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                        Pitch: {Math.round(pitch * 100)}%
+                    </Text>
+                    <Slider
+                        containerStyle={styles.sliderContainer}
+                        minimumValue={0}
+                        maximumValue={1}
+                        value={pitch}
+                        onValueChange={(val) => setPitch(val[0])}
+                        minimumTrackTintColor="#FF9800"
+                        maximumTrackTintColor="#D3D3D3"
+                        thumbTintColor="#E65100"
+                        thumbStyle={styles.thumbStyle}
+                        trackStyle={styles.trackStyle}
+                        step={0.01}
+                    />
+                </View>
+
                 {/* Control Buttons */}
                 <View style={styles.controlsRow}>
                     <PageReadButton
                         icon="▶"
                         label="Start"
-                        onPress={pageRead.start}
+                        onPress={async () => {
+                            try {
+                                const Tts = (await import('react-native-tts')).default;
+                                if (selectedVoice) {
+                                    await Tts.setDefaultVoice(selectedVoice);
+                                }
+                                await Tts.setDefaultRate(rate);
+                                await Tts.setDefaultPitch(pitch);
+                                pageRead.start();
+                            } catch (error) {
+                                console.log('Error setting TTS:', error);
+                                pageRead.start();
+                            }
+                        }}
                         accessibilityLabel="Start reading"
                     />
                     <PageReadButton
@@ -195,12 +332,56 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: '#1a1a1a',
     },
+    settingSection: {
+        marginBottom: 12,
+    },
+    settingLabel: {
+        fontSize: 13,
+        color: '#0B3B91',
+        marginBottom: 6,
+        fontWeight: '600',
+    },
+    dropdown: {
+        height: 40,
+        borderColor: '#D3D3D3',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        backgroundColor: '#FFFFFF',
+    },
+    dropdownContainer: {
+        borderRadius: 8,
+        marginTop: 4,
+    },
+    dropdownText: {
+        fontSize: 12,
+        color: '#1a1a1a',
+    },
+    sliderContainer: {
+        width: '100%',
+        height: 45,
+    },
+    thumbStyle: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    trackStyle: {
+        height: 8,
+        borderRadius: 4,
+    },
     controlsRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         gap: 8,
         paddingHorizontal: 4,
+        marginTop: 4,
     },
     pageReadButton: {
         flex: 1,

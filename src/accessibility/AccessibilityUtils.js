@@ -3,6 +3,7 @@
 export const ACCESSIBILITY_PROFILES = {
   NONE: 'none',
   BLIND: 'blind',
+  DYSLEXIA: 'dyslexia',
   LOW_VISION: 'low_vision',
   COGNITIVE: 'cognitive',
   EPILEPSY_SAFE: 'epilepsy_safe',
@@ -19,6 +20,7 @@ export const COLOR_THEMES = {
 export const TEXT_ALIGNMENT = {
   LEFT: 'left',
   CENTER: 'center',
+  RIGHT: 'right',
   JUSTIFY: 'justify',
 };
 
@@ -32,6 +34,8 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   
   // Colors & Display
   highContrast: false,
+  whiteHighContrast: false,
+  darkHighContrast: false,
   colorInversion: false,
   greyscale: false,
   lowSaturation: false,
@@ -53,7 +57,7 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   textMagnifier: false,
   textToSpeech: false,
   dictionary: false,
-  
+
   // Accessibility Features
   screenReader: false,
   
@@ -79,15 +83,28 @@ export const PROFILE_CONFIGS = {
     reducedMotion: true,
     enlargeButtons: true,
     colorTheme: COLOR_THEMES.HIGH_CONTRAST,
+    hideImages: true,
+    highlightLinks: true,
+  },
+  [ACCESSIBILITY_PROFILES.DYSLEXIA]: {
+    fontScale: 1.4,
+    lineHeight: 2.2,
+    letterSpacing: 0.4,
+    highlightLinks: true,
+    enlargeButtons: true,
+    colorTheme: COLOR_THEMES.LIGHT,
+    textAlignment: TEXT_ALIGNMENT.LEFT,
   },
   [ACCESSIBILITY_PROFILES.LOW_VISION]: {
-    fontScale: 1.5,
+    fontScale: 1.6,
     highContrast: true,
+    whiteHighContrast: true,
     textMagnifier: true,
     enlargeButtons: true,
     lineHeight: 2.0,
     letterSpacing: 0.5,
     colorTheme: COLOR_THEMES.HIGH_CONTRAST,
+    highlightLinks: true,
   },
   [ACCESSIBILITY_PROFILES.COGNITIVE]: {
     fontScale: 1.3,
@@ -96,11 +113,15 @@ export const PROFILE_CONFIGS = {
     lineHeight: 2.0,
     letterSpacing: 0.3,
     colorTheme: COLOR_THEMES.LIGHT,
+    readingLine: true,
+    hideImages: false,
   },
   [ACCESSIBILITY_PROFILES.EPILEPSY_SAFE]: {
     reducedMotion: true,
     colorTheme: COLOR_THEMES.DARK,
     hideImages: false,
+    lowSaturation: true,
+    greyscale: false,
   },
   [ACCESSIBILITY_PROFILES.ADHD_FOCUS]: {
     readingMask: true,
@@ -108,6 +129,7 @@ export const PROFILE_CONFIGS = {
     hideImages: true,
     fontScale: 1.2,
     lineHeight: 1.8,
+    highlightLinks: true,
   },
 };
 

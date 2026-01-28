@@ -23,9 +23,24 @@ import TextControlsWithSlider from './TextControlsWithSlider';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const AccessibilityModal = () => {
+    const [imageDescriptionEnabled, setImageDescriptionEnabled] = useState(false);
+    const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
+    const [dictionaryEnabled, setDictionaryEnabled] = useState(false);
+    const [readingMaskEnabled, setReadingMaskEnabled] = useState(false);
+    const [readingLineEnabled, setReadingLineEnabled] = useState(false);
+    const [enlargeButtonsEnabled, setEnlargeButtonsEnabled] = useState(false);
+    const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
+    
     useEffect(() => {
+        setImageDescriptionEnabled(Global.accessibility.imageDescription || false);
+        setTextMagnifierEnabled(Global.accessibility.textMagnifier || false);
+        setDictionaryEnabled(Global.accessibility.dictionary || false);
+        setReadingMaskEnabled(Global.accessibility.readingMask || false);
+        setReadingLineEnabled(Global.accessibility.readingLine || false);
+        setEnlargeButtonsEnabled(Global.accessibility.enlargeButtons || false);
+        setReducedMotionEnabled(Global.accessibility.reducedMotion || false);
         updateSetting('textToSpeech', false);
-        // Any initialization or side effects can be handled here
+        // Initialize accessibility states from Global
     }, []);
     const {
         isModalVisible,
@@ -204,34 +219,42 @@ const AccessibilityModal = () => {
                     <View style={styles.alignmentButtons}>
                         <TouchableOpacity
                             style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.LEFT && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.LEFT)}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.LEFT);
+                                Global.accessibility.textAlignment = 'left';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>≡</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.CENTER && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.CENTER)}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.CENTER);
+                                Global.accessibility.textAlignment = 'center';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>☰</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.JUSTIFY && styles.alignmentButtonActive]}
-                            onPress={() => updateSetting('textAlignment', TEXT_ALIGNMENT.JUSTIFY)}
+                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.RIGHT && styles.alignmentButtonActive]}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.RIGHT);
+                                Global.accessibility.textAlignment = 'right';
+                            }}
                         >
                             <Text style={styles.alignmentIcon}>≣</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.alignmentButton, textAlignment === TEXT_ALIGNMENT.JUSTIFY && styles.alignmentButtonActive]}
+                            onPress={() => {
+                                updateSetting('textAlignment', TEXT_ALIGNMENT.JUSTIFY);
+                                Global.accessibility.textAlignment = 'justify';
+                            }}
+                        >
+                            <Text style={styles.alignmentIcon}>⬌</Text>
+                        </TouchableOpacity>
                     </View>
                 </View> */}
-
-                {/* Hide Images Switch */}
-                <View style={styles.switchRow}>
-                    <Text style={styles.switchLabel}>Hide Images / Pictures</Text>
-                    <Switch
-                        value={hideImages}
-                        onValueChange={(value) => updateSetting('hideImages', value)}
-                        trackColor={{ false: '#C7C7CC', true: '#34C759' }}
-                    />
-                </View>
 
                 {/* Icon Buttons Row 1 */}
                 <View style={styles.iconButtonRow}>
@@ -261,14 +284,37 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('dictionary', !dictionary)}
+                        onPress={() => {
+                            const newValue = !dictionaryEnabled;
+                            Global.accessibility.dictionary = newValue;
+                            setDictionaryEnabled(newValue);
+                            updateSetting('dictionary', newValue);
+                            announce(newValue ? 'Dictionary enabled' : 'Dictionary disabled');
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, dictionary && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, dictionaryEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📖</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Dictionary</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={() => {
+                            const newValue = !imageDescriptionEnabled;
+                            Global.accessibility.imageDescription = newValue;
+                            setImageDescriptionEnabled(newValue);
+                            announce(newValue ? 'Image descriptions enabled' : 'Image descriptions disabled');
+                        }}
+                        accessible={true}
+                        accessibilityRole="button"
+                    >
+                        <View style={[styles.iconCircle, imageDescriptionEnabled && styles.iconCircleActive]}>
+                            <Text style={styles.iconButtonIcon}>🖼️</Text>
+                        </View>
+                        <Text style={styles.iconButtonLabel}>Image Description</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -276,11 +322,29 @@ const AccessibilityModal = () => {
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('textMagnifier', !textMagnifier)}
+                        onPress={() => updateSetting('hideImages', !hideImages)}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, textMagnifier && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, hideImages && styles.iconCircleActive]}>
+                            <Text style={styles.iconButtonIcon}>🚫</Text>
+                        </View>
+                        <Text style={styles.iconButtonLabel}>Hide Images</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={() => {
+                            const newValue = !textMagnifierEnabled;
+                            Global.accessibility.textMagnifier = newValue;
+                            setTextMagnifierEnabled(newValue);
+                            updateSetting('textMagnifier', newValue);
+                            announce(newValue ? 'Text magnifier enabled' : 'Text magnifier disabled');
+                        }}
+                        accessible={true}
+                        accessibilityRole="button"
+                    >
+                        <View style={[styles.iconCircle, textMagnifierEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>🔍</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Text Magnifier</Text>
@@ -288,11 +352,16 @@ const AccessibilityModal = () => {
 
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('enlargeButtons', !enlargeButtons)}
+                        onPress={() => {
+                            const newValue = !enlargeButtonsEnabled;
+                            Global.accessibility.enlargeButtons = newValue;
+                            setEnlargeButtonsEnabled(newValue);
+                            updateSetting('enlargeButtons', newValue);
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
-                        <View style={[styles.iconCircle, enlargeButtons && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, enlargeButtonsEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⊕</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Enlarge Buttons</Text>
@@ -469,15 +538,29 @@ const AccessibilityModal = () => {
         if (expandedSection !== 'profiles') return null;
 
         const profiles = [
-            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness Profile', description: 'Making the website accessible with Screen Readers' },
-            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired Profile', description: 'Designed for Better Visibility and Usability' },
-            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive and Learning Profile', description: 'Enhancing Focused User Experiences' },
-            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Profile', description: 'Creating Comfortable and Seizure-Safe Web Experiences' },
-            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD Profile', description: 'Building Websites That Support Attention and Ease of Use' },
+            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness', description: 'Making the website accessible with Screen Readers' },
+            { key: ACCESSIBILITY_PROFILES.DYSLEXIA, icon: '📖', label: 'Dyslexia', description: 'Optimised font, spacing and formatting for easier reading' },
+            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired', description: 'Designed for Better Visibility and Usability' },
+            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive & Learning', description: 'Enhancing Focused User Experiences' },
+            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Safe', description: 'Creating Comfortable and Seizure-Safe Experiences' },
+            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD', description: 'Building Support for Attention and Ease of Use' },
         ];
 
         return (
             <View style={styles.sectionContent}>
+                {/* Reset Profile Button */}
+                {activeProfile !== ACCESSIBILITY_PROFILES.NONE && (
+                    <TouchableOpacity
+                        style={styles.resetProfileButton}
+                        onPress={() => setProfile(ACCESSIBILITY_PROFILES.NONE)}
+                        accessible={true}
+                        accessibilityRole="button"
+                        accessibilityLabel="Reset to default settings"
+                    >
+                        <Text style={styles.resetProfileText}>✕ Reset Active Profile</Text>
+                    </TouchableOpacity>
+                )}
+                
                 {profiles.map((profile) => (
                     <TouchableOpacity
                         key={profile.key}
@@ -485,22 +568,138 @@ const AccessibilityModal = () => {
                             styles.profileButton,
                             activeProfile === profile.key && styles.profileButtonActive,
                         ]}
-                        onPress={() => setProfile(profile.key)}
+                        onPress={() => {
+                            setProfile(profile.key);
+                            announce(`${profile.label} profile activated`);
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                         accessibilityLabel={profile.label}
                         accessibilityHint={profile.description}
                         accessibilityState={{ selected: activeProfile === profile.key }}
                     >
-                        <View style={styles.profileIconContainer}>
+                        <View style={[
+                            styles.profileIconContainer,
+                            activeProfile === profile.key && styles.profileIconContainerActive,
+                        ]}>
                             <Text style={styles.profileIcon}>{profile.icon}</Text>
                         </View>
                         <View style={styles.profileTextContainer}>
-                            <Text style={styles.profileLabel}>{profile.label}</Text>
-                            <Text style={styles.profileDescription}>{profile.description}</Text>
+                            <Text style={[
+                                styles.profileLabel,
+                                activeProfile === profile.key && styles.profileLabelActive,
+                            ]}>{profile.label}</Text>
+                            <Text style={[
+                                styles.profileDescription,
+                                activeProfile === profile.key && styles.profileDescriptionActive,
+                            ]}>{profile.description}</Text>
                         </View>
+                        {activeProfile === profile.key && (
+                            <View style={styles.profileCheckmark}>
+                                <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                            </View>
+                        )}
                     </TouchableOpacity>
                 ))}
+            </View>
+        );
+    };
+
+    const renderColorAdjustmentSection = () => {
+        if (expandedSection !== 'colorAdjustment') return null;
+
+        const colorOptions = [
+            { color: '#0076b4', label: 'Blue' },
+            { color: '#7a549c', label: 'Purple' },
+            { color: '#c83733', label: 'Red' },
+            { color: '#d07021', label: 'Orange' },
+            { color: '#26999f', label: 'Teal' },
+            { color: '#4d7831', label: 'Green' },
+            { color: '#ffffff', label: 'White' },
+            { color: '#000000', label: 'Black' },
+        ];
+
+        return (
+            <View style={styles.sectionContent}>
+                {/* Text Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Text Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`text-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                textColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: textColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('textColor', option.color);
+                                announce(`Text color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set text color to ${option.label}`}
+                            accessibilityState={{ selected: textColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('textColor', null);
+                        announce('Text color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
+
+                {/* Background Color Adjustment */}
+                <Text style={styles.colorAdjustTitle}>Adjust Background Color</Text>
+                <View style={styles.colorPickerRow}>
+                    {colorOptions.map((option) => (
+                        <TouchableOpacity
+                            key={`bg-${option.color}`}
+                            style={[
+                                styles.colorCircle,
+                                { backgroundColor: option.color },
+                                backgroundColor === option.color && {
+                                    borderColor: '#007AFF',
+                                    borderWidth: 3,
+                                },
+                                option.color === '#ffffff' && {
+                                    borderColor: backgroundColor === option.color ? '#007AFF' : '#C7C7CC',
+                                },
+                            ]}
+                            onPress={() => {
+                                updateSetting('backgroundColor', option.color);
+                                announce(`Background color changed to ${option.label}`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Set background color to ${option.label}`}
+                            accessibilityState={{ selected: backgroundColor === option.color }}
+                        />
+                    ))}
+                </View>
+                <TouchableOpacity
+                    style={styles.colorResetButton}
+                    onPress={() => {
+                        updateSetting('backgroundColor', null);
+                        announce('Background color reset to default');
+                    }}
+                    accessible={true}
+                    accessibilityRole="button"
+                >
+                    <Text style={styles.colorResetText}>RESET</Text>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -523,11 +722,16 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Highlight{' '}Links</Text>
+                        <Text style={styles.iconButtonLabel}>Highlight Links</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('readingMask', !readingMask)}>
-                        <View style={[styles.iconCircle, readingMask && styles.iconCircleActive]}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !readingMaskEnabled;
+                        Global.accessibility.readingMask = newValue;
+                        setReadingMaskEnabled(newValue);
+                        updateSetting('readingMask', newValue);
+                    }}>
+                        <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Reading{' '}Mask</Text>
@@ -537,17 +741,27 @@ const AccessibilityModal = () => {
                 {/* Row 2 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
-                        updateSetting('readingMask', true);
-                        updateSetting('readingLine', true);
+                        const newValue = !(readingLineEnabled && readingMaskEnabled);
+                        Global.accessibility.readingLine = newValue;
+                        Global.accessibility.readingMask = newValue;
+                        setReadingLineEnabled(newValue);
+                        setReadingMaskEnabled(newValue);
+                        updateSetting('readingLine', newValue);
+                        updateSetting('readingMask', newValue);
                     }}>
-                        <View style={[styles.iconCircle, (readingMask && readingLine) && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, (readingLineEnabled && readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📊</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Mask & Line</Text>
+                        <Text style={styles.iconButtonLabel}>Reading{' '}Line</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('reducedMotion', !reducedMotion)}>
-                        <View style={[styles.iconCircle, reducedMotion && styles.iconCircleActive]}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !reducedMotionEnabled;
+                        Global.accessibility.reducedMotion = newValue;
+                        setReducedMotionEnabled(newValue);
+                        updateSetting('reducedMotion', newValue);
+                    }}>
+                        <View style={[styles.iconCircle, reducedMotionEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⏸️</Text>
                         </View>
                         <Text style={styles.iconButtonLabel}>Pause{' '}Animation</Text>
@@ -608,6 +822,10 @@ const AccessibilityModal = () => {
                         {/* Profiles Section */}
                         {renderSectionHeader('Profiles', 'profiles')}
                         {renderProfilesSection()}
+
+                        {/* Color Adjustment Section */}
+                        {renderSectionHeader('Color Adjustment', 'colorAdjustment')}
+                        {renderColorAdjustmentSection()}
 
                         {/* Navigation Section */}
                         {renderSectionHeader('Navigation', 'navigation')}
@@ -903,10 +1121,22 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textTransform: 'capitalize',
     },
+    resetProfileButton: {
+        padding: 12,
+        borderRadius: 8,
+        backgroundColor: '#FF3B30',
+        marginBottom: 16,
+        alignItems: 'center',
+    },
+    resetProfileText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#FFFFFF',
+    },
     profileButton: {
         flexDirection: 'row',
         padding: 16,
-        borderRadius: 8,
+        borderRadius: 12,
         backgroundColor: '#F2F2F7',
         marginBottom: 12,
         borderWidth: 2,
@@ -914,34 +1144,65 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     profileButtonActive: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#E3F2FD',
         borderColor: '#007AFF',
+        shadowColor: '#007AFF',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
     },
     profileIconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 48,
+        height: 48,
+        borderRadius: 24,
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 12,
+        borderWidth: 2,
+        borderColor: '#E5E5EA',
+    },
+    profileIconContainerActive: {
+        backgroundColor: '#007AFF',
+        borderColor: '#007AFF',
     },
     profileIcon: {
-        fontSize: 20,
+        fontSize: 24,
     },
     profileTextContainer: {
         flex: 1,
     },
     profileLabel: {
-        fontSize: 14,
-        fontWeight: '600',
+        fontSize: 15,
+        fontWeight: '700',
         color: '#000000',
         marginBottom: 4,
     },
+    profileLabelActive: {
+        color: '#007AFF',
+    },
     profileDescription: {
-        fontSize: 11,
+        fontSize: 12,
         color: '#8E8E93',
         lineHeight: 16,
+    },
+    profileDescriptionActive: {
+        color: '#666666',
+    },
+    profileCheckmark: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: '#34C759',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 8,
+    },
+    profileCheckmarkIcon: {
+        fontSize: 16,
+        color: '#FFFFFF',
+        fontWeight: '700',
     },
     colorAdjustTitle: {
         fontSize: 14,
@@ -952,14 +1213,17 @@ const styles = StyleSheet.create({
     },
     colorPickerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
         marginBottom: 12,
+        gap: 12,
     },
     colorCircle: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         borderWidth: 2,
+        borderColor: 'transparent',
     },
     colorResetButton: {
         alignSelf: 'flex-start',
