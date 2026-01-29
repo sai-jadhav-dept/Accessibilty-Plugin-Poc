@@ -763,7 +763,11 @@ const AccessibilityModal = () => {
                         <Text style={styles.iconButtonLabel}>Reading Line</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('highlightLinks', !highlightLinks)}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !highlightLinks;
+                        Global.accessibility.highlightLinks = newValue;
+                        updateSetting('highlightLinks', newValue);
+                    }}>
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
                         </View>
