@@ -1,0 +1,53 @@
+{
+  "name": "@yourorg/react-native-accessibility-toolkit",
+  "version": "1.0.0",
+  "description": "A comprehensive accessibility toolkit for React Native applications with TTS, screen reader, color adjustments, and more",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "react-native",
+    "accessibility",
+    "a11y",
+    "screen-reader",
+    "tts",
+    "text-to-speech",
+    "wcag",
+    "inclusive-design"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourorg/react-native-accessibility-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourorg/react-native-accessibility-toolkit/issues"
+  },
+  "homepage": "https://github.com/yourorg/react-native-accessibility-toolkit#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "dependencies": {
+    "react-native-tts": "^4.1.0",
+    "@react-native-async-storage/async-storage": "^1.19.0",
+    "react-native-draggable": "^3.3.0",
+    "@miblanchard/react-native-slider": "^2.3.1",
+    "react-native-element-dropdown": "^2.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "eslint": "^8.19.0",
+    "jest": "^29.2.1"
+  },
+  "permissions": {
+    "contents": [
+      "This app uses text-to-speech to read content aloud for accessibility."
+    ]
+  }
+}
