@@ -61,6 +61,7 @@ export default {
     readingLine: false,
     enlargeButtons: false,
     reducedMotion: false,
+    highlightLinks: false,
     textAlignment: 'left', // 'left', 'center', 'right', 'justify'
   },
   messages: {
