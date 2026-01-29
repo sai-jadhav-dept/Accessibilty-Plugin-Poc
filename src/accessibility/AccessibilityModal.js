@@ -9,7 +9,9 @@ import {
     Switch,
     Dimensions,
     Platform,
+    Alert,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 // import Slider from '@react-native-community/slider';
 import { useAccessibility } from './AccessibilityContext';
 import {
@@ -82,6 +84,38 @@ const AccessibilityModal = () => {
 
     const [expandedSection, setExpandedSection] = useState('content');
     const [activeTextControl, setActiveTextControl] = useState('biggerText'); // 'biggerText', 'lineHeight', 'letterSpacing'
+
+    // Handle reset to default values
+    const handleReset = () => {
+        // Reset all accessibility settings
+        resetToDefault();
+        
+        // Reset local states
+        setImageDescriptionEnabled(false);
+        setTextMagnifierEnabled(false);
+        setDictionaryEnabled(false);
+        setReadingMaskEnabled(false);
+        setReadingLineEnabled(false);
+        setEnlargeButtonsEnabled(false);
+        setReducedMotionEnabled(false);
+        
+        // Reset Global accessibility object
+        Global.accessibility = {
+            ...Global.accessibility,
+            pageRead: false,
+            imageDescription: false,
+            textMagnifier: false,
+            dictionary: false,
+            readingMask: false,
+            readingLine: false,
+            enlargeButtons: false,
+            reducedMotion: false,
+            textAlignment: 'left',
+        };
+        
+        // Announce reset for screen reader users
+        announce && announce('All accessibility settings have been reset to default');
+    };
 
     const getSliderConfig = () => {
         switch (activeTextControl) {
@@ -834,25 +868,27 @@ const AccessibilityModal = () => {
                 <View style={styles.modalContent}>
                     {/* Header */}
                     <View style={styles.modalHeader}>
-                        {/* <TouchableOpacity
-              onPress={closeModal}
-              style={styles.refreshButton}
-              accessible={true}
-              accessibilityRole="button"
-              accessibilityLabel="Refresh settings"
-            >
-              <Text style={styles.refreshIcon}>🔄</Text>
-            </TouchableOpacity> */}
                         <Text style={styles.modalTitle}>Accessibility Menu</Text>
-                        <TouchableOpacity
-                            onPress={closeModal}
-                            style={styles.closeButton}
-                            accessible={true}
-                            accessibilityRole="button"
-                            accessibilityLabel="Close accessibility menu"
-                        >
-                            <Text style={styles.closeButtonText}>✕</Text>
-                        </TouchableOpacity>
+                        <View style={styles.headerButtons}>
+                            <TouchableOpacity
+                                onPress={handleReset}
+                                style={styles.resetIconButton}
+                                accessible={true}
+                                accessibilityRole="button"
+                                accessibilityLabel="Reset all accessibility settings to default"
+                            >
+                                <Icon name="refresh" size={28} color="#FFFFFF" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={closeModal}
+                                style={styles.closeButton}
+                                accessible={true}
+                                accessibilityRole="button"
+                                accessibilityLabel="Close accessibility menu"
+                            >
+                                <Text style={styles.closeButtonText}>✕</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     {/* Scrollable Content */}
@@ -914,7 +950,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FFFFFF',
         flex: 1,
-        textAlign: 'center',
+    },
+    headerButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+    resetIconButton: {
+        padding: 8,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
     },
     refreshButton: {
         padding: 8,
@@ -1091,6 +1136,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         textAlign: 'center',
         color: '#000000',
+         width:'100%'
     },
     colorGrid: {
         flexDirection: 'row',
