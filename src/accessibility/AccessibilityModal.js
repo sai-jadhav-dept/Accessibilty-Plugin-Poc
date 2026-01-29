@@ -19,6 +19,7 @@ import {
 import TTSService from './TTSService';
 import Global from '../screens/Global';
 import TextControlsWithSlider from './TextControlsWithSlider';
+import Fonts from '../utils/Fonts';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -760,7 +761,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, readingLine && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>☰</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading Line</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading Line</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
@@ -771,7 +772,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Highlight Links</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Highlight Links</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
@@ -783,7 +784,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Mask</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading{' '}Mask</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -801,7 +802,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, (readingLineEnabled && readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📊</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Line</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading{' '}Mask & Line</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
@@ -813,7 +814,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, reducedMotionEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⏸️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Pause{' '}Animation</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Pause{' '}Animation</Text>
                     </TouchableOpacity>
                 </View>
             </View>
