@@ -855,17 +855,11 @@ const AccessibilityModal = () => {
         );
     };
 
+    if (!isModalVisible) return null;
+
     return (
-        <Modal
-            visible={isModalVisible}
-            animationType="slide"
-            transparent={true}
-            onRequestClose={closeModal}
-            accessible={true}
-            accessibilityViewIsModal={true}
-        >
-            <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
+        <View style={styles.modalOverlay} pointerEvents="box-none">
+            <View style={styles.modalContent} pointerEvents="auto">
                     {/* Header */}
                     <View style={styles.modalHeader}>
                         <Text style={styles.modalTitle}>Accessibility Menu</Text>
@@ -918,16 +912,17 @@ const AccessibilityModal = () => {
                         {renderNavigationSection()}
                     </ScrollView>
                 </View>
-            </View>
-        </Modal>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     modalOverlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'flex-end',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
     },
     modalContent: {
         backgroundColor: '#F2F2F7',
