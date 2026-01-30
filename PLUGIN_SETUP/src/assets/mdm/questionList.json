@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "quation": "Do you work",
+        "isAccepted": false
+    },
+    {
+        "id": 2,
+        "quation": "Do you smoke",
+        "isAccepted": false
+    },
+    {
+        "id": 3,
+        "quation": "Are you taking some medicine",
+        "isAccepted": false
+    },
+    {
+        "id": 4,
+        "quation": "Do you have Mobile",
+        "isAccepted": false
+    },
+    {
+        "id": 5,
+        "quation": "Do you have visited us",
+        "isAccepted": false
+    },
+    {
+        "id": 6,
+        "quation": "Do you stay alone",
+        "isAccepted": false
+    }
+]

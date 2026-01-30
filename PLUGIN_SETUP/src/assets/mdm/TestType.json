@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Blood Test"
+    },
+    {
+        "name": "Urine Test"
+    },
+    {
+        "name": "Bodily Fluids or Tissues"
+    },
+    {
+        "name": "Immunotherapy"
+    },
+    {
+        "name": "Others"
+    }
+]

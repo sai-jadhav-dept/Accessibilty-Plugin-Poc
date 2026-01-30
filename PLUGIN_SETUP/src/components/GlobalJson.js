@@ -1,0 +1,203 @@
+  export const Question = [
+    {
+      id: '1',
+      question: 'Do you have the fever?',
+      type: 'YesNo',
+      options: [],
+      yesanswerid: '2',
+      noanswerid: '3',
+      nextquestionid: '',
+    },
+    {
+      id: '2',
+      question: 'Enter the body temperature',
+      type: 'Input',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '3',
+    },
+    {
+      id: '3',
+      question: 'Do you have the breathing problem?',
+      type: 'YesNo',
+      options: [],
+      yesanswerid: '4',
+      noanswerid: '4',
+      nextquestionid: '4',
+    },
+    {
+      id: '4',
+      question: 'Are you having red eyes?',
+      type: 'YesNo',
+      options: [],
+      yesanswerid: '5',
+      noanswerid: '6',
+      nextquestionid: '',
+    },
+    {
+      id: '5',
+      question: 'Are you not able to smell?',
+      type: 'YesNo',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '6',
+    },
+    {
+      id: '6',
+      question: 'Are you having body pain?',
+      type: 'YesNo',
+      options: [],
+      yesanswerid: '17',
+      noanswerid: '',
+      nextquestionid: '7',
+    },
+    {
+      id: '17',
+      question: 'Which part of the body feels the pain?',
+      type: 'MultiSelect',
+      options: [
+        {
+          id: 1,
+          value: 'Head',
+          Bool: false,
+        },
+        {
+          id: 2,
+          value: 'Hand',
+          Bool: false,
+        },
+        {
+          id: 3,
+          value: 'Stomach',
+          Bool: false,
+        },
+        {
+          id: 4,
+          value: 'knee',
+          Bool: false,
+        },
+      ],
+      yesanswerid: '16',
+      noanswerid: '',
+      nextquestionid: '7',
+    },
+    {
+      id: '16',
+      question: 'Which one of below city you have visited recently?',
+      options: [
+        {
+          id: 1,
+          value: 'China',
+        },
+        {
+          id: 2,
+          value: 'Iran',
+        },
+        {
+          id: 3,
+          value: 'Italy',
+        },
+        {
+          id: 4,
+          value: 'Japan',
+        },
+      ],
+      type: 'Selection',
+      yesanswerid: '8',
+      noanswerid: '',
+      nextquestionid: '8',
+    },
+    {
+      id: '7',
+      type: 'YesNo',
+      question:
+        'Have you recently traveled to any of the following countries:\n\n- China\n- Iran\n- Italy\n- Japan\n- South Korea',
+      options: [],
+      yesanswerid: '16',
+      noanswerid: '',
+      nextquestionid: '8',
+    },
+    {
+      id: '8',
+      type: 'YesNo',
+      question:
+        'Have you been in contact with someone who has traveled to these countries and is now sick?',
+      options: [],
+      yesanswerid: '9',
+      noanswerid: '9',
+      nextquestionid: '9',
+    },
+  
+    {
+      id: '9',
+      type: 'YesNo',
+      question:
+        'Have you been in contact with someone known to have coronavirus (COVID-19)?\n',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '10',
+    },
+    {
+      id: '10',
+      type: 'YesNo',
+      question:
+        'Have you been told by a public health official that you may have been exposed to coronavirus (COVID-19)?',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '11',
+    },
+    {
+      id: '11',
+      type: 'YesNo',
+      question:
+        'Are you experiencing any of the following symptoms? \n\n- A fever\n- A cough\n- Runny nose\n- Sore throat',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '12',
+    },
+    {
+      id: '12',
+      type: 'YesNo',
+      question: 'Are you experiencing shortness of breath?',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '13',
+    },
+    {
+      id: '13',
+      type: 'YesNo',
+      question:
+        'Do any of these apply to you?\n\n- 65 years old or older\n- Cardiac disease (e.g. coronary artery disease, valvular disease, congestive heart failure)\n- Pulmonary disease (e.g. asthma, chronic obstructive pulmonary disease)\n- Immunosuppression (e.g. chemotherapy, transplant, or diabetes)',
+      options: [],
+      yesanswerid: '15',
+      noanswerid: '',
+      nextquestionid: '',
+    },
+    {
+      id: '14',
+      type: 'YesNo',
+      question:
+        "Right now you report mild symptoms that don't require a visit to a provider.",
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '15',
+    },
+    {
+      id: '15',
+      type: 'YesNo',
+      question:
+        'You can use this tool again if anything changes, but in the meantime:\r\n\r\nHere is a link to things you can do to prepare your household for coronavirus (COVID-19) in the community:\r\n[Interim Guidance: Get Your Household Ready for Coronavirus Disease 2019 (COVID-19)](https://www.cdc.gov/coronavirus/2019-ncov/community/get-your-household-ready-for-COVID-19.html)\r\n\r\nHere is a link to things you can do to prevent transmission if you become sick:\r\n[What to Do If You Are Sick With Coronavirus Disease 2019 (COVID-19)](https://www.cdc.gov/coronavirus/2019-ncov/about/steps-when-sick.html)\r\n',
+      options: [],
+      yesanswerid: '',
+      noanswerid: '',
+      nextquestionid: '',
+    },
+  ];
+  

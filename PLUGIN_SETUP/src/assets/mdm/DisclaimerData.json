@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "DisclaimerP": "Our nurse appointments depend on nurse availability. In case of any unforeseen circumstances like emergencies or scheduling changes, we'll provide an option to cancel the appointment. Please remember that our nurses offer care based on their expertise but can't replace licensed physicians. It's advisable to consult your physician before making health decisions. Our nurses can provide resources and information."
+    },
+    {
+        "id": 2,
+        "DisclaimerP": "Our doctor appointments depend on doctor availability. In case of any unforeseen circumstances like emergencies or scheduling changes, we'll provide an option to cancel the appointment and request refund."
+    },
+    {
+        "id": 3,
+        "DisclaimerP": "Our Nutritionist appointments depend on Nutritionist availability. In case of any unforeseen circumstances like emergencies or scheduling changes, we'll provide an option to cancel the appointment and request refund."
+    },
+    {
+        "id": 4,
+        "DisclaimerP": "Our Caretaker appointments depend on Caretaker availability. In case of any unforeseen circumstances like emergencies or scheduling changes, we'll provide an option to cancel the appointment and request refund."
+    }
+]

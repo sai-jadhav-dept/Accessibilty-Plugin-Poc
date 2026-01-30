@@ -1,8 +1,8 @@
 rem Check if HOPE.apk exists and delete it if it does
 
-if exist HOPE.apk (
+if exist poc.apk (
 
-    del HOPE.apk
+    del poc.apk
 
 )
 
@@ -16,8 +16,8 @@ cd app\build\outputs\apk\release
 
  
 
-ren app-release.apk HOPE.apk
+ren app-release.apk poc.apk
 
-move HOPE.apk ..\..\..\..\..\..
+move poc.apk ..\..\..\..\..\..
 
 cd ..\..\..\..

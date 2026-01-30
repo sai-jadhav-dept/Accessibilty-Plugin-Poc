@@ -1,0 +1,899 @@
+[
+    {
+        "id": 1,
+        "Image": "https://images.pexels.com/photos/8442097/pexels-photo-8442097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "name": "New pathology Lab With Clinic",
+        "Specialization": "Blood Test,Cardiogram,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":3,
+        "Rating":4.0,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 800,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1200,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "AreaName": "Kandivali",
+                "PinCode": 400006,
+                "Latitude": 19.2029,
+                "Longitude":72.8518,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1100,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+            
+        ]
+    },
+    {
+        "id": 2,
+        "Image": "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1225&q=80",
+        "name": "Diagno-Point polyclinic & Diagnostic Centre",
+        "Specialization": "Urine Test,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":5,
+        "Rating":4.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 800,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1300,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "AreaName": "Kandivali",
+                "PinCode": 400006,
+                "Latitude": 19.2029,
+                "Longitude":72.8518,
+                "ClinicDetails": [
+                    {
+                        "Fees": "₹ 1100 / visit",
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "Image": "https://images.unsplash.com/photo-1624957485560-47747511b32f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Diagnostic Centre & pathology Lab",
+        "Specialization": "Bodily Fluids or Tissues",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":1,
+        "Rating":1.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Malad",
+                "PinCode": 400005,
+                "Latitude": 19.1874,
+                "Longitude":72.8484,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2300,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1475,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2800,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "Image": "https://images.unsplash.com/photo-1600443271879-ac4adddb2927?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=972&q=80",
+        "name": "Pathlogy Lab with Clinic",
+        "Specialization": "Blood Test,Cardiogram,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":13,
+        "Rating":4.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 300,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "PinCode": 400002,
+                "Latitude": 19.1136,
+                "Longitude":72.8697,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2400,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+            ,{
+                "id": 3,
+                "AreaName": "Goregoan",
+                "PinCode": 400004,
+                "Latitude": 19.1663,
+                "Longitude":72.8526,
+                "ClinicDetails": [
+                    {
+                        "Fees": 200,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "Image": "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "New Lab with Clinic",
+        "Specialization": "Urine Test,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":8,
+        "Rating":4.0,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1525,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Goregoan",
+                "PinCode": 400004,
+                "Latitude": 19.1663,
+                "Longitude":72.8526,
+                "ClinicDetails": [
+                    {
+                        "Fees": 500,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "Image": "https://images.unsplash.com/photo-1614308460927-5024ba2e1dcb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "pathology Lab",
+        "Specialization": "Bodily Fluids or Tissues",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":17,
+        "Rating":3.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Andheri",
+                "PinCode": 400002,
+                "Latitude": 19.1136,
+                "Longitude":72.8697,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2560,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Kandivali",
+                "PinCode": 400006,
+                "Latitude": 19.2029,
+                "Longitude":72.8518,
+                "ClinicDetails": [
+                    {
+                        "Fees": "₹ 1100 / visit",
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },{
+                "id": 3,
+                "AreaName": "Goregoan",
+                "PinCode": 400004,
+                "Latitude": 19.1663,
+                "Longitude":72.8526,
+                "ClinicDetails": [
+                    {
+                        "Fees": 550,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "Image": "https://images.unsplash.com/photo-1582719298866-977ee81c87d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "New Lab with Clinic",
+        "Specialization": "Blood Test,Cardiogram,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":4,
+        "Rating":3,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 650,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Andheri",
+                "PinCode": 400002,
+                "Latitude": 19.1136,
+                "Longitude":72.8697,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2650,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },{
+                "id": 3,
+                "AreaName": "Malad",
+                "PinCode": 400005,
+                "Latitude": 19.1874,
+                "Longitude":72.8484,
+                "ClinicDetails": [
+                    {
+                        "Fees": 3000,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "Image": "https://images.unsplash.com/photo-1630959305790-4c956ce6c0b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1193&q=80",
+        "name": "Poly Diagno-Point Lab with Clinic",
+        "Specialization": "Urine Test,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":2,
+        "Rating":2.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1600,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Goregoan",
+                "PinCode": 400004,
+                "Latitude": 19.1663,
+                "Longitude":72.8526,
+                "ClinicDetails": [
+                    {
+                        "Fees": 750,
+                        "Name": "New Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },{
+                "id": 3,
+                "AreaName": "Andheri",
+                "PinCode": 400002,
+                "Latitude": 19.1136,
+                "Longitude":72.8697,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2500,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },{
+                "id": 4,
+                "AreaName": "Malad",
+                "PinCode": 400005,
+                "Latitude": 19.1874,
+                "Longitude":72.8484,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2000,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "Image": "https://images.unsplash.com/photo-1599318524598-6274dfab44ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "New Centre & pathology Lab",
+        "Specialization": "Bodily Fluids or Tissues",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":1,
+        "Rating":2.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Malad",
+                "PinCode": 400005,
+                "Latitude": 19.1874,
+                "Longitude":72.8484,
+                "ClinicDetails": [
+                    {
+                        "Fees": 2200,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 950,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "Image": "https://images.unsplash.com/photo-1576156649703-4c8c2c270171?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Sample name Centre",
+        "Specialization": "Urine Test,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":3,
+        "Rating":1.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 600,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1100,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "AreaName": "Kandivali",
+                "PinCode": 400006,
+                "Latitude": 19.2029,
+                "Longitude":72.8518,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1400 ,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "Image": "https://images.unsplash.com/photo-1604313890727-5542ff314405?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "name": "Sample name II Centre",
+        "Specialization": "Urine Test,X-Ray.",
+        "about": "Established in the year 1989, Nucleus Pathology Laboratory, is engaged in Different types of Pathology Test like Haematology, Biochemistry, Serology (including HIV), Microbiology and Histopathology Parameters, Urine, Biochemistry, Hormones etc. The Lab is well equipped with modern instruments and analyzers. The lab occupies an area of 1000 sq.ft. and houses a spacious waiting room for patients and special areas for sample collection, sample processing and consultation with the Director. Nucleus Laboratory has designed a special packages at discounted rates specially for all you health enthusiasts, to ensure you are fighting fit before you embark on any travel, trekking, yoga or even a visit to your neighbourhood gym. Even if you are not undertaking these activities, it is better to see that all is well after 40.",
+        "isTrusted": false,
+        "Experience":4,
+        "Rating":2.5,
+        "Location": [
+            {
+                "id": 1,
+                "AreaName": "Bandra",
+                "PinCode": 400001,
+                "Latitude": 19.0596,
+                "Longitude":72.8295,
+                "ClinicDetails": [
+                    {
+                        "Fees": 350,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "AreaName": "Borivali",
+                "PinCode": 400003,
+                "Latitude": 19.2307,
+                "Longitude":72.8567,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1900,
+                        "Name": "Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400001, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "AreaName": "Kandivali",
+                "PinCode": 400006,
+                "Latitude": 19.2029,
+                "Longitude":72.8518,
+                "ClinicDetails": [
+                    {
+                        "Fees": 1700 ,
+                        "Name": "Patel Cancer New Clinic",
+                        "Address": "No. 462, Vardhaman Street Fort, Mumbai, Maharashtra, 400000, India",
+                        "ContactNumber":123456789,
+                        "Timing": {
+                            "Sunday": [],
+                            "Monday": [],
+                            "Tuesday": [],
+                            "Wednesday": [],
+                            "Thursday": [],
+                            "Friday": [],
+                            "Saturday": []
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

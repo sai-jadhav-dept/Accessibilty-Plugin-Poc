@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "First time visit"
+    },
+    {
+        "id": 2,
+        "name": "Follow-up visit"
+    },
+    {
+        "id": 3,
+        "name": "Additional opinion"
+    },
+    {
+        "id": 4,
+        "name": "Pre-treatment visit"
+    }
+]

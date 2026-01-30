@@ -1,0 +1,23 @@
+[
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Tips for better Care.",
+        "groupDescription": "Join this group and get some personalized tips to make your life easier",
+        "groupId": 0,
+        "key": 1
+    },
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Tips for better Care.",
+        "groupDescription": "Join this group and get some personalized tips to make your life easier",
+        "groupId": 1,
+        "key": 2
+    },
+    {
+        "groupIcon": "../assets/vectors/group_icon.png",
+        "groupName": "Tips for better Care.",
+        "groupDescription": "Join this group and get some personalized tips to make your life easier",
+        "groupId": 2,
+        "key": 3
+    }
+]
