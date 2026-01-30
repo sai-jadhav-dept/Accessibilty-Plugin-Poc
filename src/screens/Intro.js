@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Linking, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Pressable, Linking, Animated, Easing } from 'react-native';
 import GlobalStyles from '../utils/GlobalStyles';
 import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
@@ -20,7 +20,7 @@ export default function Intro() {
 
     const navigation = useNavigation();
     const colors = useDynamicColors();
-    const { highlightLinks, announce, fontScale, letterSpacing } = useAccessibility();
+    const { announce, fontScale, lineHeight, letterSpacing } = useAccessibility();
 
     const [readModal, setReadModal] = useState(false);
     const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
@@ -28,6 +28,7 @@ export default function Intro() {
     const [readingMaskEnabled, setReadingMaskEnabled] = useState(false);
     const [readingLineEnabled, setReadingLineEnabled] = useState(false);
     const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
+    const [highlightLinksEnabled, setHighlightLinksEnabled] = useState(false);
     const [textAlignment, setTextAlignment] = useState('left');
 
     // Animation values
@@ -48,6 +49,7 @@ export default function Intro() {
             setReadingMaskEnabled(Global.accessibility.readingMask || false);
             setReadingLineEnabled(Global.accessibility.readingLine || false);
             setReducedMotionEnabled(Global.accessibility.reducedMotion || false);
+            setHighlightLinksEnabled(Global.accessibility.highlightLinks || false);
             setTextAlignment(Global.accessibility.textAlignment || 'left');
         }, 100);
 
@@ -157,14 +159,14 @@ export default function Intro() {
                             </View>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
                                         Manage treatments with ease, on one platform
                                     </Text>
                                 </TextMagnifier>
                             </DictionaryLookup>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
                                         Welcome to our healthcare platform! Here you can manage your medical appointments,
                                         track your medications, connect with trusted healthcare providers, and access your
                                         health records anytime, anywhere. Our platform makes it easy to take control of
@@ -175,7 +177,7 @@ export default function Intro() {
 
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
                                         Key Features:{'\n'}
                                         • Schedule and manage appointments with doctors and nurses{'\n'}
                                         • Set medication reminders and track your prescriptions{'\n'}
@@ -189,36 +191,46 @@ export default function Intro() {
                             <View style={{ marginTop: heightToDp(2) }}>
                                 <DictionaryLookup enabled={dictionaryEnabled}>
                                     <TextMagnifier enabled={textMagnifierEnabled}>
-                                        <Text onPress={() => { Global.pageReadText = "For more information, visit our Privacy Policy or Terms of Service." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
-                                            For more information, visit our{' '}
-                                            <TouchableOpacity
-                                                onPress={() => Linking.openURL('https://example.com/privacy')}
+                                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
+                                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                                For more information, visit our{' '}
+                                            </Text>
+                                            <Pressable 
+                                                onPress={() => {
+                                                    console.log("Privacy Policy pressed");
+                                                    Linking.openURL('https://example.com/privacy');
+                                                }}
                                                 accessibilityRole="link"
                                                 accessibilityLabel="Privacy Policy link"
                                             >
                                                 <Text style={[
                                                     styles.link,
                                                     { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
-                                                    highlightLinks && styles.linkHighlighted
+                                                    highlightLinksEnabled && styles.linkHighlighted
                                                 ]}>
                                                     Privacy Policy
                                                 </Text>
-                                            </TouchableOpacity>
-                                            {' '}or{' '}
-                                            <TouchableOpacity
-                                                onPress={() => Linking.openURL('https://example.com/terms')}
+                                            </Pressable>
+                                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                                {' '}or{' '}
+                                            </Text>
+                                            <Pressable 
+                                                onPress={() => {
+                                                    console.log("Terms pressed");
+                                                    Linking.openURL('https://example.com/terms');
+                                                }}
                                                 accessibilityRole="link"
                                                 accessibilityLabel="Terms of Service link"
                                             >
                                                 <Text style={[
                                                     styles.link,
                                                     { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
-                                                    highlightLinks && styles.linkHighlighted
+                                                    highlightLinksEnabled && styles.linkHighlighted
                                                 ]}>
                                                     Terms of Service
                                                 </Text>
-                                            </TouchableOpacity>
-                                        </Text>
+                                            </Pressable>
+                                        </View>
                                     </TextMagnifier>
                                 </DictionaryLookup>
                             </View>
@@ -308,7 +320,8 @@ const styles = StyleSheet.create({
     linkHighlighted: {
         backgroundColor: '#000000',
         color: '#FFFFFF',
-        paddingHorizontal: 4,
-        paddingVertical: 2,
+        paddingHorizontal: 6,
+        paddingVertical: 3,
+        borderRadius: 4,
     }
 });

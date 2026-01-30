@@ -9,7 +9,9 @@ import {
     Switch,
     Dimensions,
     Platform,
+    Alert,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 // import Slider from '@react-native-community/slider';
 import { useAccessibility } from './AccessibilityContext';
 import {
@@ -19,6 +21,7 @@ import {
 import TTSService from './TTSService';
 import Global from '../screens/Global';
 import TextControlsWithSlider from './TextControlsWithSlider';
+import Fonts from '../utils/Fonts';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -81,6 +84,38 @@ const AccessibilityModal = () => {
 
     const [expandedSection, setExpandedSection] = useState('content');
     const [activeTextControl, setActiveTextControl] = useState('biggerText'); // 'biggerText', 'lineHeight', 'letterSpacing'
+
+    // Handle reset to default values
+    const handleReset = () => {
+        // Reset all accessibility settings
+        resetToDefault();
+        
+        // Reset local states
+        setImageDescriptionEnabled(false);
+        setTextMagnifierEnabled(false);
+        setDictionaryEnabled(false);
+        setReadingMaskEnabled(false);
+        setReadingLineEnabled(false);
+        setEnlargeButtonsEnabled(false);
+        setReducedMotionEnabled(false);
+        
+        // Reset Global accessibility object
+        Global.accessibility = {
+            ...Global.accessibility,
+            pageRead: false,
+            imageDescription: false,
+            textMagnifier: false,
+            dictionary: false,
+            readingMask: false,
+            readingLine: false,
+            enlargeButtons: false,
+            reducedMotion: false,
+            textAlignment: 'left',
+        };
+        
+        // Announce reset for screen reader users
+        announce && announce('All accessibility settings have been reset to default');
+    };
 
     const getSliderConfig = () => {
         switch (activeTextControl) {
@@ -538,12 +573,48 @@ const AccessibilityModal = () => {
         if (expandedSection !== 'profiles') return null;
 
         const profiles = [
-            { key: ACCESSIBILITY_PROFILES.BLIND, icon: '👁️', label: 'Blindness', description: 'Making the website accessible with Screen Readers' },
-            { key: ACCESSIBILITY_PROFILES.DYSLEXIA, icon: '📖', label: 'Dyslexia', description: 'Optimised font, spacing and formatting for easier reading' },
-            { key: ACCESSIBILITY_PROFILES.LOW_VISION, icon: '👓', label: 'Visually Impaired', description: 'Designed for Better Visibility and Usability' },
-            { key: ACCESSIBILITY_PROFILES.COGNITIVE, icon: '🧠', label: 'Cognitive & Learning', description: 'Enhancing Focused User Experiences' },
-            { key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, icon: '⚡', label: 'Epilepsy Safe', description: 'Creating Comfortable and Seizure-Safe Experiences' },
-            { key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, icon: '🎯', label: 'ADHD', description: 'Building Support for Attention and Ease of Use' },
+            { 
+                key: ACCESSIBILITY_PROFILES.BLIND, 
+                icon: '👁️', 
+                label: 'Blindness Profile', 
+                description: 'Screen reader support, high contrast, hide images',
+                features: '• Screen reader & TTS enabled\n• High contrast mode\n• Images hidden\n• Enhanced buttons & links'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.DYSLEXIA, 
+                icon: '📖', 
+                label: 'Dyslexia Profile', 
+                description: 'Larger text, increased line height & letter spacing',
+                features: '• 1.5x larger text\n• 2.4x line height\n• Wide letter spacing\n• Reading line aid'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.LOW_VISION, 
+                icon: '👓', 
+                label: 'Visually Impaired Profile', 
+                description: 'Maximum text size, high contrast, enlarged buttons',
+                features: '• 2x maximum text size\n• High contrast mode\n• Enlarged buttons\n• Text magnifier available'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.COGNITIVE, 
+                icon: '🧠', 
+                label: 'Cognitive & Learning Profile', 
+                description: 'Reading aids, reduced motion, highlighted links',
+                features: '• Reading line guide\n• No animations\n• Links highlighted\n• Dictionary lookup'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.EPILEPSY_SAFE, 
+                icon: '⚡', 
+                label: 'Epilepsy Safe Profile', 
+                description: 'No animations, dark mode, reduced saturation',
+                features: '• All animations off\n• Dark theme\n• Low saturation\n• Reduced visual triggers'
+            },
+            { 
+                key: ACCESSIBILITY_PROFILES.ADHD_FOCUS, 
+                icon: '🎯', 
+                label: 'ADHD Profile', 
+                description: 'Reading mask, focus mode, minimal distractions',
+                features: '• Reading mask enabled\n• Images hidden\n• No animations\n• Enhanced focus mode'
+            },
         ];
 
         return (
@@ -562,44 +633,53 @@ const AccessibilityModal = () => {
                 )}
                 
                 {profiles.map((profile) => (
-                    <TouchableOpacity
-                        key={profile.key}
-                        style={[
-                            styles.profileButton,
-                            activeProfile === profile.key && styles.profileButtonActive,
-                        ]}
-                        onPress={() => {
-                            setProfile(profile.key);
-                            announce(`${profile.label} profile activated`);
-                        }}
-                        accessible={true}
-                        accessibilityRole="button"
-                        accessibilityLabel={profile.label}
-                        accessibilityHint={profile.description}
-                        accessibilityState={{ selected: activeProfile === profile.key }}
-                    >
-                        <View style={[
-                            styles.profileIconContainer,
-                            activeProfile === profile.key && styles.profileIconContainerActive,
-                        ]}>
-                            <Text style={styles.profileIcon}>{profile.icon}</Text>
-                        </View>
-                        <View style={styles.profileTextContainer}>
-                            <Text style={[
-                                styles.profileLabel,
-                                activeProfile === profile.key && styles.profileLabelActive,
-                            ]}>{profile.label}</Text>
-                            <Text style={[
-                                styles.profileDescription,
-                                activeProfile === profile.key && styles.profileDescriptionActive,
-                            ]}>{profile.description}</Text>
-                        </View>
+                    <View key={profile.key}>
+                        <TouchableOpacity
+                            style={[
+                                styles.profileButton,
+                                activeProfile === profile.key && styles.profileButtonActive,
+                            ]}
+                            onPress={() => {
+                                setProfile(profile.key);
+                                announce(`${profile.label} activated`);
+                            }}
+                            accessible={true}
+                            accessibilityRole="button"
+                            accessibilityLabel={profile.label}
+                            accessibilityHint={profile.description}
+                            accessibilityState={{ selected: activeProfile === profile.key }}
+                        >
+                            <View style={[
+                                styles.profileIconContainer,
+                                activeProfile === profile.key && styles.profileIconContainerActive,
+                            ]}>
+                                <Text style={styles.profileIcon}>{profile.icon}</Text>
+                            </View>
+                            <View style={styles.profileTextContainer}>
+                                <Text style={[
+                                    styles.profileLabel,
+                                    activeProfile === profile.key && styles.profileLabelActive,
+                                ]}>{profile.label}</Text>
+                                <Text style={[
+                                    styles.profileDescription,
+                                    activeProfile === profile.key && styles.profileDescriptionActive,
+                                ]}>{profile.description}</Text>
+                            </View>
+                            {activeProfile === profile.key && (
+                                <View style={styles.profileCheckmark}>
+                                    <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                        
+                        {/* Show features when profile is active */}
                         {activeProfile === profile.key && (
-                            <View style={styles.profileCheckmark}>
-                                <Text style={styles.profileCheckmarkIcon}>✓</Text>
+                            <View style={styles.profileFeaturesContainer}>
+                                <Text style={styles.profileFeaturesTitle}>Active Features:</Text>
+                                <Text style={styles.profileFeaturesText}>{profile.features}</Text>
                             </View>
                         )}
-                    </TouchableOpacity>
+                    </View>
                 ))}
             </View>
         );
@@ -715,14 +795,18 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, readingLine && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>☰</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading Line</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading Line</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('highlightLinks', !highlightLinks)}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        const newValue = !highlightLinks;
+                        Global.accessibility.highlightLinks = newValue;
+                        updateSetting('highlightLinks', newValue);
+                    }}>
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Highlight Links</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Highlight Links</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
@@ -734,7 +818,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Mask</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading{' '}Mask</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -752,7 +836,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, (readingLineEnabled && readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📊</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Reading{' '}Line</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading{' '}Mask & Line</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
@@ -764,7 +848,7 @@ const AccessibilityModal = () => {
                         <View style={[styles.iconCircle, reducedMotionEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⏸️</Text>
                         </View>
-                        <Text style={styles.iconButtonLabel}>Pause{' '}Animation</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Pause{' '}Animation</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -784,25 +868,27 @@ const AccessibilityModal = () => {
                 <View style={styles.modalContent}>
                     {/* Header */}
                     <View style={styles.modalHeader}>
-                        {/* <TouchableOpacity
-              onPress={closeModal}
-              style={styles.refreshButton}
-              accessible={true}
-              accessibilityRole="button"
-              accessibilityLabel="Refresh settings"
-            >
-              <Text style={styles.refreshIcon}>🔄</Text>
-            </TouchableOpacity> */}
                         <Text style={styles.modalTitle}>Accessibility Menu</Text>
-                        <TouchableOpacity
-                            onPress={closeModal}
-                            style={styles.closeButton}
-                            accessible={true}
-                            accessibilityRole="button"
-                            accessibilityLabel="Close accessibility menu"
-                        >
-                            <Text style={styles.closeButtonText}>✕</Text>
-                        </TouchableOpacity>
+                        <View style={styles.headerButtons}>
+                            <TouchableOpacity
+                                onPress={handleReset}
+                                style={styles.resetIconButton}
+                                accessible={true}
+                                accessibilityRole="button"
+                                accessibilityLabel="Reset all accessibility settings to default"
+                            >
+                                <Icon name="refresh" size={28} color="#FFFFFF" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={closeModal}
+                                style={styles.closeButton}
+                                accessible={true}
+                                accessibilityRole="button"
+                                accessibilityLabel="Close accessibility menu"
+                            >
+                                <Text style={styles.closeButtonText}>✕</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     {/* Scrollable Content */}
@@ -864,7 +950,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FFFFFF',
         flex: 1,
-        textAlign: 'center',
+    },
+    headerButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+    resetIconButton: {
+        padding: 8,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
     },
     refreshButton: {
         padding: 8,
@@ -1041,6 +1136,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         textAlign: 'center',
         color: '#000000',
+         width:'100%'
     },
     colorGrid: {
         flexDirection: 'row',
@@ -1203,6 +1299,29 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#FFFFFF',
         fontWeight: '700',
+    },
+    profileFeaturesContainer: {
+        backgroundColor: '#F0F8FF',
+        borderRadius: 8,
+        padding: 12,
+        marginTop: 8,
+        marginBottom: 12,
+        marginLeft: 12,
+        marginRight: 12,
+        borderLeftWidth: 3,
+        borderLeftColor: '#007AFF',
+    },
+    profileFeaturesTitle: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: '#007AFF',
+        marginBottom: 8,
+    },
+    profileFeaturesText: {
+        fontSize: 12,
+        color: '#333333',
+        lineHeight: 18,
+        fontWeight: '500',
     },
     colorAdjustTitle: {
         fontSize: 14,
