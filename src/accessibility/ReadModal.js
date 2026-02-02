@@ -5,6 +5,7 @@ import { Slider } from '@miblanchard/react-native-slider';
 import { Dropdown } from 'react-native-element-dropdown';
 import Colors from '../utils/Colors';
 import { usePageRead } from './usePageRead';
+import { useAccessibility } from './AccessibilityContext';
 import Global from '../screens/Global';
 import Fonts from '../utils/Fonts';
 import TTSService from './TTSService';
@@ -12,13 +13,27 @@ import TTSService from './TTSService';
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const ReadModal = ({ activeModal }) => {
-    const pageRead = usePageRead(Global.pageReadText);
+    const [textToRead, setTextToRead] = useState(Global.pageReadText || '');
+    const pageRead = usePageRead(textToRead);
+    const { setReadingText, clearReadingText } = useAccessibility();
     const [isMinimized, setIsMinimized] = useState(false);
     const [voices, setVoices] = useState([]);
     const [selectedVoice, setSelectedVoice] = useState('');
     const [volume, setVolume] = useState(1.0);
     const [rate, setRate] = useState(0.5);
     const [pitch, setPitch] = useState(1.0);
+    
+    // Monitor Global.pageReadText changes
+    useEffect(() => {
+        const checkInterval = setInterval(() => {
+            if (Global.pageReadText && Global.pageReadText !== textToRead) {
+                setTextToRead(Global.pageReadText);
+                // Stop current reading when new text is selected
+                pageRead.stop();
+            }
+        }, 100);
+        return () => clearInterval(checkInterval);
+    }, [textToRead, pageRead]);
     
     useEffect(() => {
         const loadVoices = async () => {
@@ -55,6 +70,22 @@ const ReadModal = ({ activeModal }) => {
         };
         applySettings();
     }, [selectedVoice, rate, pitch]);
+    
+    // Track current reading text in context
+    useEffect(() => {
+        if (pageRead.isSpeaking && textToRead) {
+            setReadingText(textToRead);
+        } else {
+            clearReadingText();
+        }
+    }, [pageRead.isSpeaking, textToRead, setReadingText, clearReadingText]);
+    
+    // Reset minimized state when modal is opened/closed
+    useEffect(() => {
+        if (!activeModal) {
+            setIsMinimized(false);
+        }
+    }, [activeModal]);
     
     if (!activeModal) return null;
     
@@ -106,6 +137,7 @@ const ReadModal = ({ activeModal }) => {
                         onPress={() => { 
                             Global.accessibility.pageRead = false; 
                             pageRead.stop();
+                            clearReadingText();
                         }}
                         accessibilityRole="button"
                         accessibilityLabel="Close page reader"

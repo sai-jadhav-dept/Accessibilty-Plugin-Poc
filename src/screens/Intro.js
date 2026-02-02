@@ -20,7 +20,7 @@ export default function Intro() {
 
     const navigation = useNavigation();
     const colors = useDynamicColors();
-    const { announce, fontScale, lineHeight, letterSpacing } = useAccessibility();
+    const { announce, fontScale, lineHeight, letterSpacing, currentReadingText } = useAccessibility();
 
     const [readModal, setReadModal] = useState(false);
     const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
@@ -159,14 +159,14 @@ export default function Intro() {
                             </View>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}>
                                         Manage treatments with ease, on one platform
                                     </Text>
                                 </TextMagnifier>
                             </DictionaryLookup>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
+                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." ? styles.readingBorder : null]}>
                                         Welcome to our healthcare platform! Here you can manage your medical appointments,
                                         track your medications, connect with trusted healthcare providers, and access your
                                         health records anytime, anywhere. Our platform makes it easy to take control of
@@ -177,8 +177,8 @@ export default function Intro() {
 
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }]}>
-                                        Key Features:{'\n'}
+                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." ? styles.readingBorder : null]}>
+                                        Key Features:{' \n'}
                                         • Schedule and manage appointments with doctors and nurses{'\n'}
                                         • Set medication reminders and track your prescriptions{'\n'}
                                         • Access lab results and medical documents securely{'\n'}
@@ -323,5 +323,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 6,
         paddingVertical: 3,
         borderRadius: 4,
+    },
+    readingBorder: {
+        borderWidth: 3,
+        borderColor: '#4CAF50',
+        borderRadius: 8,
+        // padding: 8,
+        backgroundColor: 'rgba(76, 175, 80, 0.1)',
     }
 });
