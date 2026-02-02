@@ -18,6 +18,7 @@ export const AccessibilityProvider = ({ children }) => {
   const [state, setState] = useState(DEFAULT_ACCESSIBILITY_STATE);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentReadingText, setCurrentReadingText] = useState(null);
 
   // Initialize native accessibility detection
   useEffect(() => {
@@ -115,10 +116,20 @@ export const AccessibilityProvider = ({ children }) => {
     NativeAccessibilityBridge.announce(message, options);
   }, []);
 
+  // Track current reading text
+  const setReadingText = useCallback((text) => {
+    setCurrentReadingText(text);
+  }, []);
+
+  const clearReadingText = useCallback(() => {
+    setCurrentReadingText(null);
+  }, []);
+
   const value = {
     ...state,
     isModalVisible,
     isLoading,
+    currentReadingText,
 
     updateSetting,
     updateSettings,
@@ -128,6 +139,8 @@ export const AccessibilityProvider = ({ children }) => {
     openModal,
     closeModal,
     announce,
+    setReadingText,
+    clearReadingText,
   };
 
   return (

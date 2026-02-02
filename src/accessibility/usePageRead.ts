@@ -41,6 +41,7 @@ export function usePageRead(textToRead: string) {
   return useMemo(() => ({
     isSpeaking,
     currentWordIndex,
+    words,
 
     start: async () => {
       if (!words.length) return;
