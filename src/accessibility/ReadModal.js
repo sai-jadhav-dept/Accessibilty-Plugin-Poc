@@ -15,7 +15,7 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const ReadModal = ({ activeModal }) => {
     const [textToRead, setTextToRead] = useState(Global.pageReadText || '');
     const pageRead = usePageRead(textToRead);
-    const { setReadingText, clearReadingText } = useAccessibility();
+    const { setReadingText, clearReadingText, updateSetting } = useAccessibility();
     const [isMinimized, setIsMinimized] = useState(false);
     const [voices, setVoices] = useState([]);
     const [selectedVoice, setSelectedVoice] = useState('');
@@ -141,7 +141,8 @@ const ReadModal = ({ activeModal }) => {
                     <Pressable 
                         style={styles.closeButton} 
                         onPress={() => { 
-                            Global.accessibility.pageRead = false; 
+                            Global.accessibility.pageRead = false;
+                            updateSetting('textToSpeech', false);
                             pageRead.stop();
                             clearReadingText();
                         }}
