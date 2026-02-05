@@ -9,12 +9,28 @@ import Tts from 'react-native-tts';
 class TTSService {
   isSpeaking = false;
   isPaused = false;
+  isInitialized = false;
 
   /**
    * Initialize TTS
    */
   async init() {
+    if (this.isInitialized) {
+      return;
+    }
+    
     try {
+      // iOS specific initialization
+      if (Platform.OS === 'ios') {
+        // Set audio category for iOS to ensure audio plays
+        try {
+          await Tts.setDucking(true);
+          await Tts.setIgnoreSilentSwitch('ignore');
+        } catch (iosError) {
+          console.log('iOS audio setup warning:', iosError);
+        }
+      }
+      
       // Set up event listeners
       Tts.addEventListener('tts-start', () => {
         this.isSpeaking = true;
@@ -32,6 +48,9 @@ class TTSService {
       await Tts.setDefaultLanguage('en-US');
       await Tts.setDefaultRate(0.5);
       await Tts.setDefaultPitch(1.0);
+      
+      this.isInitialized = true;
+      console.log('TTS initialized successfully for', Platform.OS);
     } catch (error) {
       console.error('TTS Init Error:', error);
     }
@@ -48,6 +67,11 @@ class TTSService {
     } = options;
 
     try {
+      // Ensure TTS is initialized
+      if (!this.isInitialized) {
+        await this.init();
+      }
+      
       this.isSpeaking = true;
       this.isPaused = false;
 

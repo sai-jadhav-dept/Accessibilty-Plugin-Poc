@@ -38,6 +38,9 @@ const ReadModal = ({ activeModal }) => {
     useEffect(() => {
         const loadVoices = async () => {
             try {
+                // Initialize TTS first
+                await TTSService.init();
+                
                 const availableVoices = await TTSService.getVoices();
                 // Filter only English voices
                 const englishVoices = availableVoices.filter(voice => 
@@ -59,6 +62,13 @@ const ReadModal = ({ activeModal }) => {
         const applySettings = async () => {
             try {
                 const Tts = (await import('react-native-tts')).default;
+                
+                // iOS specific setup
+                if (Platform.OS === 'ios') {
+                    await Tts.setIgnoreSilentSwitch('ignore');
+                    await Tts.setDucking(true);
+                }
+                
                 if (selectedVoice) {
                     await Tts.setDefaultVoice(selectedVoice);
                 }
@@ -249,6 +259,13 @@ const ReadModal = ({ activeModal }) => {
                         onPress={async () => {
                             try {
                                 const Tts = (await import('react-native-tts')).default;
+                                
+                                // iOS specific setup
+                                if (Platform.OS === 'ios') {
+                                    await Tts.setIgnoreSilentSwitch('ignore');
+                                    await Tts.setDucking(true);
+                                }
+                                
                                 if (selectedVoice) {
                                     await Tts.setDefaultVoice(selectedVoice);
                                 }

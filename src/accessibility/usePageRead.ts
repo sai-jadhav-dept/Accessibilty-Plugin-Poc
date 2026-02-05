@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Tts from 'react-native-tts';
+import { Platform } from 'react-native';
 
 export function usePageRead(textToRead: string) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] =
     useState<number | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Memoize words
   const words = useMemo(
@@ -13,6 +15,27 @@ export function usePageRead(textToRead: string) {
   );
 
   const indexRef = useRef(0);
+  
+  // Initialize TTS on mount
+  useEffect(() => {
+    const initTTS = async () => {
+      try {
+        // iOS specific initialization
+        if (Platform.OS === 'ios') {
+          await Tts.setIgnoreSilentSwitch('ignore');
+          await Tts.setDucking(true);
+        }
+        await Tts.setDefaultLanguage('en-US');
+        await Tts.setDefaultRate(0.5);
+        await Tts.setDefaultPitch(1.0);
+        setIsInitialized(true);
+        console.log('TTS initialized in usePageRead for', Platform.OS);
+      } catch (error) {
+        console.error('TTS initialization error:', error);
+      }
+    };
+    initTTS();
+  }, []);
 
   useEffect(() => {
     const finishSub = Tts.addEventListener('tts-finish', () => {
@@ -45,6 +68,12 @@ export function usePageRead(textToRead: string) {
 
     start: async () => {
       if (!words.length) return;
+      
+      // Ensure initialization is complete
+      if (!isInitialized) {
+        console.log('TTS not initialized yet, waiting...');
+        return;
+      }
 
       indexRef.current = 0;
       setCurrentWordIndex(0);
@@ -72,5 +101,5 @@ export function usePageRead(textToRead: string) {
       setIsSpeaking(false);
       setCurrentWordIndex(null);
     },
-  }), [isSpeaking, currentWordIndex, words]);
+  }), [isSpeaking, currentWordIndex, words, isInitialized]);
 }
