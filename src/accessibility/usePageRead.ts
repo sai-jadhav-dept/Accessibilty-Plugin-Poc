@@ -7,6 +7,7 @@ export function usePageRead(textToRead: string) {
   const [currentWordIndex, setCurrentWordIndex] =
     useState<number | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  let osCheck = Platform.OS;
 
   // Memoize words
   const words = useMemo(
@@ -15,13 +16,12 @@ export function usePageRead(textToRead: string) {
   );
 
   const indexRef = useRef(0);
-  
   // Initialize TTS on mount
   useEffect(() => {
     const initTTS = async () => {
       try {
         // iOS specific initialization
-        if (Platform.OS === 'ios') {
+        if (osCheck === 'ios') {
           await Tts.setIgnoreSilentSwitch('ignore');
           await Tts.setDucking(true);
         }
@@ -29,9 +29,9 @@ export function usePageRead(textToRead: string) {
         await Tts.setDefaultRate(0.5);
         await Tts.setDefaultPitch(1.0);
         setIsInitialized(true);
-        console.log('TTS initialized in usePageRead for', Platform.OS);
+        console.log('TTS initialized in usePageRead for', osCheck);
       } catch (error) {
-        console.error('TTS initialization error:', error);
+        console.log('TTS initialization error:', error);
       }
     };
     initTTS();
@@ -68,7 +68,6 @@ export function usePageRead(textToRead: string) {
 
     start: async () => {
       if (!words.length) return;
-      
       // Ensure initialization is complete
       if (!isInitialized) {
         console.log('TTS not initialized yet, waiting...');
@@ -84,19 +83,32 @@ export function usePageRead(textToRead: string) {
     },
 
     pause: async () => {
-      await Tts.stop();
+      if (osCheck === 'ios') {
+        await Tts.pause();
+      } else {
+        await Tts.stop();
+      }
       setIsSpeaking(false);
     },
 
     resume: async () => {
       if (indexRef.current < words.length) {
+        if (osCheck === 'ios') {
+          await Tts.resume();
+        } else {
+          await Tts.stop();
+        }
         setIsSpeaking(true);
         await Tts.speak(words[indexRef.current]);
       }
     },
 
     stop: async () => {
-      await Tts.stop();
+      if (osCheck === 'ios') {
+        await Tts.pause();
+      } else {
+        await Tts.stop();
+      }
       indexRef.current = 0;
       setIsSpeaking(false);
       setCurrentWordIndex(null);
