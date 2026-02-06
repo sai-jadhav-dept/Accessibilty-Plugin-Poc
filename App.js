@@ -3,18 +3,21 @@ import { StyleSheet, View } from 'react-native';
 import { AccessibilityProvider, AccessibilityButton, AccessibilityModal } from './src/accessibility';
 import AccessibilityColorWrapper from './src/accessibility/AccessibilityColorWrapper';
 import Intro from './src/screens/Intro';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
   return (
-    <AccessibilityProvider>
-      <AccessibilityColorWrapper>
-        <View style={styles.container}>
-          <Intro />
-          <AccessibilityButton />
-          <AccessibilityModal />
-        </View>
-      </AccessibilityColorWrapper>
-    </AccessibilityProvider>
+    <SafeAreaProvider>
+      <AccessibilityProvider>
+        <AccessibilityColorWrapper>
+          <View style={styles.container}>
+            <Intro />
+            <AccessibilityButton />
+            <AccessibilityModal />
+          </View>
+        </AccessibilityColorWrapper>
+      </AccessibilityProvider>
+    </SafeAreaProvider>
   );
 }
 
