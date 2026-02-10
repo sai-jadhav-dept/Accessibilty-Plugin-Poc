@@ -66,6 +66,7 @@ export const AccessibilityProvider = ({ children }) => {
         enlargeButtons: state.enlargeButtons,
         reducedMotion: state.reducedMotion,
         textAlignment: state.textAlignment,
+        highlightLinks: state.highlightLinks,
       };
     }
   }, [state, isLoading]);

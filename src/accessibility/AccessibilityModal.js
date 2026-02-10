@@ -112,6 +112,7 @@ const AccessibilityModal = () => {
             enlargeButtons: false,
             reducedMotion: false,
             textAlignment: 'left',
+            highlightLinks: false,
         };
         
         // Announce reset for screen reader users
@@ -587,13 +588,6 @@ const AccessibilityModal = () => {
                 label: 'Dyslexia Profile', 
                 description: 'Larger text, increased line height & letter spacing',
                 features: '• 1.5x larger text\n• 2.4x line height\n• Wide letter spacing\n• Reading line aid'
-            },
-            { 
-                key: ACCESSIBILITY_PROFILES.LOW_VISION, 
-                icon: '👓', 
-                label: 'Visually Impaired Profile', 
-                description: 'Maximum text size, high contrast, enlarged buttons',
-                features: '• 2x maximum text size\n• High contrast mode\n• Enlarged buttons\n• Text magnifier available'
             },
             { 
                 key: ACCESSIBILITY_PROFILES.COGNITIVE, 
