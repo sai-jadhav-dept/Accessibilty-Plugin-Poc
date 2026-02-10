@@ -65,6 +65,7 @@ export const AccessibilityProvider = ({ children }) => {
         readingLine: state.readingLine,
         enlargeButtons: state.enlargeButtons,
         reducedMotion: state.reducedMotion,
+        highlightLinks: state.highlightLinks,
         textAlignment: state.textAlignment,
         highlightLinks: state.highlightLinks,
       };
