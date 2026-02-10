@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, PanResponder, Animated } from 'react-native';
+import { View, StyleSheet, PanResponder, Animated, Platform } from 'react-native';
 
 const TextMagnifier = ({ children, enabled, textStyle }) => {
   const [pan] = useState(new Animated.ValueXY());
@@ -9,41 +9,51 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
   const magnificationFactor = 2;
   const activationTimer = useRef(null);
   const initialTouch = useRef({ x: 0, y: 0 });
+  const isLongPress = useRef(false);
 
   const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => false,
+    onStartShouldSetPanResponder: () => enabled && Platform.OS === 'ios',
     onStartShouldSetPanResponderCapture: () => false,
     onMoveShouldSetPanResponder: (evt, gestureState) => {
+      // On iOS, be more lenient with movement detection
+      const movementThreshold = Platform.OS === 'ios' ? 15 : 10;
       // Only capture if user holds still (minimal movement) - likely wants magnifier
-      if (enabled && Math.abs(gestureState.dy) < 10) {
+      if (enabled && Math.abs(gestureState.dy) < movementThreshold && Math.abs(gestureState.dx) < movementThreshold) {
         return true;
       }
       return false;
     },
     onMoveShouldSetPanResponderCapture: () => false,
-    onPanResponderTerminationRequest: () => true, // Allow ScrollView to take over
+    onPanResponderTerminationRequest: () => !showMagnifier, // Don't allow termination while magnifier is showing
     onPanResponderGrant: (evt) => {
       if (!enabled) return;
+      isLongPress.current = false;
       
       const pageX = evt.nativeEvent.pageX;
       const pageY = evt.nativeEvent.pageY;
       initialTouch.current = { x: pageX, y: pageY };
       
-      // Set timer to activate magnifier after 300ms
+      // Set timer to activate magnifier - shorter delay for iOS
+      const delay = Platform.OS === 'ios' ? 200 : 300;
       activationTimer.current = setTimeout(() => {
-        textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
-          const touchX = pageX - px;
-          const touchY = pageY - py;
-          setTouchPosition({ x: touchX, y: touchY });
-          setShowMagnifier(true);
-        });
-      }, 300);
+        isLongPress.current = true;
+        if (textContainerRef.current) {
+          textContainerRef.current.measure((fx, fy, width, height, px, py) => {
+            const touchX = pageX - px;
+            const touchY = pageY - py;
+            setTouchPosition({ x: touchX, y: touchY });
+            setShowMagnifier(true);
+          });
+        }
+      }, delay);
     },
     onPanResponderMove: (evt, gestureState) => {
       if (!enabled) return;
       
-      // If user moves too much vertically, cancel magnifier (they're scrolling)
-      if (Math.abs(gestureState.dy) > 10 && activationTimer.current) {
+      // If user moves too much, cancel magnifier (they're scrolling)
+      const movementThreshold = Platform.OS === 'ios' ? 15 : 10;
+      if ((Math.abs(gestureState.dy) > movementThreshold || Math.abs(gestureState.dx) > movementThreshold) && 
+          !isLongPress.current && activationTimer.current) {
         clearTimeout(activationTimer.current);
         activationTimer.current = null;
         return;
@@ -54,11 +64,13 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
         const pageX = evt.nativeEvent.pageX;
         const pageY = evt.nativeEvent.pageY;
         
-        textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
-          const touchX = pageX - px;
-          const touchY = pageY - py;
-          setTouchPosition({ x: touchX, y: touchY });
-        });
+        if (textContainerRef.current) {
+          textContainerRef.current.measure((fx, fy, width, height, px, py) => {
+            const touchX = pageX - px;
+            const touchY = pageY - py;
+            setTouchPosition({ x: touchX, y: touchY });
+          });
+        }
         Animated.event(
           [null, { dx: pan.x, dy: pan.y }],
           { useNativeDriver: false }
@@ -70,6 +82,7 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
         clearTimeout(activationTimer.current);
         activationTimer.current = null;
       }
+      isLongPress.current = false;
       setShowMagnifier(false);
       pan.setValue({ x: 0, y: 0 });
     },
@@ -78,6 +91,7 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
         clearTimeout(activationTimer.current);
         activationTimer.current = null;
       }
+      isLongPress.current = false;
       setShowMagnifier(false);
       pan.setValue({ x: 0, y: 0 });
     },
@@ -93,15 +107,17 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
         ref={textContainerRef}
         {...panResponder.panHandlers}
         collapsable={false}
-        pointerEvents="auto"
+        pointerEvents="box-none"
       >
         {children}
       </View>
 
       {showMagnifier && (
         <Animated.View
+          pointerEvents="none"
           style={[
             styles.magnifier,
+            Platform.OS === 'ios' && styles.magnifierIOS,
             {
               transform: [
                 { translateX: Animated.add(pan.x, -60 + touchPosition.x) },
@@ -144,6 +160,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     zIndex: 100,
+    elevation: 10,
+  },
+  magnifierIOS: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
   innerMagnifier: {
     width: 500,
