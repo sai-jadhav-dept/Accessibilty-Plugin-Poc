@@ -142,7 +142,12 @@ export default function Intro() {
             >
                 <View style={GlobalStyles.mainBox}>
                     <Logo />
-                    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }} pointerEvents='auto'>
+                    <ScrollView 
+                        style={{ flex: 1 }} 
+                        contentContainerStyle={{ flexGrow: 1 }} 
+                        pointerEvents='auto'
+                        scrollEnabled={!readModal}
+                    >
                         <View style={{ flex: 1, justifyContent: 'space-between', marginBottom: heightToDp(4) }}>
                             <View style={styles.imageContainer}>
                                 <AccessibleFilteredImage

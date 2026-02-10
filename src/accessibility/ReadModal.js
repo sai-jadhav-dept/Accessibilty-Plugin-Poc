@@ -22,7 +22,7 @@ const ReadModal = ({ activeModal }) => {
     const [volume, setVolume] = useState(1.0);
     const [rate, setRate] = useState(0.5);
     const [pitch, setPitch] = useState(1.0);
-    
+
     // Monitor Global.pageReadText changes
     useEffect(() => {
         const checkInterval = setInterval(() => {
@@ -34,16 +34,16 @@ const ReadModal = ({ activeModal }) => {
         }, 100);
         return () => clearInterval(checkInterval);
     }, [textToRead, pageRead]);
-    
+
     useEffect(() => {
         const loadVoices = async () => {
             try {
                 // Initialize TTS first
                 await TTSService.init();
-                
+
                 const availableVoices = await TTSService.getVoices();
                 // Filter only English voices
-                const englishVoices = availableVoices.filter(voice => 
+                const englishVoices = availableVoices.filter(voice =>
                     voice.language && voice.language.toLowerCase().startsWith('en')
                 );
                 setVoices(englishVoices);
@@ -56,19 +56,19 @@ const ReadModal = ({ activeModal }) => {
         };
         loadVoices();
     }, []);
-    
+
     // Apply TTS settings whenever they change
     useEffect(() => {
         const applySettings = async () => {
             try {
                 const Tts = (await import('react-native-tts')).default;
-                
+
                 // iOS specific setup
                 if (Platform.OS === 'ios') {
                     await Tts.setIgnoreSilentSwitch('ignore');
                     await Tts.setDucking(true);
                 }
-                
+
                 if (selectedVoice) {
                     await Tts.setDefaultVoice(selectedVoice);
                 }
@@ -80,7 +80,7 @@ const ReadModal = ({ activeModal }) => {
         };
         applySettings();
     }, [selectedVoice, rate, pitch]);
-    
+
     // Track current reading text in context
     useEffect(() => {
         if (pageRead.isSpeaking && textToRead) {
@@ -89,220 +89,230 @@ const ReadModal = ({ activeModal }) => {
             clearReadingText();
         }
     }, [pageRead.isSpeaking, textToRead, setReadingText, clearReadingText]);
-    
+
     // Reset minimized state when modal is opened/closed
     useEffect(() => {
         if (!activeModal) {
             setIsMinimized(false);
         }
     }, [activeModal]);
-    
+
     if (!activeModal) return null;
-    
+
     if (isMinimized) {
         return (
+            <View style={styles.absoluteContainer} pointerEvents="box-none">
+                <Draggable
+                    x={SCREEN_WIDTH - 80}
+                    y={200}
+                    shouldReverse={false}
+                    disabled={false}
+                    onShortPressRelease={() => setIsMinimized(false)}
+                    onDrag={() => {}}
+                    onPressIn={() => {}}
+                    onPressOut={() => {}}
+                >
+                    <Pressable
+                        style={styles.minimizedButton}
+                        onPress={() => setIsMinimized(false)}
+                        accessible={true}
+                        accessibilityRole="button"
+                        accessibilityLabel="Tap to expand page reader"
+                    >
+                        <Text style={styles.minimizedIcon}>🔊</Text>
+                    </Pressable>
+                </Draggable>
+            </View>
+        );
+    }
+
+    return (
+        <View style={styles.absoluteContainer} pointerEvents="box-none">
             <Draggable
-                x={SCREEN_WIDTH }
-                y={SCREEN_HEIGHT}
-                minX={0}
-                minY={0}
-                maxX={SCREEN_WIDTH}
-                maxY={SCREEN_HEIGHT}
+                x={20}
+                y={100}
+                shouldReverse={false}
+                disabled={false}
                 onDrag={() => {}}
                 onPressIn={() => {}}
                 onPressOut={() => {}}
             >
-                <Pressable 
-                    style={styles.minimizedButton}
-                    onPress={() => setIsMinimized(false)}
-                    accessibilityRole="button"
-                    accessibilityLabel="Expand page reader"
-                >
-                    <Text style={styles.minimizedIcon}>🔊</Text>
-                </Pressable>
+                <View style={styles.modalContainer} pointerEvents="auto">
+                    {/* Action Buttons */}
+                    <View style={styles.actionButtons}>
+                        <Pressable
+                            style={styles.minimizeButton}
+                            onPress={() => setIsMinimized(true)}
+                            accessibilityRole="button"
+                            accessibilityLabel="Minimize page reader"
+                        >
+                            <Text style={styles.actionIcon}>━</Text>
+                        </Pressable>
+                        <Pressable
+                            style={styles.closeButton}
+                            onPress={() => {
+                                Global.accessibility.pageRead = false;
+                                updateSetting('textToSpeech', false);
+                                pageRead.stop();
+                                clearReadingText();
+                            }}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close page reader"
+                        >
+                            <Text style={styles.actionIcon}>✕</Text>
+                        </Pressable>
+                    </View>
+
+                    {/* Title */}
+                    <View style={styles.headerSection}>
+                        <Text style={styles.headerIcon}>🔊</Text>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.headerTitle]}>Page Reader</Text>
+                    </View>
+
+                    {/* Voice/Accent Picker */}
+                    <View style={styles.settingSection}>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                            Voice/Accent
+                        </Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            data={voices.map(v => ({
+                                label: v.name || v.language || 'Unknown',
+                                value: v.id
+                            }))}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select voice"
+                            value={selectedVoice}
+                            onChange={item => setSelectedVoice(item.value)}
+                            containerStyle={styles.dropdownContainer}
+                            selectedTextStyle={styles.dropdownText}
+                            placeholderStyle={styles.dropdownText}
+                        />
+                    </View>
+
+                    {/* Volume Slider */}
+                    <View style={styles.settingSection}>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                            Volume: {Math.round(volume * 100)}%
+                        </Text>
+                        <Slider
+                            containerStyle={styles.sliderContainer}
+                            minimumValue={0}
+                            maximumValue={1}
+                            value={volume}
+                            onValueChange={(val) => setVolume(val[0])}
+                            minimumTrackTintColor="#4CAF50"
+                            maximumTrackTintColor="#D3D3D3"
+                            thumbTintColor="#2E7D32"
+                            thumbStyle={styles.thumbStyle}
+                            trackStyle={styles.trackStyle}
+                            step={0.01}
+                        />
+                    </View>
+
+                    {/* Rate Slider */}
+                    <View style={styles.settingSection}>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                            Speed: {Math.round(rate * 100)}%
+                        </Text>
+                        <Slider
+                            containerStyle={styles.sliderContainer}
+                            minimumValue={0.1}
+                            maximumValue={0.8}
+                            value={rate}
+                            onValueChange={(val) => setRate(val[0])}
+                            minimumTrackTintColor="#2196F3"
+                            maximumTrackTintColor="#D3D3D3"
+                            thumbTintColor="#1565C0"
+                            thumbStyle={styles.thumbStyle}
+                            trackStyle={styles.trackStyle}
+                            step={0.01}
+                        />
+                    </View>
+
+                    {/* Pitch Slider */}
+                    <View style={styles.settingSection}>
+                        <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
+                            Pitch: {Math.round(pitch * 100)}%
+                        </Text>
+                        <Slider
+                            containerStyle={styles.sliderContainer}
+                            minimumValue={0}
+                            maximumValue={1}
+                            value={pitch}
+                            onValueChange={(val) => setPitch(val[0])}
+                            minimumTrackTintColor="#FF9800"
+                            maximumTrackTintColor="#D3D3D3"
+                            thumbTintColor="#E65100"
+                            thumbStyle={styles.thumbStyle}
+                            trackStyle={styles.trackStyle}
+                            step={0.01}
+                        />
+                    </View>
+
+                    {/* Control Buttons */}
+                    <View style={styles.controlsRow}>
+                        <PageReadButton
+                            icon="▶"
+                            label="Start"
+                            onPress={async () => {
+                                try {
+                                    const Tts = (await import('react-native-tts')).default;
+
+                                    // iOS specific setup
+                                    if (Platform.OS === 'ios') {
+                                        await Tts.setIgnoreSilentSwitch('ignore');
+                                        await Tts.setDucking(true);
+                                    }
+
+                                    if (selectedVoice) {
+                                        await Tts.setDefaultVoice(selectedVoice);
+                                    }
+                                    await Tts.setDefaultRate(rate);
+                                    await Tts.setDefaultPitch(pitch);
+                                    pageRead.start();
+                                } catch (error) {
+                                    console.log('Error setting TTS:', error);
+                                    pageRead.start();
+                                }
+                            }}
+                            accessibilityLabel="Start reading"
+                        />
+                        <PageReadButton
+                            icon="⏸"
+                            label="Pause"
+                            onPress={pageRead.pause}
+                            accessibilityLabel="Pause reading"
+                        />
+                        <PageReadButton
+                            icon="▶▶"
+                            label="Resume"
+                            onPress={pageRead.resume}
+                            accessibilityLabel="Resume reading"
+                        />
+                        <PageReadButton
+                            icon="⏹"
+                            label="Stop"
+                            onPress={pageRead.stop}
+                            accessibilityLabel="Stop reading"
+                        />
+                    </View>
+                </View>
             </Draggable>
-        );
-    }
-    
-    return (
-        <Draggable
-            x={SCREEN_WIDTH  - 300}
-            y={SCREEN_HEIGHT - 300}
-            minX={0}
-            minY={200}
-            maxX={SCREEN_WIDTH}
-            maxY={SCREEN_HEIGHT}
-            isCircle={true}
-            onDrag={() => {}}
-            onPressIn={() => {}}
-            onPressOut={() => {}}
-        >
-            <Pressable style={styles.modalContainer}>
-                {/* Action Buttons */}
-                <View style={styles.actionButtons}>
-                    <Pressable 
-                        style={styles.minimizeButton} 
-                        onPress={() => setIsMinimized(true)}
-                        accessibilityRole="button"
-                        accessibilityLabel="Minimize page reader"
-                    >
-                        <Text style={styles.actionIcon}>━</Text>
-                    </Pressable>
-                    <Pressable 
-                        style={styles.closeButton} 
-                        onPress={() => { 
-                            Global.accessibility.pageRead = false;
-                            updateSetting('textToSpeech', false);
-                            pageRead.stop();
-                            clearReadingText();
-                        }}
-                        accessibilityRole="button"
-                        accessibilityLabel="Close page reader"
-                    >
-                        <Text style={styles.actionIcon}>✕</Text>
-                    </Pressable>
-                </View>
-
-                {/* Title */}
-                <View style={styles.headerSection}>
-                    <Text style={styles.headerIcon}>🔊</Text>
-                    <Text style={[Fonts.Nunito_600SemiBold,styles.headerTitle]}>Page Reader</Text>
-                </View>
-
-                {/* Voice/Accent Picker */}
-                <View style={styles.settingSection}>
-                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
-                        Voice/Accent
-                    </Text>
-                    <Dropdown
-                        style={styles.dropdown}
-                        data={voices.map(v => ({ 
-                            label: v.name || v.language || 'Unknown', 
-                            value: v.id 
-                        }))}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Select voice"
-                        value={selectedVoice}
-                        onChange={item => setSelectedVoice(item.value)}
-                        containerStyle={styles.dropdownContainer}
-                        selectedTextStyle={styles.dropdownText}
-                        placeholderStyle={styles.dropdownText}
-                    />
-                </View>
-
-                {/* Volume Slider */}
-                <View style={styles.settingSection}>
-                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
-                        Volume: {Math.round(volume * 100)}%
-                    </Text>
-                    <Slider
-                        containerStyle={styles.sliderContainer}
-                        minimumValue={0}
-                        maximumValue={1}
-                        value={volume}
-                        onValueChange={(val) => setVolume(val[0])}
-                        minimumTrackTintColor="#4CAF50"
-                        maximumTrackTintColor="#D3D3D3"
-                        thumbTintColor="#2E7D32"
-                        thumbStyle={styles.thumbStyle}
-                        trackStyle={styles.trackStyle}
-                        step={0.01}
-                    />
-                </View>
-
-                {/* Rate Slider */}
-                <View style={styles.settingSection}>
-                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
-                        Speed: {Math.round(rate * 100)}%
-                    </Text>
-                    <Slider
-                        containerStyle={styles.sliderContainer}
-                        minimumValue={0.1}
-                        maximumValue={0.8}
-                        value={rate}
-                        onValueChange={(val) => setRate(val[0])}
-                        minimumTrackTintColor="#2196F3"
-                        maximumTrackTintColor="#D3D3D3"
-                        thumbTintColor="#1565C0"
-                        thumbStyle={styles.thumbStyle}
-                        trackStyle={styles.trackStyle}
-                        step={0.01}
-                    />
-                </View>
-
-                {/* Pitch Slider */}
-                <View style={styles.settingSection}>
-                    <Text style={[Fonts.Nunito_600SemiBold, styles.settingLabel]}>
-                        Pitch: {Math.round(pitch * 100)}%
-                    </Text>
-                    <Slider
-                        containerStyle={styles.sliderContainer}
-                        minimumValue={0}
-                        maximumValue={1}
-                        value={pitch}
-                        onValueChange={(val) => setPitch(val[0])}
-                        minimumTrackTintColor="#FF9800"
-                        maximumTrackTintColor="#D3D3D3"
-                        thumbTintColor="#E65100"
-                        thumbStyle={styles.thumbStyle}
-                        trackStyle={styles.trackStyle}
-                        step={0.01}
-                    />
-                </View>
-
-                {/* Control Buttons */}
-                <View style={styles.controlsRow}>
-                    <PageReadButton
-                        icon="▶"
-                        label="Start"
-                        onPress={async () => {
-                            try {
-                                const Tts = (await import('react-native-tts')).default;
-                                
-                                // iOS specific setup
-                                if (Platform.OS === 'ios') {
-                                    await Tts.setIgnoreSilentSwitch('ignore');
-                                    await Tts.setDucking(true);
-                                }
-                                
-                                if (selectedVoice) {
-                                    await Tts.setDefaultVoice(selectedVoice);
-                                }
-                                await Tts.setDefaultRate(rate);
-                                await Tts.setDefaultPitch(pitch);
-                                pageRead.start();
-                            } catch (error) {
-                                console.log('Error setting TTS:', error);
-                                pageRead.start();
-                            }
-                        }}
-                        accessibilityLabel="Start reading"
-                    />
-                    <PageReadButton
-                        icon="⏸"
-                        label="Pause"
-                        onPress={pageRead.pause}
-                        accessibilityLabel="Pause reading"
-                    />
-                    <PageReadButton
-                        icon="▶▶"
-                        label="Resume"
-                        onPress={pageRead.resume}
-                        accessibilityLabel="Resume reading"
-                    />
-                    <PageReadButton
-                        icon="⏹"
-                        label="Stop"
-                        onPress={pageRead.stop}
-                        accessibilityLabel="Stop reading"
-                    />
-                </View>
-            </Pressable>
-        </Draggable>
+        </View>
     )
 }
 const styles = StyleSheet.create({
+    absoluteContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999,
+        elevation: 9999,
+    },
     modalContainer: {
         width: 340,
         backgroundColor: Colors.defaultBackground,

@@ -23,6 +23,7 @@ import TTSService from './TTSService';
 import Global from '../screens/Global';
 import TextControlsWithSlider from './TextControlsWithSlider';
 import Fonts from '../utils/Fonts';
+import { heightToDp } from '../utils/Responsive';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -34,18 +35,6 @@ const AccessibilityModal = () => {
     const [readingLineEnabled, setReadingLineEnabled] = useState(false);
     const [enlargeButtonsEnabled, setEnlargeButtonsEnabled] = useState(false);
     const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
-    
-    useEffect(() => {
-        setImageDescriptionEnabled(Global.accessibility.imageDescription || false);
-        setTextMagnifierEnabled(Global.accessibility.textMagnifier || false);
-        setDictionaryEnabled(Global.accessibility.dictionary || false);
-        setReadingMaskEnabled(Global.accessibility.readingMask || false);
-        setReadingLineEnabled(Global.accessibility.readingLine || false);
-        setEnlargeButtonsEnabled(Global.accessibility.enlargeButtons || false);
-        setReducedMotionEnabled(Global.accessibility.reducedMotion || false);
-        updateSetting('textToSpeech', false);
-        // Initialize accessibility states from Global
-    }, []);
     const {
         isModalVisible,
         closeModal,
@@ -82,6 +71,17 @@ const AccessibilityModal = () => {
         resetToDefault,
         announce,
     } = useAccessibility();
+
+    // Sync local states with context values when they change (including on app restart)
+    useEffect(() => {
+        setImageDescriptionEnabled(hideImages);
+        setTextMagnifierEnabled(textMagnifier);
+        setDictionaryEnabled(dictionary);
+        setReadingMaskEnabled(readingMask);
+        setReadingLineEnabled(readingLine);
+        setEnlargeButtonsEnabled(enlargeButtons);
+        setReducedMotionEnabled(reducedMotion);
+    }, [hideImages, textMagnifier, dictionary, readingMask, readingLine, enlargeButtons, reducedMotion]);
 
     const [expandedSection, setExpandedSection] = useState('content');
     const [activeTextControl, setActiveTextControl] = useState('biggerText'); // 'biggerText', 'lineHeight', 'letterSpacing'
@@ -789,7 +789,7 @@ const AccessibilityModal = () => {
         if (expandedSection !== 'navigation') return null;
 
         return (
-            <View style={styles.sectionContent}>
+            <View style={[styles.sectionContent, { marginBottom: heightToDp(8) }]}>
                 {/* Row 1 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('readingLine', !readingLine)}>
