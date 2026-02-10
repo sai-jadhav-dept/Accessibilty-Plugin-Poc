@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Image as RNImage, View, Text, StyleSheet, Pressable, Modal, Dimensions } from 'react-native';
 import { useAccessibility } from './AccessibilityContext';
-import Global from '../screens/Global';
 import Colors from '../utils/Colors';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -21,13 +20,13 @@ const AccessibleImage = ({
   showAltTextOnPress = true,
   ...props 
 }) => {
-  const { hideImages } = useAccessibility();
+  const { hideImages, imageDescription } = useAccessibility();
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   const handlePress = (event) => {
-    // Only show tooltip if imageDescription is enabled in Global settings
-    if (!Global.accessibility.imageDescription) {
+    // Only show tooltip if image descriptions are enabled
+    if (!imageDescription) {
       return;
     }
     

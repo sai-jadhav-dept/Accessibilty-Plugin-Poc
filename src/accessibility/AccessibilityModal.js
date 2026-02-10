@@ -52,6 +52,7 @@ const AccessibilityModal = () => {
         textColor,
         backgroundColor,
         hideImages,
+        imageDescription,
         enlargeButtons,
         reducedMotion,
         highlightLinks,
@@ -326,6 +327,7 @@ const AccessibilityModal = () => {
                             setDictionaryEnabled(newValue);
                             updateSetting('dictionary', newValue);
                             announce(newValue ? 'Dictionary enabled' : 'Dictionary disabled');
+                            closeModal();
                         }}
                         accessible={true}
                         accessibilityRole="button"
@@ -342,7 +344,9 @@ const AccessibilityModal = () => {
                             const newValue = !imageDescriptionEnabled;
                             Global.accessibility.imageDescription = newValue;
                             setImageDescriptionEnabled(newValue);
+                            updateSetting('imageDescription', newValue);
                             announce(newValue ? 'Image descriptions enabled' : 'Image descriptions disabled');
+                            closeModal();
                         }}
                         accessible={true}
                         accessibilityRole="button"
@@ -358,7 +362,10 @@ const AccessibilityModal = () => {
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity
                         style={styles.iconButton}
-                        onPress={() => updateSetting('hideImages', !hideImages)}
+                        onPress={() => {
+                            updateSetting('hideImages', !hideImages);
+                            closeModal();
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                     >
@@ -376,6 +383,7 @@ const AccessibilityModal = () => {
                             setTextMagnifierEnabled(newValue);
                             updateSetting('textMagnifier', newValue);
                             announce(newValue ? 'Text magnifier enabled' : 'Text magnifier disabled');
+                            closeModal();
                         }}
                         accessible={true}
                         accessibilityRole="button"
@@ -393,6 +401,7 @@ const AccessibilityModal = () => {
                             Global.accessibility.enlargeButtons = newValue;
                             setEnlargeButtonsEnabled(newValue);
                             updateSetting('enlargeButtons', newValue);
+                            closeModal();
                         }}
                         accessible={true}
                         accessibilityRole="button"
@@ -792,7 +801,10 @@ const AccessibilityModal = () => {
             <View style={[styles.sectionContent, { marginBottom: heightToDp(8) }]}>
                 {/* Row 1 */}
                 <View style={styles.iconButtonRow}>
-                    <TouchableOpacity style={styles.iconButton} onPress={() => updateSetting('readingLine', !readingLine)}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        updateSetting('readingLine', !readingLine);
+                        closeModal();
+                    }}>
                         <View style={[styles.iconCircle, readingLine && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>☰</Text>
                         </View>
@@ -803,6 +815,7 @@ const AccessibilityModal = () => {
                         const newValue = !highlightLinks;
                         Global.accessibility.highlightLinks = newValue;
                         updateSetting('highlightLinks', newValue);
+                        closeModal();
                     }}>
                         <View style={[styles.iconCircle, highlightLinks && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⚙️</Text>
@@ -815,6 +828,7 @@ const AccessibilityModal = () => {
                         Global.accessibility.readingMask = newValue;
                         setReadingMaskEnabled(newValue);
                         updateSetting('readingMask', newValue);
+                        closeModal();
                     }}>
                         <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
@@ -833,6 +847,7 @@ const AccessibilityModal = () => {
                         setReadingMaskEnabled(newValue);
                         updateSetting('readingLine', newValue);
                         updateSetting('readingMask', newValue);
+                        closeModal();
                     }}>
                         <View style={[styles.iconCircle, (readingLineEnabled && readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📊</Text>
@@ -845,6 +860,7 @@ const AccessibilityModal = () => {
                         Global.accessibility.reducedMotion = newValue;
                         setReducedMotionEnabled(newValue);
                         updateSetting('reducedMotion', newValue);
+                        closeModal();
                     }}>
                         <View style={[styles.iconCircle, reducedMotionEnabled && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>⏸️</Text>

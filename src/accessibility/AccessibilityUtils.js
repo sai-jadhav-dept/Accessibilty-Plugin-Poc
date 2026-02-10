@@ -47,6 +47,7 @@ export const DEFAULT_ACCESSIBILITY_STATE = {
   
   // Visual Aids
   hideImages: false,
+  imageDescription: false,
   enlargeButtons: false,
   reducedMotion: false,
   highlightLinks: false,

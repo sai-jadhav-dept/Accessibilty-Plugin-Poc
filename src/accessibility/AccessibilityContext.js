@@ -58,7 +58,7 @@ export const AccessibilityProvider = ({ children }) => {
       Global.accessibility = {
         ...Global.accessibility,
         pageRead: state.textToSpeech,
-        imageDescription: state.hideImages ? false : true,
+        imageDescription: state.imageDescription,
         textMagnifier: state.textMagnifier,
         dictionary: state.dictionary,
         readingMask: state.readingMask,

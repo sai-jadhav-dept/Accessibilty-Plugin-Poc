@@ -7,7 +7,6 @@
 import React, { useState } from 'react';
 import { Image, View, Text, StyleSheet, Pressable, Modal, Dimensions } from 'react-native';
 import { useAccessibility } from './AccessibilityContext';
-import Global from '../screens/Global';
 import Colors from '../utils/Colors';
 import {
     Grayscale,
@@ -32,6 +31,7 @@ const AccessibleFilteredImage = ({
 }) => {
     const { 
         hideImages,
+        imageDescription,
         colorInversion, 
         greyscale, 
         lowSaturation, 
@@ -44,8 +44,8 @@ const AccessibleFilteredImage = ({
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
     const handlePress = (event) => {
-        // Only show tooltip if imageDescription is enabled in Global settings
-        if (!Global.accessibility.imageDescription) {
+        // Only show tooltip if image descriptions are enabled
+        if (!imageDescription) {
             return;
         }
         
