@@ -22,6 +22,7 @@ const ReadModal = ({ activeModal }) => {
     const [volume, setVolume] = useState(1.0);
     const [rate, setRate] = useState(0.5);
     const [pitch, setPitch] = useState(1.0);
+    const [speakerDragging, setSpeakerDragging] = useState(false);
 
     // Monitor Global.pageReadText changes
     useEffect(() => {
@@ -97,20 +98,35 @@ const ReadModal = ({ activeModal }) => {
         }
     }, [activeModal]);
 
+    // useEffect(() => {
+    //     console.log('Speaker dragging state:', speakerDragging);
+    // }, [speakerDragging]);
+
     if (!activeModal) return null;
 
     if (isMinimized) {
         return (
-            <View style={styles.absoluteContainer} pointerEvents="box-none">
+            <View style={styles.absoluteContainer} pointerEvents="auto">
                 <Draggable
                     x={SCREEN_WIDTH - 80}
                     y={200}
+                    minX={0}
+                    maxX={SCREEN_WIDTH - 20}
+                    minY={0}
+                    maxY={SCREEN_HEIGHT - 100}
                     shouldReverse={false}
                     disabled={false}
                     onShortPressRelease={() => setIsMinimized(false)}
-                    onDrag={() => {}}
-                    onPressIn={() => {}}
-                    onPressOut={() => {}}
+                    onDrag={() => {
+                        console.log('Dragging minimized button');
+                        Global.accessibility.isSpeakerDragging = true;
+                    }}
+                    onPressIn={() => { }}
+                    onPressOut={() => { }}
+                    onRelease={() => {
+                        console.log("Draggedd release");
+                        Global.accessibility.isSpeakerDragging = false;
+                    }}
                 >
                     <Pressable
                         style={styles.minimizedButton}
@@ -129,13 +145,20 @@ const ReadModal = ({ activeModal }) => {
     return (
         <View style={styles.absoluteContainer} pointerEvents="box-none">
             <Draggable
-                x={20}
+                // x={20}
                 y={100}
+                // x={SCREEN_WIDTH - 80}
+                //     y={200}
+                minX={0}
+                maxX={SCREEN_WIDTH - 20}
+                minY={0}
+                maxY={SCREEN_HEIGHT - 80}
                 shouldReverse={false}
                 disabled={false}
-                onDrag={() => {}}
-                onPressIn={() => {}}
-                onPressOut={() => {}}
+                onDrag={() => { }}
+                onPressIn={() => { }}
+                onPressOut={() => { }}
+                onRelease={() => { }}
             >
                 <View style={styles.modalContainer} pointerEvents="auto">
                     {/* Action Buttons */}

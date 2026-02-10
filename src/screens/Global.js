@@ -63,6 +63,7 @@ export default {
     reducedMotion: false,
     highlightLinks: false,
     textAlignment: 'left', // 'left', 'center', 'right', 'justify'
+    isSpeakerDragging: false,
   },
   messages: {
     "Rafael Whitehouse": [

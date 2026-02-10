@@ -25,6 +25,7 @@ export default function Intro() {
     const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
     const [highlightLinksEnabled, setHighlightLinksEnabled] = useState(false);
     const [textAlignment, setTextAlignment] = useState('left');
+    const [isSpeakerDragging, setIsSpeakerDragging] = useState(false);
 
     // Animation values
     const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -142,11 +143,11 @@ export default function Intro() {
             >
                 <View style={GlobalStyles.mainBox}>
                     <Logo />
-                    <ScrollView 
-                        style={{ flex: 1 }} 
-                        contentContainerStyle={{ flexGrow: 1 }} 
+                    <ScrollView
+                        style={{ flex: 1 }}
+                        contentContainerStyle={{ flexGrow: 1 }}
                         pointerEvents='auto'
-                        scrollEnabled={!readModal}
+                        // scrollEnabled={!readModal}
                     >
                         <View style={{ flex: 1, justifyContent: 'space-between', marginBottom: heightToDp(4) }}>
                             <View style={styles.imageContainer}>
@@ -159,7 +160,7 @@ export default function Intro() {
                             </View>
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[ GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}>
+                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}>
                                         Manage treatments with ease, on one platform
                                     </Text>
                                 </TextMagnifier>
@@ -195,7 +196,7 @@ export default function Intro() {
                                             <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                                 For more information, visit our{' '}
                                             </Text>
-                                            <Pressable 
+                                            <Pressable
                                                 onPress={() => {
                                                     console.log("Privacy Policy pressed");
                                                     Linking.openURL('https://example.com/privacy');
@@ -214,7 +215,7 @@ export default function Intro() {
                                             <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                                 {' '}or{' '}
                                             </Text>
-                                            <Pressable 
+                                            <Pressable
                                                 onPress={() => {
                                                     console.log("Terms pressed");
                                                     Linking.openURL('https://example.com/terms');
