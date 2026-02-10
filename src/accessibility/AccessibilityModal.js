@@ -112,6 +112,7 @@ const AccessibilityModal = () => {
             readingLine: false,
             enlargeButtons: false,
             reducedMotion: false,
+            highlightLinks: false,
             textAlignment: 'left',
         };
         
