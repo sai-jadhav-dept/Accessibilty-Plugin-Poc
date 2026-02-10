@@ -29,48 +29,48 @@ const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0,
       {children}
       
       {maskEnabled && (
-        <Animated.View
-          {...panResponder.panHandlers}
-          style={[
-            styles.maskContainer,
-            { pointerEvents: maskEnabled ? 'auto' : 'none' }
-          ]}
-        >
+        <>
           {/* Top mask */}
           <Animated.View
+            pointerEvents="none"
             style={[
               styles.mask,
               {
                 backgroundColor: maskColor,
                 height: linePosition,
                 top: 0,
+                zIndex: 1000,
               },
             ]}
           />
           
-          {/* Reading window indicator */}
+          {/* Reading window indicator - draggable */}
           <Animated.View
+            {...panResponder.panHandlers}
             style={[
               styles.maskWindow,
               {
                 top: linePosition,
                 height: 60,
+                zIndex: 1001,
               },
             ]}
           />
           
           {/* Bottom mask */}
           <Animated.View
+            pointerEvents="none"
             style={[
               styles.mask,
               {
                 backgroundColor: maskColor,
                 top: Animated.add(linePosition, 60), // 60 is the reading window height
                 bottom: 0,
+                zIndex: 1000,
               },
             ]}
           />
-        </Animated.View>
+        </>
       )}
 
       {lineEnabled && (

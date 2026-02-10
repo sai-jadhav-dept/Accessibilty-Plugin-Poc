@@ -7,35 +7,77 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
   const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
   const textContainerRef = useRef(null);
   const magnificationFactor = 2;
+  const activationTimer = useRef(null);
+  const initialTouch = useRef({ x: 0, y: 0 });
 
   const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => enabled,
+    onStartShouldSetPanResponder: () => false,
+    onStartShouldSetPanResponderCapture: () => false,
+    onMoveShouldSetPanResponder: (evt, gestureState) => {
+      // Only capture if user holds still (minimal movement) - likely wants magnifier
+      if (enabled && Math.abs(gestureState.dy) < 10) {
+        return true;
+      }
+      return false;
+    },
+    onMoveShouldSetPanResponderCapture: () => false,
+    onPanResponderTerminationRequest: () => true, // Allow ScrollView to take over
     onPanResponderGrant: (evt) => {
+      if (!enabled) return;
+      
       const pageX = evt.nativeEvent.pageX;
       const pageY = evt.nativeEvent.pageY;
+      initialTouch.current = { x: pageX, y: pageY };
       
-      textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
-        const touchX = pageX - px;
-        const touchY = pageY - py;
-        setTouchPosition({ x: touchX, y: touchY });
-        setShowMagnifier(true);
-      });
+      // Set timer to activate magnifier after 300ms
+      activationTimer.current = setTimeout(() => {
+        textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
+          const touchX = pageX - px;
+          const touchY = pageY - py;
+          setTouchPosition({ x: touchX, y: touchY });
+          setShowMagnifier(true);
+        });
+      }, 300);
     },
     onPanResponderMove: (evt, gestureState) => {
-      const pageX = evt.nativeEvent.pageX;
-      const pageY = evt.nativeEvent.pageY;
+      if (!enabled) return;
       
-      textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
-        const touchX = pageX - px;
-        const touchY = pageY - py;
-        setTouchPosition({ x: touchX, y: touchY });
-      });
-      Animated.event(
-        [null, { dx: pan.x, dy: pan.y }],
-        { useNativeDriver: false }
-      )(evt, gestureState);
+      // If user moves too much vertically, cancel magnifier (they're scrolling)
+      if (Math.abs(gestureState.dy) > 10 && activationTimer.current) {
+        clearTimeout(activationTimer.current);
+        activationTimer.current = null;
+        return;
+      }
+      
+      // Only update position if magnifier is showing
+      if (showMagnifier) {
+        const pageX = evt.nativeEvent.pageX;
+        const pageY = evt.nativeEvent.pageY;
+        
+        textContainerRef.current?.measure((fx, fy, width, height, px, py) => {
+          const touchX = pageX - px;
+          const touchY = pageY - py;
+          setTouchPosition({ x: touchX, y: touchY });
+        });
+        Animated.event(
+          [null, { dx: pan.x, dy: pan.y }],
+          { useNativeDriver: false }
+        )(evt, gestureState);
+      }
     },
     onPanResponderRelease: () => {
+      if (activationTimer.current) {
+        clearTimeout(activationTimer.current);
+        activationTimer.current = null;
+      }
+      setShowMagnifier(false);
+      pan.setValue({ x: 0, y: 0 });
+    },
+    onPanResponderTerminate: () => {
+      if (activationTimer.current) {
+        clearTimeout(activationTimer.current);
+        activationTimer.current = null;
+      }
       setShowMagnifier(false);
       pan.setValue({ x: 0, y: 0 });
     },
@@ -46,10 +88,12 @@ const TextMagnifier = ({ children, enabled, textStyle }) => {
   }
 
   return (
-    <View style={{ position: 'relative' }}>
+    <View style={{ position: 'relative' }} collapsable={false}>
       <View 
         ref={textContainerRef}
         {...panResponder.panHandlers}
+        collapsable={false}
+        pointerEvents="auto"
       >
         {children}
       </View>
