@@ -184,22 +184,30 @@ export const getColors = (accessibilitySettings) => {
     // Apply color filters (grayscale, saturation, inversion)
     const processedColors = processColors(colors, settings);
     
+    // Set button text color to contrast with button background (not screen background)
+    // Default button text color should be white for better contrast with colored buttons
+    if (settings.colorTheme === 'dark' || settings.darkMode) {
+        // In dark mode, use white text for buttons
+        processedColors.buttonTextColor = '#FFFFFF';
+    } else {
+        // In light mode, use white text for buttons (works well with colored button backgrounds)
+        processedColors.buttonTextColor = '#FFFFFF';
+    }
+    
     // Apply custom text and background color overrides (these take priority)
     if (settings.textColor) {
         processedColors.primaryTextColor = settings.textColor;
+        // Only override button text if user explicitly set a text color
         processedColors.buttonTextColor = settings.textColor;
-    } else {
-        // Default button text color
-        processedColors.buttonTextColor = processedColors.boxBackground;
     }
     
     if (settings.backgroundColor) {
         processedColors.defaultBackground = settings.backgroundColor;
-        // Don't change button background colors - keep original button colors
-        // If background is set but text isn't, ensure button text contrasts with screen background
+        // If background is set but text isn't, ensure button text contrasts
         if (!settings.textColor) {
-            const isLight = isLightColor(settings.backgroundColor);
-            processedColors.buttonTextColor = isLight ? '#000000' : '#FFFFFF';
+            // Keep white for buttons regardless of screen background
+            // since buttons have their own colored backgrounds
+            processedColors.buttonTextColor = '#FFFFFF';
         }
     }
     

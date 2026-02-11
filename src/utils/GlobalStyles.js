@@ -60,7 +60,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        height: moderateScale(50),
+        minHeight: moderateScale(50),
         flexDirection: 'row'
     },
     fixbottomcommonButton: {
