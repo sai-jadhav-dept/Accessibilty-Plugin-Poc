@@ -86,11 +86,12 @@ export const PROFILE_CONFIGS = {
     colorTheme: COLOR_THEMES.HIGH_CONTRAST,
     // Hide images to reduce clutter for screen readers
     hideImages: true,
+    // Disable visual-only features
+    highlightLinks: false,
     // Additional helpful features
     fontScale: 1.2,
     reducedMotion: true,
     enlargeButtons: true,
-    highlightLinks: true,
     dictionary: true,
   },
   

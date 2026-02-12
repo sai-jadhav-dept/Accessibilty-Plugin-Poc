@@ -106,7 +106,7 @@ const ReadModal = ({ activeModal }) => {
 
     if (isMinimized) {
         return (
-            <View style={styles.absoluteContainer} pointerEvents="auto">
+            <View style={styles.absoluteContainer} pointerEvents="box-none">
                 <Draggable
                     x={SCREEN_WIDTH - 80}
                     y={200}
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
         elevation: 9999,
     },
     modalContainer: {
-        width: 340,
+        width: SCREEN_WIDTH * 0.92,
         backgroundColor: Colors.defaultBackground,
         borderRadius: 16,
         paddingTop: 30,

@@ -14,9 +14,14 @@ import VectorIcons from '../components/VectorIcons';
 import { color } from 'react-native-elements/dist/helpers';
 
 const AccessibilityButton = () => {
-    const { openModal, enlargeButtons } = useAccessibility();
+    const { openModal, enlargeButtons, isModalVisible } = useAccessibility();
 
     const buttonSize = enlargeButtons ? MIN_TOUCH_TARGET * 1.2 : MIN_TOUCH_TARGET;
+
+    // Hide button when modal is open
+    if (isModalVisible) {
+        return null;
+    }
 
     return (
         <TouchableOpacity

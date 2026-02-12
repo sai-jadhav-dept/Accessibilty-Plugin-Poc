@@ -590,7 +590,7 @@ const AccessibilityModal = () => {
                 icon: '👁️', 
                 label: 'Blindness Profile', 
                 description: 'Screen reader support, high contrast, hide images',
-                features: '• Screen reader & TTS enabled\n• High contrast mode\n• Images hidden\n• Enhanced buttons & links'
+                features: '• Screen reader & TTS enabled\n• High contrast mode\n• Images hidden\n• Enlarged buttons'
             },
             { 
                 key: ACCESSIBILITY_PROFILES.DYSLEXIA, 
@@ -797,10 +797,19 @@ const AccessibilityModal = () => {
                 {/* Row 1 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
-                        updateSetting('readingLine', !readingLine);
+                        // Toggle: if already in "reading line only" mode, turn off, otherwise enable only reading line
+                        const isCurrentlyActive = readingLineEnabled && !readingMaskEnabled;
+                        const newReadingLineValue = !isCurrentlyActive;
+                        
+                        Global.accessibility.readingLine = newReadingLineValue;
+                        Global.accessibility.readingMask = false;
+                        setReadingLineEnabled(newReadingLineValue);
+                        setReadingMaskEnabled(false);
+                        updateSetting('readingLine', newReadingLineValue);
+                        updateSetting('readingMask', false);
                         closeModal();
                     }}>
-                        <View style={[styles.iconCircle, readingLine && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, (readingLineEnabled && !readingMaskEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>☰</Text>
                         </View>
                         <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading Line</Text>
@@ -819,13 +828,19 @@ const AccessibilityModal = () => {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
-                        const newValue = !readingMaskEnabled;
-                        Global.accessibility.readingMask = newValue;
-                        setReadingMaskEnabled(newValue);
-                        updateSetting('readingMask', newValue);
+                        // Toggle: if already in "reading mask only" mode, turn off, otherwise enable only reading mask
+                        const isCurrentlyActive = readingMaskEnabled && !readingLineEnabled;
+                        const newReadingMaskValue = !isCurrentlyActive;
+                        
+                        Global.accessibility.readingMask = newReadingMaskValue;
+                        Global.accessibility.readingLine = false;
+                        setReadingMaskEnabled(newReadingMaskValue);
+                        setReadingLineEnabled(false);
+                        updateSetting('readingMask', newReadingMaskValue);
+                        updateSetting('readingLine', false);
                         closeModal();
                     }}>
-                        <View style={[styles.iconCircle, readingMaskEnabled && styles.iconCircleActive]}>
+                        <View style={[styles.iconCircle, (readingMaskEnabled && !readingLineEnabled) && styles.iconCircleActive]}>
                             <Text style={styles.iconButtonIcon}>📄</Text>
                         </View>
                         <Text style={[Fonts.Nunito_600SemiBold, styles.iconButtonLabel]}>Reading{' '}Mask</Text>
@@ -835,6 +850,7 @@ const AccessibilityModal = () => {
                 {/* Row 2 */}
                 <View style={styles.iconButtonRow}>
                     <TouchableOpacity style={styles.iconButton} onPress={() => {
+                        // Toggle both reading line and mask together
                         const newValue = !(readingLineEnabled && readingMaskEnabled);
                         Global.accessibility.readingLine = newValue;
                         Global.accessibility.readingMask = newValue;
