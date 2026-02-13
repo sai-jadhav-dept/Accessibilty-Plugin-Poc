@@ -29,6 +29,9 @@ class TTSService {
         } catch (iosError) {
           console.log('iOS audio setup warning:', iosError);
         }
+      } else if (Platform.OS === 'android') {
+        // Android needs a small delay to ensure TTS engine is ready
+        await new Promise(resolve => setTimeout(resolve, 300));
       }
       
       // Set up event listeners
@@ -53,6 +56,7 @@ class TTSService {
       console.log('TTS initialized successfully for', Platform.OS);
     } catch (error) {
       console.error('TTS Init Error:', error);
+      this.isInitialized = false;
     }
   }
 
@@ -70,6 +74,10 @@ class TTSService {
       // Ensure TTS is initialized
       if (!this.isInitialized) {
         await this.init();
+        // Add delay on Android to ensure TTS engine is ready
+        if (Platform.OS === 'android') {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
       }
       
       this.isSpeaking = true;
@@ -78,6 +86,13 @@ class TTSService {
       await Tts.setDefaultLanguage(language);
       await Tts.setDefaultRate(rate);
       await Tts.setDefaultPitch(pitch);
+      
+      // Ensure text is not empty
+      if (!text || text.trim().length === 0) {
+        console.warn('TTS: Empty text provided');
+        this.isSpeaking = false;
+        return;
+      }
       
       Tts.speak(text);
     } catch (error) {

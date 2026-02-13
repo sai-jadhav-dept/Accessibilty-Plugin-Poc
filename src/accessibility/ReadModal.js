@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable, Text, Platform, Dimensions } from 'react-native'
+import { View, StyleSheet, Pressable, Text, Platform, Dimensions, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Draggable from 'react-native-draggable';
 import { Slider } from '@miblanchard/react-native-slider';
@@ -53,6 +53,7 @@ const ReadModal = ({ activeModal }) => {
                     setSelectedVoice(englishVoices[0].id);
                 }
             } catch (error) {
+                Alert.alert('Internet connection is not available', 'Please connect to the Internet');
                 console.log('Error loading voices:', error);
             }
         };

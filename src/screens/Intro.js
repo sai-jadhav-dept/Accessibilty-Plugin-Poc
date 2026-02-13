@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
 import CommonButton from '../components/CommonButton';
 import { heightToDp } from '../utils/Responsive';
-import { useDynamicColors, AccessibleFilteredImage, useAccessibility } from '../accessibility';
+import { useDynamicColors, AccessibleFilteredImage, useAccessibility, TTSService } from '../accessibility';
 import ReadModal from '../accessibility/ReadModal';
 import TextMagnifier from '../accessibility/TextMagnifier';
 import DictionaryLookup from '../accessibility/DictionaryLookup';
@@ -35,6 +35,7 @@ export default function Intro() {
 
     useEffect(() => {
         // Ensure Global is initialized to false on component mount
+        TTSService.init();
         Global.accessibility.pageRead = false;
         setReadModal(false);
 
@@ -146,7 +147,7 @@ export default function Intro() {
                         style={{ flex: 1 }}
                         contentContainerStyle={{ flexGrow: 1 }}
                         pointerEvents='auto'
-                        // scrollEnabled={!readModal}
+                    // scrollEnabled={!readModal}
                     >
                         <View style={{ flex: 1, justifyContent: 'space-between', marginBottom: heightToDp(4) }}>
                             <View style={styles.imageContainer}>
