@@ -125,15 +125,10 @@ const AccessibleFilteredImage = ({
     } else if (highSaturation) {
         filteredImage = <Saturate amount={2.0}>{baseImage}</Saturate>;
     } else if (darkHighContrast) {
-        // On iOS, use simplified filter to avoid rendering issues
+        // On iOS, don't apply filters to prevent image hiding bug
+        // iOS has issues with nested color matrix filters causing images to disappear
         if (Platform.OS === 'ios') {
-            filteredImage = (
-                <Saturate amount={2.0}>
-                    <Contrast amount={1.5}>
-                        {baseImage}
-                    </Contrast>
-                </Saturate>
-            );
+            filteredImage = baseImage;
         } else {
             // Android can handle all three filters
             filteredImage = (
@@ -147,15 +142,10 @@ const AccessibleFilteredImage = ({
             );
         }
     } else if (whiteHighContrast) {
-        // On iOS, use simplified filter to avoid rendering issues
+        // On iOS, don't apply filters to prevent image hiding bug
+        // iOS has issues with nested color matrix filters causing images to disappear
         if (Platform.OS === 'ios') {
-            filteredImage = (
-                <Saturate amount={2.0}>
-                    <Contrast amount={1.5}>
-                        {baseImage}
-                    </Contrast>
-                </Saturate>
-            );
+            filteredImage = baseImage;
         } else {
             // Android can handle all three filters
             filteredImage = (

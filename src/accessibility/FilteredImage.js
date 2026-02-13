@@ -83,19 +83,16 @@ const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
     
     // Apply dark high contrast - strong contrast + saturation like high saturation mode
     if (darkHighContrast) {
-        // On iOS, use simplified filter to avoid rendering issues
+        // On iOS, render image without filters to prevent hiding
+        // iOS has issues with nested color matrix filters causing images to disappear
         if (Platform.OS === 'ios') {
             return (
-                <Saturate amount={2.0}>
-                    <Contrast amount={1.5}>
-                        <Image
-                            source={source}
-                            style={style}
-                            resizeMode={resizeMode}
-                            {...props}
-                        />
-                    </Contrast>
-                </Saturate>
+                <Image
+                    source={source}
+                    style={style}
+                    resizeMode={resizeMode}
+                    {...props}
+                />
             );
         }
         // Android can handle all three filters
@@ -117,19 +114,16 @@ const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
     
     // Apply white high contrast - strong contrast + saturation
     if (whiteHighContrast) {
-        // On iOS, use simplified filter to avoid rendering issues
+        // On iOS, render image without filters to prevent hiding
+        // iOS has issues with nested color matrix filters causing images to disappear
         if (Platform.OS === 'ios') {
             return (
-                <Saturate amount={2.0}>
-                    <Contrast amount={1.5}>
-                        <Image
-                            source={source}
-                            style={style}
-                            resizeMode={resizeMode}
-                            {...props}
-                        />
-                    </Contrast>
-                </Saturate>
+                <Image
+                    source={source}
+                    style={style}
+                    resizeMode={resizeMode}
+                    {...props}
+                />
             );
         }
         // Android can handle all three filters
