@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { useAccessibility } from './AccessibilityContext';
 import {
     Grayscale,
@@ -12,6 +12,7 @@ import {
     Invert,
     Brightness,
     Contrast,
+    ColorMatrix,
 } from 'react-native-color-matrix-image-filters';
 
 const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
@@ -82,6 +83,19 @@ const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
     
     // Apply dark high contrast - strong contrast + saturation like high saturation mode
     if (darkHighContrast) {
+        // On iOS, render image without filters to prevent hiding
+        // iOS has issues with nested color matrix filters causing images to disappear
+        if (Platform.OS === 'ios') {
+            return (
+                <Image
+                    source={source}
+                    style={style}
+                    resizeMode={resizeMode}
+                    {...props}
+                />
+            );
+        }
+        // Android can handle all three filters
         return (
             <Saturate amount={2.0}>
                 <Contrast amount={2.0}>
@@ -100,6 +114,19 @@ const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
     
     // Apply white high contrast - strong contrast + saturation
     if (whiteHighContrast) {
+        // On iOS, render image without filters to prevent hiding
+        // iOS has issues with nested color matrix filters causing images to disappear
+        if (Platform.OS === 'ios') {
+            return (
+                <Image
+                    source={source}
+                    style={style}
+                    resizeMode={resizeMode}
+                    {...props}
+                />
+            );
+        }
+        // Android can handle all three filters
         return (
             <Saturate amount={2.0}>
                 <Contrast amount={2.0}>
