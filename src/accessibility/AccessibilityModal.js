@@ -429,6 +429,8 @@ const AccessibilityModal = () => {
             updateSetting('lowSaturation', false);
             updateSetting('highSaturation', false);
             updateSetting('highContrast', false);
+            updateSetting('darkHighContrast', false);
+            updateSetting('whiteHighContrast', false);
             updateSetting('colorTheme', 'light');
             
             // Then activate the selected mode
@@ -450,10 +452,12 @@ const AccessibilityModal = () => {
                     break;
                 case 'darkHighContrast':
                     updateSetting('highContrast', true);
+                    updateSetting('darkHighContrast', true);
                     updateSetting('colorTheme', 'dark');
                     break;
                 case 'whiteHighContrast':
                     updateSetting('highContrast', true);
+                    updateSetting('whiteHighContrast', true);
                     updateSetting('colorTheme', 'light');
                     break;
                 case 'none':

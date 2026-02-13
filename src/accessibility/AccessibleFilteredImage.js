@@ -125,19 +125,23 @@ const AccessibleFilteredImage = ({
         filteredImage = <Saturate amount={2.0}>{baseImage}</Saturate>;
     } else if (darkHighContrast) {
         filteredImage = (
-            <Contrast amount={1.5}>
-                <Brightness amount={0.8}>
-                    {baseImage}
-                </Brightness>
-            </Contrast>
+            <Saturate amount={2.0}>
+                <Contrast amount={2.0}>
+                    <Brightness amount={0.9}>
+                        {baseImage}
+                    </Brightness>
+                </Contrast>
+            </Saturate>
         );
     } else if (whiteHighContrast) {
         filteredImage = (
-            <Contrast amount={1.5}>
-                <Brightness amount={1.2}>
-                    {baseImage}
-                </Brightness>
-            </Contrast>
+            <Saturate amount={2.0}>
+                <Contrast amount={2.0}>
+                    <Brightness amount={1.1}>
+                        {baseImage}
+                    </Brightness>
+                </Contrast>
+            </Saturate>
         );
     }
 

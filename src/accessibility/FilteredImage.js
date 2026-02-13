@@ -80,35 +80,39 @@ const FilteredImage = ({ source, style, resizeMode = 'contain', ...props }) => {
         );
     }
     
-    // Apply dark high contrast
+    // Apply dark high contrast - strong contrast + saturation like high saturation mode
     if (darkHighContrast) {
         return (
-            <Contrast amount={1.5}>
-                <Brightness amount={0.8}>
-                    <Image
-                        source={source}
-                        style={style}
-                        resizeMode={resizeMode}
-                        {...props}
-                    />
-                </Brightness>
-            </Contrast>
+            <Saturate amount={2.0}>
+                <Contrast amount={2.0}>
+                    <Brightness amount={0.9}>
+                        <Image
+                            source={source}
+                            style={style}
+                            resizeMode={resizeMode}
+                            {...props}
+                        />
+                    </Brightness>
+                </Contrast>
+            </Saturate>
         );
     }
     
-    // Apply white high contrast
+    // Apply white high contrast - strong contrast + saturation
     if (whiteHighContrast) {
         return (
-            <Contrast amount={1.5}>
-                <Brightness amount={1.2}>
-                    <Image
-                        source={source}
-                        style={style}
-                        resizeMode={resizeMode}
-                        {...props}
-                    />
-                </Brightness>
-            </Contrast>
+            <Saturate amount={2.0}>
+                <Contrast amount={2.0}>
+                    <Brightness amount={1.1}>
+                        <Image
+                            source={source}
+                            style={style}
+                            resizeMode={resizeMode}
+                            {...props}
+                        />
+                    </Brightness>
+                </Contrast>
+            </Saturate>
         );
     }
     

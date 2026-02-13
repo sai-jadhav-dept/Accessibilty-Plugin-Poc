@@ -170,17 +170,18 @@ export const getColors = (accessibilitySettings) => {
                 placeholderTextColor: '#CCCCCC', // Light gray for placeholders
             };
         } else {
-            // White/Light high contrast
+            // White/Light high contrast - HDFC Bank style: black text on white background
             colors = {
                 ...colors,
-                defaultBackground: '#FFFFFF',
-                primaryTextColor: '#000000',
-                boxBackground: '#F5F5F5',
-                primaryButtonColor: '#0000CC',
-                secondarybuttonColor: '#CC6600',
-                textInputBorder: '#000000',
-                successColor: '#006600',
-                red: '#CC0000',
+                defaultBackground: '#FFFFFF', // Pure white background
+                primaryTextColor: '#000000', // Black text
+                boxBackground: '#FFFFFF', // Pure white for box elements
+                // Keep original button colors for brand consistency
+                primaryButtonColor: BASE_COLORS.primaryButtonColor, // Original purple
+                secondarybuttonColor: BASE_COLORS.secondarybuttonColor, // Original orange
+                textInputBorder: '#000000', // Black borders
+                successColor: '#006600', // Dark green for success
+                red: '#CC0000', // Dark red for errors
             };
         }
     }
@@ -192,6 +193,9 @@ export const getColors = (accessibilitySettings) => {
     // Default button text color should be white for better contrast with colored buttons
     if (settings.highContrast && (settings.colorTheme === 'dark' || settings.darkMode)) {
         // Dark high contrast mode - white text on original colored buttons
+        processedColors.buttonTextColor = '#FFFFFF'; // White text on colored buttons
+    } else if (settings.highContrast) {
+        // Light high contrast mode - white text on original colored buttons
         processedColors.buttonTextColor = '#FFFFFF'; // White text on colored buttons
     } else if (settings.colorTheme === 'dark' || settings.darkMode) {
         // In dark mode, use white text for buttons
