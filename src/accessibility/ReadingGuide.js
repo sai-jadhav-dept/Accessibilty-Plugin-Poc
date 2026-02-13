@@ -80,10 +80,11 @@ const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0,
             styles.readingLine,
             {
               top: linePosition,
-              opacity: isDragging ? 0.8 : 0.6,
             },
           ]}
         >
+          {/* Single horizontal line guide */}
+          <View style={styles.lineBar} />
         </Animated.View>
       )}
     </View>
@@ -116,14 +117,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    height: 60,
-    borderTopWidth: 3,
-    borderBottomWidth: 3,
-    borderColor: '#FFD700',
+    height: 8,
+    backgroundColor: '#007AFF',
     zIndex: 1001,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+    opacity: 0.8,
+  },
+  lineBar: {
+    width: '100%',
+    height: 8,
+    backgroundColor: '#343434',
   },
   dragHandle: {
     width: 40,

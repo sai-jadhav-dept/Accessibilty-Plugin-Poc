@@ -628,7 +628,10 @@ const AccessibilityModal = () => {
                 {activeProfile !== ACCESSIBILITY_PROFILES.NONE && (
                     <TouchableOpacity
                         style={styles.resetProfileButton}
-                        onPress={() => setProfile(ACCESSIBILITY_PROFILES.NONE)}
+                        onPress={() => {
+                            setProfile(ACCESSIBILITY_PROFILES.NONE);
+                            closeModal();
+                        }}
                         accessible={true}
                         accessibilityRole="button"
                         accessibilityLabel="Reset to default settings"
@@ -647,6 +650,7 @@ const AccessibilityModal = () => {
                             onPress={() => {
                                 setProfile(profile.key);
                                 announce(`${profile.label} activated`);
+                                closeModal();
                             }}
                             accessible={true}
                             accessibilityRole="button"

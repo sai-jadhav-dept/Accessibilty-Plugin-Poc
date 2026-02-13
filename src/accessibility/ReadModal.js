@@ -23,6 +23,7 @@ const ReadModal = ({ activeModal }) => {
     const [rate, setRate] = useState(0.5);
     const [pitch, setPitch] = useState(1.0);
     const [speakerDragging, setSpeakerDragging] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // Monitor Global.pageReadText changes
     useEffect(() => {
@@ -154,7 +155,7 @@ const ReadModal = ({ activeModal }) => {
                 minY={0}
                 maxY={SCREEN_HEIGHT - 80}
                 shouldReverse={false}
-                disabled={false}
+                disabled={isDropdownOpen}
                 onDrag={() => { }}
                 onPressIn={() => { }}
                 onPressOut={() => { }}
@@ -207,10 +208,20 @@ const ReadModal = ({ activeModal }) => {
                             valueField="value"
                             placeholder="Select voice"
                             value={selectedVoice}
-                            onChange={item => setSelectedVoice(item.value)}
+                            onChange={item => {
+                                setSelectedVoice(item.value);
+                                setIsDropdownOpen(false);
+                            }}
+                            onFocus={() => setIsDropdownOpen(true)}
+                            onBlur={() => setIsDropdownOpen(false)}
                             containerStyle={styles.dropdownContainer}
                             selectedTextStyle={styles.dropdownText}
                             placeholderStyle={styles.dropdownText}
+                            dropdownPosition="auto"
+                            {...(Platform.OS === 'ios' && {
+                                renderToHardwareTextureAndroid: true,
+                                autoScroll: false,
+                            })}
                         />
                     </View>
 
@@ -441,6 +452,17 @@ const styles = StyleSheet.create({
     dropdownContainer: {
         borderRadius: 8,
         marginTop: 4,
+        ...(Platform.OS === 'ios' && {
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.25,
+            shadowRadius: 8,
+        }),
+        ...Platform.select({
+            android: {
+                elevation: 8,
+            },
+        }),
     },
     dropdownText: {
         fontSize: 12,
