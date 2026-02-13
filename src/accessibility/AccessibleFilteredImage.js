@@ -5,7 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import { Image, View, Text, StyleSheet, Pressable, Modal, Dimensions } from 'react-native';
+import { Image, View, Text, StyleSheet, Pressable, Modal, Dimensions, Platform } from 'react-native';
 import { useAccessibility } from './AccessibilityContext';
 import Colors from '../utils/Colors';
 import {
@@ -14,6 +14,7 @@ import {
     Invert,
     Brightness,
     Contrast,
+    ColorMatrix,
 } from 'react-native-color-matrix-image-filters';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -124,25 +125,49 @@ const AccessibleFilteredImage = ({
     } else if (highSaturation) {
         filteredImage = <Saturate amount={2.0}>{baseImage}</Saturate>;
     } else if (darkHighContrast) {
-        filteredImage = (
-            <Saturate amount={2.0}>
-                <Contrast amount={2.0}>
-                    <Brightness amount={0.9}>
+        // On iOS, use simplified filter to avoid rendering issues
+        if (Platform.OS === 'ios') {
+            filteredImage = (
+                <Saturate amount={2.0}>
+                    <Contrast amount={1.5}>
                         {baseImage}
-                    </Brightness>
-                </Contrast>
-            </Saturate>
-        );
+                    </Contrast>
+                </Saturate>
+            );
+        } else {
+            // Android can handle all three filters
+            filteredImage = (
+                <Saturate amount={2.0}>
+                    <Contrast amount={2.0}>
+                        <Brightness amount={0.9}>
+                            {baseImage}
+                        </Brightness>
+                    </Contrast>
+                </Saturate>
+            );
+        }
     } else if (whiteHighContrast) {
-        filteredImage = (
-            <Saturate amount={2.0}>
-                <Contrast amount={2.0}>
-                    <Brightness amount={1.1}>
+        // On iOS, use simplified filter to avoid rendering issues
+        if (Platform.OS === 'ios') {
+            filteredImage = (
+                <Saturate amount={2.0}>
+                    <Contrast amount={1.5}>
                         {baseImage}
-                    </Brightness>
-                </Contrast>
-            </Saturate>
-        );
+                    </Contrast>
+                </Saturate>
+            );
+        } else {
+            // Android can handle all three filters
+            filteredImage = (
+                <Saturate amount={2.0}>
+                    <Contrast amount={2.0}>
+                        <Brightness amount={1.1}>
+                            {baseImage}
+                        </Brightness>
+                    </Contrast>
+                </Saturate>
+            );
+        }
     }
 
     return (
