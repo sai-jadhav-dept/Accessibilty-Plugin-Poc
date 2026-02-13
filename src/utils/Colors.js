@@ -153,31 +153,35 @@ export const getColors = (accessibilitySettings) => {
     // Apply high contrast
     if (settings.highContrast) {
         if (settings.colorTheme === 'dark' || settings.darkMode) {
-            // Dark high contrast
-            if (settings.darkHighContrast) {
-                colors = {
-                    ...colors,
-                    defaultBackground: '#000000',
-                    primaryTextColor: '#FFFFFF',
-                    boxBackground: '#1A1A1A',
-                    primaryButtonColor: '#FFFFFF',
-                    secondarybuttonColor: '#FFFF00',
-                    textInputBorder: '#FFFFFF',
-                };
-            }
+            // Dark high contrast - HDFC Bank style: white text on black background
+            colors = {
+                ...colors,
+                defaultBackground: '#000000', // Pure black background
+                primaryTextColor: '#FFFFFF', // White text (HDFC Bank standard)
+                boxBackground: '#000000', // Pure black for box elements
+                // Keep original button colors for brand consistency
+                primaryButtonColor: BASE_COLORS.primaryButtonColor, // Original purple
+                secondarybuttonColor: BASE_COLORS.secondarybuttonColor, // Original orange
+                textInputBorder: '#FFFFFF', // White borders
+                successColor: '#00FF00', // Bright green for success
+                red: '#FF0000', // Pure red for errors/alerts
+                lightblue: '#FFFFFF', // White
+                primaryinactive: '#808080', // Gray for inactive
+                placeholderTextColor: '#CCCCCC', // Light gray for placeholders
+            };
         } else {
             // White/Light high contrast
-            if (settings.whiteHighContrast) {
-                colors = {
-                    ...colors,
-                    defaultBackground: '#FFFFFF',
-                    primaryTextColor: '#000000',
-                    boxBackground: '#F5F5F5',
-                    primaryButtonColor: '#0000FF',
-                    secondarybuttonColor: '#000080',
-                    textInputBorder: '#000000',
-                };
-            }
+            colors = {
+                ...colors,
+                defaultBackground: '#FFFFFF',
+                primaryTextColor: '#000000',
+                boxBackground: '#F5F5F5',
+                primaryButtonColor: '#0000CC',
+                secondarybuttonColor: '#CC6600',
+                textInputBorder: '#000000',
+                successColor: '#006600',
+                red: '#CC0000',
+            };
         }
     }
 
@@ -186,7 +190,10 @@ export const getColors = (accessibilitySettings) => {
     
     // Set button text color to contrast with button background (not screen background)
     // Default button text color should be white for better contrast with colored buttons
-    if (settings.colorTheme === 'dark' || settings.darkMode) {
+    if (settings.highContrast && (settings.colorTheme === 'dark' || settings.darkMode)) {
+        // Dark high contrast mode - white text on original colored buttons
+        processedColors.buttonTextColor = '#FFFFFF'; // White text on colored buttons
+    } else if (settings.colorTheme === 'dark' || settings.darkMode) {
         // In dark mode, use white text for buttons
         processedColors.buttonTextColor = '#FFFFFF';
     } else {
