@@ -96,7 +96,7 @@ const FontSizeControlScreen = () => {
           activeOpacity={0.7}
         >
           <View style={styles.iconContainer}>
-            <Text style={[styles.iconText, activeControl === 'letterSpacing' && styles.iconTextActive]}>↔</Text>
+            <Text style={[styles.iconText, activeControl === 'letterSpacing' && styles.iconTextActive, {paddingBottom:10, fontSize: 19}]}>⬌</Text>
           </View>
           <Text style={[styles.controlButtonText, activeControl === 'letterSpacing' && styles.controlButtonTextActive]}>
             Letter Spacing

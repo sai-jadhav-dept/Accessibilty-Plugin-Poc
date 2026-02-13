@@ -134,7 +134,6 @@ export default function Intro() {
         inputRange: [0, 1],
         outputRange: [0, 20],
     });
-
     return (
         <SafeAreaView style={[GlobalStyles.mainContainer, { backgroundColor: colors.defaultBackground }]}>
             <ReadingGuide
@@ -238,7 +237,7 @@ export default function Intro() {
 
                         </View>
 
-                        <View style={styles.animationDemoContainer}>
+                        <View style={[styles.animationDemoContainer, { backgroundColor: colors.boxBackground }]}>
                             <Text style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { color: colors.primaryTextColor, textAlign: 'center', marginBottom: 10, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
                                 Animation Demo {reducedMotionEnabled ? '(Paused)' : '(Playing)'}
                             </Text>
@@ -273,7 +272,6 @@ export default function Intro() {
 const styles = StyleSheet.create({
     animationDemoContainer: {
         padding: 15,
-        backgroundColor: '#F5F5F5',
         borderRadius: 12,
         marginTop: heightToDp(2),
         marginHorizontal: 10,

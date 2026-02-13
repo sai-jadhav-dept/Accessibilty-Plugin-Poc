@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, PanResponder, Animated } from 'react-native';
 
 const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0, 0, 0, 0.7)', lineColor = '#FFD700' }) => {
-  const [linePosition, setLinePosition] = useState(new Animated.Value(100));
+  const [linePosition, setLinePosition] = useState(new Animated.Value(0));
   const [isDragging, setIsDragging] = useState(false);
 
   const panResponder = PanResponder.create({
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: '#FFD700',
+    // borderTopWidth: 2,
+    // borderBottomWidth: 2,
+    // borderColor: '#000000',
   },
   readingLine: {
     position: 'absolute',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   lineBar: {
     width: '100%',
     height: 8,
-    backgroundColor: '#343434',
+    backgroundColor: '#1c1818',
   },
   dragHandle: {
     width: 40,
