@@ -41,7 +41,6 @@ const ProfileTester = () => {
   const profileNames = {
     [ACCESSIBILITY_PROFILES.NONE]: 'None (Default)',
     [ACCESSIBILITY_PROFILES.BLIND]: 'Blindness',
-    [ACCESSIBILITY_PROFILES.DYSLEXIA]: 'Dyslexia',
     [ACCESSIBILITY_PROFILES.LOW_VISION]: 'Visually Impaired',
     [ACCESSIBILITY_PROFILES.COGNITIVE]: 'Cognitive & Learning',
     [ACCESSIBILITY_PROFILES.EPILEPSY_SAFE]: 'Epilepsy Safe',
@@ -135,17 +134,7 @@ const ProfileTester = () => {
         </View>
 
         <View style={styles.profileInfo}>
-          <Text style={styles.profileName}>📖 Dyslexia Profile</Text>
-          <Text style={styles.profileFeatures}>
-            • 1.5x font size{'\n'}
-            • 2.4x line height{'\n'}
-            • 0.5 letter spacing{'\n'}
-            • Reading line
-          </Text>
-        </View>
-
-        <View style={styles.profileInfo}>
-          <Text style={styles.profileName}>👓 Visually Impaired Profile</Text>
+          <Text style={styles.profileName}> Visually Impaired Profile</Text>
           <Text style={styles.profileFeatures}>
             • 2.0x font size (max){'\n'}
             • High contrast{'\n'}

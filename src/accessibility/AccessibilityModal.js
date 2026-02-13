@@ -597,13 +597,6 @@ const AccessibilityModal = () => {
                 features: '• Screen reader & TTS enabled\n• High contrast mode\n• Images hidden\n• Enlarged buttons'
             },
             { 
-                key: ACCESSIBILITY_PROFILES.DYSLEXIA, 
-                icon: '📖', 
-                label: 'Dyslexia Profile', 
-                description: 'Larger text, increased line height & letter spacing',
-                features: '• 1.5x larger text\n• 2.4x line height\n• Wide letter spacing\n• Reading line aid'
-            },
-            { 
                 key: ACCESSIBILITY_PROFILES.COGNITIVE, 
                 icon: '🧠', 
                 label: 'Cognitive & Learning Profile', 
