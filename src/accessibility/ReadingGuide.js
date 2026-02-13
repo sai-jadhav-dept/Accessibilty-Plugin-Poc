@@ -51,7 +51,7 @@ const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0,
               styles.maskWindow,
               {
                 top: linePosition,
-                height: 60,
+                height: 120,
                 zIndex: 1001,
               },
             ]}
@@ -64,7 +64,7 @@ const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0,
               styles.mask,
               {
                 backgroundColor: maskColor,
-                top: Animated.add(linePosition, 60), // 60 is the reading window height
+                top: Animated.add(linePosition, 120), // 120 is the reading window height
                 bottom: 0,
                 zIndex: 1000,
               },
@@ -79,7 +79,7 @@ const ReadingGuide = ({ children, maskEnabled, lineEnabled, maskColor = 'rgba(0,
           style={[
             styles.readingLine,
             {
-              top: linePosition,
+              top: Animated.add(linePosition, 56), // Center of 120px window (120/2 - 4 for line height)
             },
           ]}
         >
