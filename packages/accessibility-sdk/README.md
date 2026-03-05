@@ -75,6 +75,258 @@ import { AccessibilityProvider, useAccessibility } from '@teknopoint-mobile-team
 function SettingsToggle() {
   const { highContrast, updateSetting } = useAccessibility();
 
+
+## React Native Implementation Playbook
+
+Use this section when you want to know exactly where to write code in your app.
+
+### Step 1. Setup at app root
+
+Write this in your app entry file, usually `App.js` or `App.tsx`.
+
+```jsx
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+  AccessibilityProvider,
+  AccessibilityColorWrapper,
+  AccessibilityButton,
+  AccessibilityModal,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+import RootNavigator from './src/navigation/RootNavigator';
+
+export default function App() {
+  return (
+    <AccessibilityProvider>
+      <AccessibilityColorWrapper>
+        <NavigationContainer>
+          <RootNavigator />
+          <AccessibilityButton />
+          <AccessibilityModal />
+        </NavigationContainer>
+      </AccessibilityColorWrapper>
+    </AccessibilityProvider>
+  );
+}
+```
+
+### Step 2. Make screen text accessible
+
+Write this inside screen files like `src/screens/HomeScreen.tsx`.
+
+```jsx
+import React from 'react';
+import { View } from 'react-native';
+import {
+  AccessibleText,
+  useDynamicColors,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function HomeScreen() {
+  const colors = useDynamicColors();
+
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.defaultBackground, padding: 16 }}>
+      <AccessibleText baseFontSize={22} style={{ fontWeight: '700' }}>
+        Welcome
+      </AccessibleText>
+      <AccessibleText baseFontSize={16} style={{ marginTop: 8 }}>
+        This paragraph now respects font size, line height, spacing, and alignment.
+      </AccessibleText>
+    </View>
+  );
+}
+```
+
+### Step 3. Make buttons easier to tap
+
+Write this in reusable UI components like `src/components/PrimaryActionButton.tsx`.
+
+```jsx
+import React from 'react';
+import { Text } from 'react-native';
+import { AccessibleButton } from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function PrimaryActionButton({ onPress, title }) {
+  return (
+    <AccessibleButton
+      onPress={onPress}
+      accessibilityLabel={title}
+      accessibilityHint="Double tap to activate"
+      style={{ marginTop: 16 }}
+    >
+      <Text style={{ color: 'white', fontWeight: '600' }}>{title}</Text>
+    </AccessibleButton>
+  );
+}
+```
+
+### Step 4. Add accessible images
+
+Write this where image cards or banners are rendered, for example `src/components/ArticleCard.tsx`.
+
+```jsx
+import React from 'react';
+import { View } from 'react-native';
+import {
+  AccessibleImage,
+  AccessibleFilteredImage,
+  AccessibleText,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function ArticleCard() {
+  return (
+    <View>
+      <AccessibleImage
+        source={{ uri: 'https://picsum.photos/300/160' }}
+        style={{ width: 300, height: 160, borderRadius: 8 }}
+        alt="Doctor checking patient reports"
+      />
+
+      <AccessibleFilteredImage
+        source={{ uri: 'https://picsum.photos/300/160?2' }}
+        style={{ width: 300, height: 160, marginTop: 12, borderRadius: 8 }}
+        alt="Hospital reception area"
+      />
+
+      <AccessibleText baseFontSize={14} style={{ marginTop: 8 }}>
+        Image descriptions and filters are now controlled by accessibility state.
+      </AccessibleText>
+    </View>
+  );
+}
+```
+
+### Step 5. Add reading support to long content
+
+Write this inside article/detail screens like `src/screens/ArticleDetailScreen.tsx`.
+
+```jsx
+import React from 'react';
+import { ScrollView, Text } from 'react-native';
+import {
+  DictionaryLookup,
+  ReadingGuide,
+  TextMagnifier,
+  useAccessibility,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function ArticleDetailScreen() {
+  const { dictionary, readingMask, readingLine, textMagnifier } = useAccessibility();
+
+  return (
+    <ReadingGuide maskEnabled={readingMask} lineEnabled={readingLine}>
+      <ScrollView style={{ flex: 1, padding: 16 }}>
+        <DictionaryLookup enabled={dictionary}>
+          <TextMagnifier enabled={textMagnifier}>
+            <Text style={{ fontSize: 16, lineHeight: 26 }}>
+              Long article content goes here. Users can use dictionary, mask/line, and magnifier.
+            </Text>
+          </TextMagnifier>
+        </DictionaryLookup>
+      </ScrollView>
+    </ReadingGuide>
+  );
+}
+```
+
+### Step 6. Add text-to-speech UI
+
+Write this in your reading screen or global overlay container (example `src/screens/ReaderOverlay.tsx`).
+
+```jsx
+import React from 'react';
+import { ReadModal, useAccessibility } from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function ReaderOverlay() {
+  const { textToSpeech } = useAccessibility();
+  return <ReadModal activeModal={textToSpeech} />;
+}
+```
+
+### Step 7. Programmatically change settings in app logic
+
+Write this in feature screens where you want one-tap mode toggles, for example `src/screens/QuickAccessScreen.tsx`.
+
+```jsx
+import React from 'react';
+import { Button, View } from 'react-native';
+import {
+  useAccessibility,
+  ACCESSIBILITY_PROFILES,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+
+export default function QuickAccessScreen() {
+  const { setProfile, updateSetting } = useAccessibility();
+
+  return (
+    <View style={{ padding: 16 }}>
+      <Button
+        title="Enable Low Vision Profile"
+        onPress={() => setProfile(ACCESSIBILITY_PROFILES.LOW_VISION)}
+      />
+      <View style={{ height: 12 }} />
+      <Button
+        title="Toggle High Contrast"
+        onPress={() => updateSetting('highContrast', true)}
+      />
+    </View>
+  );
+}
+```
+
+### Step 8. Persist and restore custom flows
+
+If you need direct storage helpers in special cases (migrations/import-export), write this in a service file like `src/services/accessibilityStorage.ts`.
+
+```ts
+import {
+  loadAccessibilityPreferences,
+  saveAccessibilityPreferences,
+} from '@teknopoint-mobile-team/accessibility-sdk';
+
+export async function backupAccessibilitySettings() {
+  const preferences = await loadAccessibilityPreferences();
+  return JSON.stringify(preferences);
+}
+
+export async function restoreAccessibilitySettings(json: string) {
+  const parsed = JSON.parse(json);
+  await saveAccessibilityPreferences(parsed);
+}
+```
+
+### Step 9. Compatibility runtime bridge (optional)
+
+Only use this if your app still relies on global runtime values.
+Write this in screen entry points before opening `ReadModal`.
+
+```js
+import { setRuntime } from '@teknopoint-mobile-team/accessibility-sdk';
+
+setRuntime({
+  pageReadText: 'Text currently visible on the screen',
+  accessibility: {
+    textAlignment: 'left',
+  },
+});
+```
+
+### Step 10. Minimum files checklist for a new app
+
+Add in `App.tsx`:
+- `AccessibilityProvider`
+- `AccessibilityColorWrapper`
+- `AccessibilityButton`
+- `AccessibilityModal`
+
+Use in screens/components:
+- `AccessibleText` for readable text scaling
+- `AccessibleButton` or `EnlargedTouchable` for touch targets
+- `AccessibleImage`/`AccessibleFilteredImage` for image accessibility
+- `DictionaryLookup` + `TextMagnifier` + `ReadingGuide` for reading support
+- `ReadModal` when TTS/page-read is required
+
   return (
     <Button
       title={highContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
