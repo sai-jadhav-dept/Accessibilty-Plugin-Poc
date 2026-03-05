@@ -79,11 +79,14 @@ android {
 
     namespace "com.accessibilityplugin"
     defaultConfig {
+        def expectedSha256 = (project.findProperty("EXPECTED_SHA256") ?: "").toString()
+
         applicationId "com.accessibilityplugin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "EXPECTED_SHA256", "\"${expectedSha256}\""
     }
     signingConfigs {
         debug {
