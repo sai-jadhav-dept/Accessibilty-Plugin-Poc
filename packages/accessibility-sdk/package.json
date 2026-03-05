@@ -1,0 +1,50 @@
+{
+  "name": "@teknopoint-mobile-team/accessibility-sdk",
+  "version": "1.0.0",
+  "description": "Reusable React Native accessibility SDK extracted from AccessibilityPlugin",
+  "main": "src/index.js",
+  "react-native": "src/index.js",
+  "files": [
+    "src",
+    "scripts",
+    "README.md",
+    "PUBLISHING.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "npm run validate",
+    "validate": "node scripts/validate.js",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.72",
+    "@react-native-async-storage/async-storage": ">=1.17",
+    "@miblanchard/react-native-slider": ">=2.6.0",
+    "react-native-color-matrix-image-filters": ">=8.0.0",
+    "react-native-draggable": ">=3.3.0",
+    "react-native-element-dropdown": ">=2.12.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-tts": ">=4.1.1",
+    "react-native-vector-icons": ">=10.0.0"
+  },
+  "keywords": [
+    "react-native",
+    "accessibility",
+    "sdk",
+    "a11y"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teknopoint-mobile-team/accessibility-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/teknopoint-mobile-team/accessibility-sdk/issues"
+  },
+  "homepage": "https://github.com/teknopoint-mobile-team/accessibility-sdk#readme",
+  "license": "UNLICENSED"
+}
