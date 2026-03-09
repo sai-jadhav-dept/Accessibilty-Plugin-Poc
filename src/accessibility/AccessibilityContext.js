@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { DEFAULT_ACCESSIBILITY_STATE, applyProfile } from './AccessibilityUtils';
 import { loadAccessibilityPreferences, saveAccessibilityPreferences } from './AccessibilityStorage';
 import NativeAccessibilityBridge from './NativeAccessibilityBridge';
@@ -67,7 +67,6 @@ export const AccessibilityProvider = ({ children }) => {
         reducedMotion: state.reducedMotion,
         highlightLinks: state.highlightLinks,
         textAlignment: state.textAlignment,
-        highlightLinks: state.highlightLinks,
       };
     }
   }, [state, isLoading]);
@@ -127,7 +126,7 @@ export const AccessibilityProvider = ({ children }) => {
     setCurrentReadingText(null);
   }, []);
 
-  const value = {
+  const value = useMemo(() => ({
     ...state,
     isModalVisible,
     isLoading,
@@ -143,7 +142,22 @@ export const AccessibilityProvider = ({ children }) => {
     announce,
     setReadingText,
     clearReadingText,
-  };
+  }), [
+    state,
+    isModalVisible,
+    isLoading,
+    currentReadingText,
+    updateSetting,
+    updateSettings,
+    setProfile,
+    resetToDefault,
+    toggleModal,
+    openModal,
+    closeModal,
+    announce,
+    setReadingText,
+    clearReadingText,
+  ]);
 
   return (
     <AccessibilityContext.Provider value={value}>

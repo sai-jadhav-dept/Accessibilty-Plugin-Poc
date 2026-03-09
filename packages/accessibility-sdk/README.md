@@ -157,7 +157,7 @@ export default function ArticleCard() {
 
 ```jsx
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import {
   AccessibilityScreenWrapper,
   A11yText,
@@ -179,10 +179,86 @@ export default function ArticleDetailScreen() {
 If your screen already has a top-level reading wrapper, keep only text tools:
 
 ```jsx
+import { Text } from 'react-native';
+import { AccessibilityTextWrapper } from '@teknopoint-mobile-team/accessibility-sdk';
+
 <AccessibilityTextWrapper>
   <Text>Section text...</Text>
 </AccessibilityTextWrapper>
 ```
+
+### A11yText props (what to pass)
+
+Use `A11yText` as the default text component. For most cases, these are the only props you need.
+
+- `children` (required): text content.
+- `baseFontSize` (recommended): base size before accessibility scaling. Default is `14`.
+- `style` (optional): your custom text styles.
+- `dictionaryEnabled` (optional): override dictionary lookup for this text only.
+  - `true`: force enable
+  - omitted: follow global setting from `AccessibilityProvider`
+- `textMagnifierEnabled` (optional): override text magnifier for this text only.
+  - `true`: force enable
+  - omitted: follow global setting from `AccessibilityProvider`
+
+All other React Native `Text` props are also supported and passed through, for example:
+- `numberOfLines`
+- `ellipsizeMode`
+- `onPress`
+- `accessibilityLabel`
+- `accessibilityHint`
+
+Recommended usage (global settings control dictionary + magnifier):
+
+```jsx
+<A11yText baseFontSize={16} style={{ marginTop: 8 }}>
+  This text automatically follows font scaling, spacing, alignment, dictionary, and magnifier settings.
+</A11yText>
+```
+
+Per-text usage with all features enabled:
+
+```jsx
+<A11yText
+  baseFontSize={18}
+  dictionaryEnabled={true}
+  textMagnifierEnabled={true}
+>
+  This paragraph enables dictionary and magnifier explicitly.
+</A11yText>
+```
+
+Note: for best dictionary word-tap behavior, keep `children` as plain text (string content) inside `A11yText`.
+
+### How `pageReadText` works with `A11yText`
+
+`pageReadText` is not a prop of `A11yText`.
+
+`A11yText` handles text accessibility features (scaling, dictionary, magnifier), while `ReadModal` reads from SDK runtime text (`pageReadText`).
+
+Flow:
+- User taps a paragraph (`onPress` on `A11yText`)
+- You set runtime text (`pageReadText`)
+- `ReadModal` picks that text and reads it when TTS is enabled
+
+Recommended SDK usage:
+
+```jsx
+import { A11yText, setRuntime } from '@teknopoint-mobile-team/accessibility-sdk';
+
+<A11yText
+  baseFontSize={16}
+  onPress={() => {
+    setRuntime({
+      pageReadText: 'Manage treatments with ease, on one platform',
+    });
+  }}
+>
+  Manage treatments with ease, on one platform
+</A11yText>
+```
+
+If you are inside this repository's app code, you may also see legacy direct runtime assignment like `Global.pageReadText = '...'`.
 
 ### Step 6. TTS reader modal (`src/components/ReaderOverlay.tsx`)
 
