@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "migrate:a11y": "node scripts/migrate-accessibility.js",
+    "migrate:a11y:write": "node scripts/migrate-accessibility.js --write"
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.6.0",
