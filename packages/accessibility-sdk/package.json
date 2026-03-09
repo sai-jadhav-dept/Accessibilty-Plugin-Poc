@@ -1,6 +1,6 @@
 {
   "name": "@teknopoint-mobile-team/accessibility-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Reusable React Native accessibility SDK extracted from AccessibilityPlugin",
   "main": "src/index.js",
   "react-native": "src/index.js",
