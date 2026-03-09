@@ -11,7 +11,7 @@ npm install @teknopoint-mobile-team/accessibility-sdk
 ## Peer Dependencies
 
 ```bash
-npm install @react-native-async-storage/async-storage @miblanchard/react-native-slider react-native-color-matrix-image-filters react-native-draggable react-native-element-dropdown react-native-safe-area-context react-native-tts react-native-vector-icons
+npm install @react-native-community/slider @react-native-async-storage/async-storage @miblanchard/react-native-slider react-native-color-matrix-image-filters react-native-draggable react-native-element-dropdown react-native-safe-area-context react-native-tts react-native-vector-icons
 ```
 
 ## Quick Start
