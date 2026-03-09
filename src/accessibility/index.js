@@ -3,6 +3,12 @@ export { AccessibilityProvider, useAccessibility } from './AccessibilityContext'
 export { default as AccessibilityButton } from './AccessibilityButton';
 export { default as AccessibilityModal } from './AccessibilityModal';
 export { default as AccessibilityColorWrapper } from './AccessibilityColorWrapper';
+export { default as AccessibilityScreenWrapper } from './AccessibilityScreenWrapper';
+export { default as AccessibilityTextWrapper } from './AccessibilityTextWrapper';
+export { default as AccessibilityReadingWrapper } from './AccessibilityReadingWrapper';
+export { default as InteractiveAccessibleText } from './InteractiveAccessibleText';
+export { default as A11yText } from './A11yText';
+export { default as AccessibleTextPlus } from './AccessibleTextPlus';
 export { default as AccessibleText } from './AccessibleText';
 export { default as AccessibleButton } from './AccessibleButton';
 export { default as AccessibleImage } from './AccessibleImage';

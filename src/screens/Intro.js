@@ -6,16 +6,13 @@ import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
 import CommonButton from '../components/CommonButton';
 import { heightToDp } from '../utils/Responsive';
-import { useDynamicColors, AccessibleFilteredImage, useAccessibility, TTSService } from '../accessibility';
+import { useDynamicColors, AccessibleFilteredImage, useAccessibility, TTSService, AccessibilityScreenWrapper, AccessibilityTextWrapper, A11yText } from '../accessibility';
 import ReadModal from '../accessibility/ReadModal';
-import TextMagnifier from '../accessibility/TextMagnifier';
-import DictionaryLookup from '../accessibility/DictionaryLookup';
-import ReadingGuide from '../accessibility/ReadingGuide';
 import Global from './Global';
 
 export default function Intro() {
     const colors = useDynamicColors();
-    const { announce, fontScale, lineHeight, letterSpacing, currentReadingText } = useAccessibility();
+    const { fontScale, lineHeight, letterSpacing, currentReadingText } = useAccessibility();
 
     const [readModal, setReadModal] = useState(false);
     const [textMagnifierEnabled, setTextMagnifierEnabled] = useState(false);
@@ -24,8 +21,6 @@ export default function Intro() {
     const [readingLineEnabled, setReadingLineEnabled] = useState(false);
     const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
     const [highlightLinksEnabled, setHighlightLinksEnabled] = useState(false);
-    const [textAlignment, setTextAlignment] = useState('left');
-    const [isSpeakerDragging, setIsSpeakerDragging] = useState(false);
 
     // Animation values
     const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -47,7 +42,6 @@ export default function Intro() {
             setReadingLineEnabled(Global.accessibility.readingLine || false);
             setReducedMotionEnabled(Global.accessibility.reducedMotion || false);
             setHighlightLinksEnabled(Global.accessibility.highlightLinks || false);
-            setTextAlignment(Global.accessibility.textAlignment || 'left');
         }, 100);
 
         return () => clearInterval(checkInterval);
@@ -137,9 +131,9 @@ export default function Intro() {
     });
     return (
         <SafeAreaView style={[GlobalStyles.mainContainer, { backgroundColor: colors.defaultBackground }]}>
-            <ReadingGuide
-                maskEnabled={readingMaskEnabled}
-                lineEnabled={readingLineEnabled}
+            <AccessibilityScreenWrapper
+                readingMaskEnabled={readingMaskEnabled}
+                readingLineEnabled={readingLineEnabled}
             >
                 <View style={GlobalStyles.mainBox}>
                     <Logo />
@@ -158,82 +152,86 @@ export default function Intro() {
                                     alt="Healthcare professionals helping patients manage treatments"
                                 />
                             </View>
-                            <DictionaryLookup enabled={dictionaryEnabled}>
-                                <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}>
-                                        Manage treatments with ease, on one platform
-                                    </Text>
-                                </TextMagnifier>
-                            </DictionaryLookup>
-                            <DictionaryLookup enabled={dictionaryEnabled}>
-                                <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." ? styles.readingBorder : null]}>
-                                        Welcome to our healthcare platform! Here you can manage your medical appointments,
-                                        track your medications, connect with trusted healthcare providers, and access your
-                                        health records anytime, anywhere. Our platform makes it easy to take control of
-                                        your health journey with intuitive tools and personalized care recommendations.
-                                    </Text>
-                                </TextMagnifier>
-                            </DictionaryLookup>
+                            <A11yText
+                                dictionaryEnabled={dictionaryEnabled}
+                                textMagnifierEnabled={textMagnifierEnabled}
+                                onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }}
+                                style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}
+                            >
+                                Manage treatments with ease, on one platform
+                            </A11yText>
+                            <A11yText
+                                dictionaryEnabled={dictionaryEnabled}
+                                textMagnifierEnabled={textMagnifierEnabled}
+                                onPress={() => { Global.pageReadText = "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." }}
+                                style={[GlobalStyles.smallText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Welcome to our healthcare platform! Here you can manage your medical appointments, track your medications, connect with trusted healthcare providers, and access your health records anytime, anywhere. Our platform makes it easy to take control of your health journey with intuitive tools and personalized care recommendations." ? styles.readingBorder : null]}
+                            >
+                                Welcome to our healthcare platform! Here you can manage your medical appointments,
+                                track your medications, connect with trusted healthcare providers, and access your
+                                health records anytime, anywhere. Our platform makes it easy to take control of
+                                your health journey with intuitive tools and personalized care recommendations.
+                            </A11yText>
 
-                            <DictionaryLookup enabled={dictionaryEnabled}>
-                                <TextMagnifier enabled={textMagnifierEnabled}>
-                                    <Text onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }} style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." ? styles.readingBorder : null]}>
-                                        Key Features:{' \n'}
-                                        • Schedule and manage appointments with doctors and nurses{'\n'}
-                                        • Set medication reminders and track your prescriptions{'\n'}
-                                        • Access lab results and medical documents securely{'\n'}
-                                        • Connect with your care circle and trusted providers{'\n'}
-                                        • Get personalized health insights and recommendations
-                                    </Text>
-                                </TextMagnifier>
-                            </DictionaryLookup>
+                            <A11yText
+                                dictionaryEnabled={dictionaryEnabled}
+                                textMagnifierEnabled={textMagnifierEnabled}
+                                onPress={() => { Global.pageReadText = "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." }}
+                                style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { marginTop: heightToDp(2), color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Key Features: Schedule and manage appointments with doctors and nurses, set medication reminders and track your prescriptions, access lab results and medical documents securely, connect with your care circle and trusted providers, get personalized health insights and recommendations." ? styles.readingBorder : null]}
+                            >
+                                Key Features:{' \n'}
+                                • Schedule and manage appointments with doctors and nurses{ '\n'}
+                                • Set medication reminders and track your prescriptions{ '\n'}
+                                • Access lab results and medical documents securely{ '\n'}
+                                • Connect with your care circle and trusted providers{ '\n'}
+                                • Get personalized health insights and recommendations
+                            </A11yText>
 
                             <View style={{ marginTop: heightToDp(2) }}>
-                                <DictionaryLookup enabled={dictionaryEnabled}>
-                                    <TextMagnifier enabled={textMagnifierEnabled}>
-                                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
-                                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
-                                                For more information, visit our{' '}
+                                <AccessibilityTextWrapper
+                                    dictionaryEnabled={dictionaryEnabled}
+                                    textMagnifierEnabled={textMagnifierEnabled}
+                                >
+                                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
+                                        <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                            For more information, visit our{' '}
+                                        </Text>
+                                        <Pressable
+                                            onPress={() => {
+                                                console.log("Privacy Policy pressed");
+                                                Linking.openURL('https://example.com/privacy');
+                                            }}
+                                            accessibilityRole="link"
+                                            accessibilityLabel="Privacy Policy link"
+                                        >
+                                            <Text style={[
+                                                styles.link,
+                                                { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
+                                                highlightLinksEnabled && styles.linkHighlighted
+                                            ]}>
+                                                Privacy Policy
                                             </Text>
-                                            <Pressable
-                                                onPress={() => {
-                                                    console.log("Privacy Policy pressed");
-                                                    Linking.openURL('https://example.com/privacy');
-                                                }}
-                                                accessibilityRole="link"
-                                                accessibilityLabel="Privacy Policy link"
-                                            >
-                                                <Text style={[
-                                                    styles.link,
-                                                    { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
-                                                    highlightLinksEnabled && styles.linkHighlighted
-                                                ]}>
-                                                    Privacy Policy
-                                                </Text>
-                                            </Pressable>
-                                            <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
-                                                {' '}or{' '}
+                                        </Pressable>
+                                        <Text style={[GlobalStyles.smallText, Fonts.Nunito_600SemiBold, { color: colors.primaryTextColor, fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing }]}>
+                                            {' '}or{' '}
+                                        </Text>
+                                        <Pressable
+                                            onPress={() => {
+                                                console.log("Terms pressed");
+                                                Linking.openURL('https://example.com/terms');
+                                            }}
+                                            accessibilityRole="link"
+                                            accessibilityLabel="Terms of Service link"
+                                        >
+                                            <Text style={[
+                                                styles.link,
+                                                { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
+                                                highlightLinksEnabled && styles.linkHighlighted
+                                            ]}>
+                                                Terms of Service
                                             </Text>
-                                            <Pressable
-                                                onPress={() => {
-                                                    console.log("Terms pressed");
-                                                    Linking.openURL('https://example.com/terms');
-                                                }}
-                                                accessibilityRole="link"
-                                                accessibilityLabel="Terms of Service link"
-                                            >
-                                                <Text style={[
-                                                    styles.link,
-                                                    { color: colors.primaryTextColor || '#007AFF', fontSize: GlobalStyles.smallText.fontSize * fontScale, letterSpacing: letterSpacing },
-                                                    highlightLinksEnabled && styles.linkHighlighted
-                                                ]}>
-                                                    Terms of Service
-                                                </Text>
-                                            </Pressable>
-                                        </View>
-                                    </TextMagnifier>
-                                </DictionaryLookup>
+                                        </Pressable>
+                                    </View>
+                                </AccessibilityTextWrapper>
                             </View>
 
                         </View>
@@ -266,7 +264,7 @@ export default function Intro() {
                     </ScrollView>
                     <ReadModal activeModal={readModal} />
                 </View>
-            </ReadingGuide>
+            </AccessibilityScreenWrapper>
         </SafeAreaView>
     );
 }

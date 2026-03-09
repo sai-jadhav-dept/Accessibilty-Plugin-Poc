@@ -20,27 +20,26 @@ npm install @react-native-community/slider @react-native-async-storage/async-sto
 import React from 'react';
 import { View } from 'react-native';
 import {
-  AccessibilityProvider,
+  AccessibilityRoot,
   AccessibilityButton,
   AccessibilityModal,
-  AccessibilityColorWrapper,
-  AccessibleText,
+  A11yText,
 } from '@teknopoint-mobile-team/accessibility-sdk';
 
 export default function App() {
   return (
-    <AccessibilityProvider>
-      <AccessibilityColorWrapper>
-        <View style={{ flex: 1, padding: 16 }}>
-          <AccessibleText baseFontSize={16}>This text responds to accessibility settings.</AccessibleText>
-          <AccessibilityButton />
-          <AccessibilityModal />
-        </View>
-      </AccessibilityColorWrapper>
-    </AccessibilityProvider>
+    <AccessibilityRoot>
+      <View style={{ flex: 1, padding: 16 }}>
+        <A11yText baseFontSize={16}>This text responds to accessibility settings.</A11yText>
+        <AccessibilityButton />
+        <AccessibilityModal />
+      </View>
+    </AccessibilityRoot>
   );
 }
 ```
+
+Use `AccessibilityRoot` once at app root. You do not need to wrap every page/screen.
 
 ## React Native Implementation Playbook
 
@@ -52,44 +51,51 @@ Use this section when you want exact placement guidance for code in a real app.
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
-  AccessibilityProvider,
-  AccessibilityColorWrapper,
+  AccessibilityRoot,
   AccessibilityButton,
   AccessibilityModal,
+  ReadModal,
+  useAccessibility,
 } from '@teknopoint-mobile-team/accessibility-sdk';
 import RootNavigator from './src/navigation/RootNavigator';
 
+function ReaderOverlay() {
+  const { textToSpeech } = useAccessibility();
+  return <ReadModal activeModal={textToSpeech} />;
+}
+
 export default function App() {
   return (
-    <AccessibilityProvider>
-      <AccessibilityColorWrapper>
-        <NavigationContainer>
-          <RootNavigator />
-          <AccessibilityButton />
-          <AccessibilityModal />
-        </NavigationContainer>
-      </AccessibilityColorWrapper>
-    </AccessibilityProvider>
+    <AccessibilityRoot>
+      <NavigationContainer>
+        <RootNavigator />
+        <AccessibilityButton />
+        <AccessibilityModal />
+        <ReaderOverlay />
+      </NavigationContainer>
+    </AccessibilityRoot>
   );
 }
 ```
+
+`ReadModal` should be mounted once at app root (not in each screen), so it works globally across all pages.
 
 ### Step 2. Accessible text in screens (`src/screens/HomeScreen.tsx`)
 
 ```jsx
 import React from 'react';
 import { View } from 'react-native';
-import { AccessibleText, useDynamicColors } from '@teknopoint-mobile-team/accessibility-sdk';
+import { A11yText, useDynamicColors } from '@teknopoint-mobile-team/accessibility-sdk';
 
 export default function HomeScreen() {
   const colors = useDynamicColors();
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.defaultBackground, padding: 16 }}>
-      <AccessibleText baseFontSize={22} style={{ fontWeight: '700' }}>Welcome</AccessibleText>
-      <AccessibleText baseFontSize={16} style={{ marginTop: 8 }}>
+      <A11yText baseFontSize={22} style={{ fontWeight: '700' }}>Welcome</A11yText>
+      <A11yText baseFontSize={16} style={{ marginTop: 8 }}>
         This paragraph respects font scaling, spacing, line height, and alignment.
-      </AccessibleText>
+      </A11yText>
     </View>
   );
 }
@@ -123,8 +129,7 @@ import React from 'react';
 import { View } from 'react-native';
 import {
   AccessibleImage,
-  AccessibleFilteredImage,
-  AccessibleText,
+  A11yText,
 } from '@teknopoint-mobile-team/accessibility-sdk';
 
 export default function ArticleCard() {
@@ -135,14 +140,14 @@ export default function ArticleCard() {
         style={{ width: 300, height: 160, borderRadius: 8 }}
         alt="Doctor checking patient reports"
       />
-      <AccessibleFilteredImage
+      <AccessibleImage
         source={{ uri: 'https://picsum.photos/300/160?2' }}
         style={{ width: 300, height: 160, marginTop: 12, borderRadius: 8 }}
         alt="Hospital reception area"
       />
-      <AccessibleText baseFontSize={14} style={{ marginTop: 8 }}>
+      <A11yText baseFontSize={14} style={{ marginTop: 8 }}>
         Image descriptions and filters are controlled by accessibility state.
-      </AccessibleText>
+      </A11yText>
     </View>
   );
 }
@@ -154,30 +159,32 @@ export default function ArticleCard() {
 import React from 'react';
 import { ScrollView, Text } from 'react-native';
 import {
-  DictionaryLookup,
-  ReadingGuide,
-  TextMagnifier,
-  useAccessibility,
+  AccessibilityScreenWrapper,
+  A11yText,
 } from '@teknopoint-mobile-team/accessibility-sdk';
 
 export default function ArticleDetailScreen() {
-  const { dictionary, readingMask, readingLine, textMagnifier } = useAccessibility();
-
   return (
-    <ReadingGuide maskEnabled={readingMask} lineEnabled={readingLine}>
+    <AccessibilityScreenWrapper>
       <ScrollView style={{ flex: 1, padding: 16 }}>
-        <DictionaryLookup enabled={dictionary}>
-          <TextMagnifier enabled={textMagnifier}>
-            <Text style={{ fontSize: 16, lineHeight: 26 }}>Long article content...</Text>
-          </TextMagnifier>
-        </DictionaryLookup>
+        <A11yText baseFontSize={16} style={{ lineHeight: 26 }}>
+          Long article content...
+        </A11yText>
       </ScrollView>
-    </ReadingGuide>
+    </AccessibilityScreenWrapper>
   );
 }
 ```
 
-### Step 6. TTS reader modal (`src/screens/ReaderOverlay.tsx`)
+If your screen already has a top-level reading wrapper, keep only text tools:
+
+```jsx
+<AccessibilityTextWrapper>
+  <Text>Section text...</Text>
+</AccessibilityTextWrapper>
+```
+
+### Step 6. TTS reader modal (`src/components/ReaderOverlay.tsx`)
 
 ```jsx
 import React from 'react';
@@ -188,6 +195,8 @@ export default function ReaderOverlay() {
   return <ReadModal activeModal={textToSpeech} />;
 }
 ```
+
+Then mount this once in `App.tsx` near `AccessibilityButton` and `AccessibilityModal`.
 
 ### Step 7. Programmatic toggles (`src/screens/QuickAccessScreen.tsx`)
 
@@ -243,12 +252,19 @@ Main context methods:
 
 - `AccessibilityButton`: floating menu launcher
 - `AccessibilityModal`: main settings modal
+- `AccessibilityRoot`: one-step app wrapper (`AccessibilityProvider` + `AccessibilityColorWrapper`)
 - `AccessibilityColorWrapper`: theme/filter wrapper
-- `AccessibleText`: typography scaling/spacing/alignment
+- `AccessibilityScreenWrapper`: one-step page wrapper (`ReadingGuide`)
+- `AccessibilityTextWrapper`: one-step text-interaction wrapper (`DictionaryLookup` + `TextMagnifier`)
+- `A11yText`: easiest one-tag text component (`AccessibleText` + `DictionaryLookup` + `TextMagnifier`)
+- `AccessibleTextPlus`: alias for `A11yText`
+- `InteractiveAccessibleText`: backward-compatible alias for `A11yText`
+- `AccessibilityReadingWrapper`: backward-compatible alias (`AccessibilityScreenWrapper` + `AccessibilityTextWrapper`)
+- `AccessibleText`: low-level base text component (typography scaling/spacing/alignment only)
 - `AccessibleButton`: enlarged touch targets + reduced motion behavior
-- `AccessibleImage`: hide images + alt tooltip support
+- `AccessibleImage`: single image component (hide images + alt tooltip + color filters)
 - `FilteredImage`: accessibility color filters
-- `AccessibleFilteredImage`: image accessibility + filters
+- `AccessibleFilteredImage`: backward-compatible alias of `AccessibleImage`
 - `TextMagnifier`: long-press magnifier
 - `DictionaryLookup`: tap words for definitions
 - `ReadingGuide`: reading mask/line overlay
@@ -286,7 +302,7 @@ TTS is silent on iOS:
 - Check silent-switch behavior, iOS audio state, and `react-native-tts` setup.
 
 Modal/button not visible:
-- Confirm app root is wrapped with `AccessibilityProvider`.
+- Confirm app root is wrapped with `AccessibilityRoot` (or `AccessibilityProvider` + `AccessibilityColorWrapper`).
 
 ## Publish
 
