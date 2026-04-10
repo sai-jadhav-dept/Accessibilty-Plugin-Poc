@@ -11,7 +11,7 @@ import { useAccessibility } from './AccessibilityContext';
 import { MIN_TOUCH_TARGET } from './AccessibilityUtils';
 // import Ionicons from '@react-native-vector-icons/ionicons';
 import VectorIcons from '../components/VectorIcons';
-import { color } from 'react-native-elements/dist/helpers';
+// import { color } from 'react-native-elements/dist/helpers';
 
 const AccessibilityButton = () => {
     const { openModal, enlargeButtons, isModalVisible } = useAccessibility();
