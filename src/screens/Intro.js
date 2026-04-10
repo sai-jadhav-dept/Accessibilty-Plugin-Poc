@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
 import CommonButton from '../components/CommonButton';
 import { heightToDp } from '../utils/Responsive';
-import { useDynamicColors, AccessibleFilteredImage, useAccessibility, TTSService } from '../accessibility';
+import { useDynamicColors, AccessibleFilteredImage, AccessibleTouchableOpacity, useAccessibility, TTSService } from '../accessibility';
 import ReadModal from '../accessibility/ReadModal';
 import TextMagnifier from '../accessibility/TextMagnifier';
 import DictionaryLookup from '../accessibility/DictionaryLookup';
@@ -26,7 +26,7 @@ export default function Intro() {
     const [highlightLinksEnabled, setHighlightLinksEnabled] = useState(false);
     const [textAlignment, setTextAlignment] = useState('left');
     const [isSpeakerDragging, setIsSpeakerDragging] = useState(false);
-
+    const [demoPressCount, setDemoPressCount] = useState(0);
     // Animation values
     const pulseAnim = useRef(new Animated.Value(1)).current;
     const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -257,6 +257,77 @@ export default function Intro() {
                                 </Animated.View>
                             </View>
                         </View>
+
+                        <View style={[styles.accessibleDemoContainer, { backgroundColor: colors.boxBackground }]}>
+                            <Text style={[
+                                GlobalStyles.smallText,
+                                Fonts.Nunito_700Bold,
+                                {
+                                    color: colors.primaryTextColor,
+                                    textAlign: 'center',
+                                    marginBottom: 12,
+                                    fontSize: GlobalStyles.smallText.fontSize * fontScale,
+                                    lineHeight: GlobalStyles.smallText.fontSize * fontScale * lineHeight,
+                                    letterSpacing: letterSpacing,
+                                }
+                            ]}>
+                                AccessibleTouchableOpacity Demo
+                            </Text>
+
+                            <AccessibleTouchableOpacity
+                                onPress={() => setDemoPressCount(prev => prev + 1)}
+                                announceOnPress={`Demo button pressed ${demoPressCount + 1} times`}
+                                accessibilityLabel="Accessible demo button"
+                                accessibilityHint="Double tap to test accessible touchable behavior"
+                                style={[
+                                    styles.accessibleDemoButton,
+                                    {
+                                        backgroundColor: colors.primaryButtonColor,
+                                        borderColor: colors.secondarybuttonColor,
+                                    }
+                                ]}
+                            >
+                                <Text style={[
+                                    styles.accessibleDemoButtonText,
+                                    Fonts.Nunito_700Bold,
+                                    {
+                                        color: colors.buttonTextColor || '#FFFFFF',
+                                        fontSize: 14 * fontScale,
+                                        lineHeight: 14 * fontScale * lineHeight,
+                                        letterSpacing: letterSpacing,
+                                    }
+                                ]}>
+                                    Press Me ({demoPressCount})
+                                </Text>
+                            </AccessibleTouchableOpacity>
+
+                            <AccessibleTouchableOpacity
+                                disabled={true}
+                                accessibilityLabel="Disabled demo button"
+                                accessibilityHint="This button is disabled for accessibility state testing"
+                                style={[
+                                    styles.accessibleDemoButton,
+                                    {
+                                        marginTop: 10,
+                                        backgroundColor: colors.secondarybuttonColor,
+                                    }
+                                ]}
+                            >
+                                <Text style={[
+                                    styles.accessibleDemoButtonText,
+                                    Fonts.Nunito_700Bold,
+                                    {
+                                        color: colors.buttonTextColor || '#FFFFFF',
+                                        fontSize: 14 * fontScale,
+                                        lineHeight: 14 * fontScale * lineHeight,
+                                        letterSpacing: letterSpacing,
+                                    }
+                                ]}>
+                                    Disabled State Demo
+                                </Text>
+                            </AccessibleTouchableOpacity>
+                        </View>
+
                         <CommonButton
                             buttonText="Get Started"
                             visible={true}
@@ -277,6 +348,20 @@ const styles = StyleSheet.create({
         marginTop: heightToDp(2),
         marginHorizontal: 10,
         marginBottom: heightToDp(4)
+    },
+    accessibleDemoContainer: {
+        padding: 15,
+        borderRadius: 12,
+        marginTop: heightToDp(1),
+        marginHorizontal: 10,
+        marginBottom: heightToDp(3),
+    },
+    accessibleDemoButton: {
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    accessibleDemoButtonText: {
+        textAlign: 'center',
     },
     animationRow: {
         flexDirection: 'row',
