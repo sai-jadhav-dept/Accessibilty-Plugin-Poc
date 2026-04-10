@@ -6,12 +6,13 @@ import Logo from '../components/Logo';
 import Fonts from '../utils/Fonts';
 import CommonButton from '../components/CommonButton';
 import { heightToDp } from '../utils/Responsive';
-import { useDynamicColors, AccessibleFilteredImage, AccessibleTouchableOpacity, useAccessibility, TTSService } from '../accessibility';
+import { useDynamicColors, AccessibleFilteredImage, AccessibleTouchableOpacity, useAccessibility, TTSService, AccessibleFilteredSvg } from '../accessibility';
 import ReadModal from '../accessibility/ReadModal';
 import TextMagnifier from '../accessibility/TextMagnifier';
 import DictionaryLookup from '../accessibility/DictionaryLookup';
 import ReadingGuide from '../accessibility/ReadingGuide';
 import Global from './Global';
+import LogoSvg from '../assets/images/home.svg';
 
 export default function Intro() {
     const colors = useDynamicColors();
@@ -158,6 +159,12 @@ export default function Intro() {
                                     alt="Healthcare professionals helping patients manage treatments"
                                 />
                             </View>
+                            <AccessibleFilteredSvg
+                                SvgComponent={LogoSvg}
+                                width={120}
+                                height={120}
+                                alt="home icon"
+                            />
                             <DictionaryLookup enabled={dictionaryEnabled}>
                                 <TextMagnifier enabled={textMagnifierEnabled}>
                                     <Text onPress={() => { Global.pageReadText = "Manage treatments with ease, on one platform" }} style={[GlobalStyles.extralargeText, Fonts.Nunito_700Bold, { marginTop: heightToDp(4), color: colors.primaryTextColor, fontSize: GlobalStyles.extralargeText.fontSize * fontScale, lineHeight: GlobalStyles.extralargeText.fontSize * fontScale * lineHeight, letterSpacing: letterSpacing }, currentReadingText === "Manage treatments with ease, on one platform" ? styles.readingBorder : null]}>
