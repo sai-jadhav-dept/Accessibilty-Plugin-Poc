@@ -5,6 +5,7 @@ export { default as AccessibilityModal } from './AccessibilityModal';
 export { default as AccessibilityColorWrapper } from './AccessibilityColorWrapper';
 export { default as AccessibleText } from './AccessibleText';
 export { default as AccessibleButton } from './AccessibleButton';
+export { default as AccessibleTouchableOpacity } from './AccessibleTouchableOpacity';
 export { default as AccessibleImage } from './AccessibleImage';
 export { default as TextMagnifier } from './TextMagnifier';
 export { default as DictionaryLookup } from './DictionaryLookup';
